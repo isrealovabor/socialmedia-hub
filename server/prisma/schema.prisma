@@ -1,0 +1,243 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/marketplace_step5"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  passwordHash  String
+  role          String    @default("USER")
+  sellerStatus  String    @default("NONE")
+  walletBalance Decimal   @default(0)
+  totalSpent    Decimal   @default(0)
+  sellerEarnings Decimal  @default(0)
+  referralCode  String?   @unique
+  referrerId    String?
+  referralEarnings Decimal @default(0)
+  resetTokenHash String?
+  resetTokenExpires DateTime?
+  createdAt     DateTime  @default(now())
+  deposits      Deposit[]
+  orders        Order[]
+  withdrawals   Withdrawal[]
+  notifications Notification[]
+  favorites     Favorite[]
+  reviews       Review[]
+  products      Product[]
+  referredUsers User[]    @relation("UserReferrals")
+  referrer      User?     @relation("UserReferrals", fields: [referrerId], references: [id])
+  auditLogs     AuditLog[]
+  tickets       SupportTicket[]
+  ticketMessages SupportMessage[]
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  icon      String
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Product {
+  id           String      @id @default(cuid())
+  categoryId   String
+  title        String
+  description  String
+  price        Decimal
+  stock        Int
+  platform     String
+  deliveryTime String
+  deliveryType String      @default("SERVICE")
+  deliveryFileUrl String?
+  deliveryFileName String?
+  deliveryInstructions String?
+  imageUrl     String?
+  imageName    String?
+  status       String      @default("ACTIVE")
+  sellerId     String?
+  rating       Decimal     @default(0)
+  orderCount   Int         @default(0)
+  isActive     Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  category     Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  seller       User?       @relation(fields: [sellerId], references: [id], onDelete: SetNull)
+  orderItems   OrderItem[]
+  favorites    Favorite[]
+  reviews      Review[]
+  deliveryFiles ProductDeliveryFile[]
+}
+
+model ProductDeliveryFile {
+  id        String   @id @default(cuid())
+  productId String
+  fileUrl   String
+  fileName  String
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Deposit {
+  id        String        @id @default(cuid())
+  userId    String
+  amount    Decimal
+  method    String
+  status    String        @default("PENDING")
+  reference String        @unique
+  proofText String?
+  proofFileUrl String?
+  proofFileName String?
+  transactionHash String?
+  provider String?
+  providerReference String? @unique
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  userId      String
+  totalAmount Decimal
+  discountAmount Decimal @default(0)
+  referralBonusPaid Boolean @default(false)
+  status      String      @default("PROCESSING")
+  deliveryFileUrl String?
+  deliveryFileName String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  completedAt DateTime?
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  unitPrice Decimal
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Withdrawal {
+  id        String   @id @default(cuid())
+  userId    String
+  amount    Decimal
+  bankName  String?
+  accountName String?
+  accountNumber String?
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("INFO")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  rating    Int
+  comment   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model AppSetting {
+  id        String   @id @default("site")
+  siteName  String   @default("SocialHub Market")
+  supportEmail String @default("support@socialhub.test")
+  bankName  String   @default("Moniepoint")
+  bankAccountName String @default("SocialHub Market Ltd")
+  bankAccountNumber String @default("XXXXXXXXXX")
+  btcWalletAddress String @default("bc1qsocialhubmarketdevwallet0000000000")
+  referralBonus Decimal @default(1000)
+  referralEnabled Boolean @default(true)
+  minimumWithdrawalAmount Decimal @default(5000)
+  maintenanceMode Boolean @default(false)
+  paystackEnabled Boolean @default(false)
+  flutterwaveEnabled Boolean @default(false)
+  bitcoinDepositEnabled Boolean @default(true)
+  manualBankTransferEnabled Boolean @default(true)
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entityType String
+  entityId  String?
+  metadata  String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model SupportTicket {
+  id        String   @id @default(cuid())
+  userId    String
+  subject   String
+  status    String   @default("OPEN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  SupportMessage[]
+}
+
+model SupportMessage {
+  id        String   @id @default(cuid())
+  ticketId  String
+  userId    String
+  message   String
+  createdAt DateTime @default(now())
+  ticket    SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PaymentTransaction {
+  id        String   @id @default(cuid())
+  userId    String
+  provider  String
+  reference String   @unique
+  amount    Decimal
+  status    String   @default("PENDING")
+  metadata  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
