@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:4000/api";
+const API_URL = (import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://127.0.0.1:4000/api" : "")).replace(/\/$/, "");
+if (!API_URL) {
+  throw new Error("Missing VITE_API_URL. Set it to your deployed API URL, for example https://socialhub-market-api.onrender.com/api.");
+}
 const ASSET_URL = API_URL.replace(/\/api\/?$/, "");
 const TOKEN_KEY = "socialhub_token";
 

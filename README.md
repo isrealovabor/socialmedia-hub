@@ -75,6 +75,22 @@ Shortcut:
 .\run-client-dev.cmd
 ```
 
+## Vercel Frontend Environment
+
+The frontend must not use localhost after deployment. In Vercel, set this environment variable for the frontend project:
+
+```text
+VITE_API_URL=https://your-render-service-name.onrender.com/api
+```
+
+Replace `your-render-service-name` with the real Render backend URL. After changing this value in Vercel, redeploy the frontend. Vite bakes `VITE_` variables into the production build, so the live site will keep using the old value until a new deploy finishes.
+
+For local development, `client/.env` can stay as:
+
+```text
+VITE_API_URL=http://127.0.0.1:4000/api
+```
+
 ## Windows Vite / Esbuild Fix
 
 If `npm run build` fails with `spawn EPERM`, Windows is blocking the esbuild binary. This can happen in protected folders such as `Documents` or `OneDrive`, with Windows Defender controlled-folder access, antivirus locks, or stale `node_modules`.
@@ -139,6 +155,93 @@ Shortcut:
 ```powershell
 .\run-server-dev.cmd
 ```
+
+## Deploy Backend To Render
+
+Use Render for the Express API, then point Vercel to the Render API URL.
+
+1. Push the project to GitHub.
+2. In Render, create a new **Web Service** from the GitHub repo.
+3. Set **Root Directory** to:
+
+```text
+server
+```
+
+4. Set **Runtime** to Node.
+5. Set **Build Command** to:
+
+```bash
+npm install && npx prisma generate
+```
+
+6. Set **Start Command** to:
+
+```bash
+npx prisma migrate deploy && npm start
+```
+
+7. Set **Health Check Path** to:
+
+```text
+/api/health
+```
+
+8. Add the environment variables below.
+9. Deploy the service.
+10. Copy the Render URL, for example:
+
+```text
+https://socialhub-market-api.onrender.com
+```
+
+11. In Vercel, set:
+
+```text
+VITE_API_URL=https://socialhub-market-api.onrender.com/api
+```
+
+12. Redeploy the Vercel frontend.
+
+Render's Node/Express guide uses a Web Service with your own build/start commands, such as `npm install` and `npm start`. Prisma production deploys should use `prisma migrate deploy`, not `prisma migrate dev`.
+
+Important database note: SQLite is fine for local development, but Render services have an ephemeral filesystem by default. If you keep SQLite for a test deployment, attach a paid persistent disk and set `DATABASE_URL` to a file path inside that disk, for example `file:/var/data/dev.db`. For a real wallet/payment marketplace, use a durable database such as Render PostgreSQL before accepting live users or payments.
+
+### Render Environment Variables
+
+Required:
+
+```text
+DATABASE_URL=file:/var/data/dev.db
+JWT_SECRET=use-a-long-random-secret
+PORT=4000
+CLIENT_URL=https://your-vercel-site.vercel.app
+PAYSTACK_SECRET_KEY=your-paystack-secret-key
+PAYSTACK_PUBLIC_KEY=your-paystack-public-key
+EMAIL_FROM=SocialHub Market <no-reply@yourdomain.com>
+```
+
+Optional but supported:
+
+```text
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASS=
+FLW_SECRET_KEY=
+FLW_PUBLIC_KEY=
+FLW_WEBHOOK_SECRET_HASH=
+KORAPAY_SECRET_KEY=
+KORAPAY_PUBLIC_KEY=
+KORAPAY_WEBHOOK_SECRET=
+SANITY_PROJECT_ID=
+SANITY_DATASET=production
+SANITY_WRITE_TOKEN=
+SANITY_API_VERSION=2025-02-19
+SANITY_ACCOUNT_TYPE=socialAccount
+```
+
+Do not set `VITE_API_URL` on Render for the backend. Set `VITE_API_URL` only in Vercel for the frontend.
 
 ## Clear Marketplace Services
 
