@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard.jsx";
+import ProductCatalogEmptyState from "../components/ProductCatalogEmptyState.jsx";
 
 export default function HomePage({ products, loading, error, onBuy, onFavorite }) {
   const [search, setSearch] = useState("");
@@ -81,18 +82,21 @@ export default function HomePage({ products, loading, error, onBuy, onFavorite }
             </div>
           )}
           {!loading && error && (
-            <div className="glass-panel rounded-3xl px-4 py-4 text-sm font-semibold text-amber-800 lg:col-span-2">
-              Live catalog is unavailable right now. {error}
+            <div className="glass-panel rounded-3xl px-4 py-5 lg:col-span-2">
+              <p className="text-sm font-black text-rose-700">Unable to load products.</p>
+              <p className="mt-1 text-sm font-medium text-slate-600">{error}</p>
             </div>
           )}
-          {!loading && visibleProducts.length === 0 && (
+          {!loading && !error && products.length === 0 && <ProductCatalogEmptyState />}
+          {!loading && !error && products.length > 0 && visibleProducts.length === 0 && (
             <div className="glass-panel rounded-3xl px-4 py-5 text-sm font-semibold text-slate-600 lg:col-span-2">
-              {products.length === 0 ? "No services available." : "No services match your filters."}
+              No products match your filters.
             </div>
           )}
-          {visibleProducts.map((product) => (
-            <ProductCard key={product.id} product={product} onBuy={onBuy} onFavorite={onFavorite} />
-          ))}
+          {!loading && !error &&
+            visibleProducts.map((product) => (
+              <ProductCard key={product.id} product={product} onBuy={onBuy} onFavorite={onFavorite} />
+            ))}
         </div>
       </section>
     </div>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard.jsx";
+import ProductCatalogEmptyState from "../components/ProductCatalogEmptyState.jsx";
 import { catalogApi } from "../api/client.js";
 
 const categoryProductsCache = new Map();
@@ -29,8 +30,9 @@ export default function CategoryPage({
   const cached = categoryProductsCache.get(slug);
   const [category, setCategory] = useState(cached?.category || catalogCategory);
   const [products, setProducts] = useState(cached?.products || catalogProducts);
+  const [error, setError] = useState("");
   const [message, setMessage] = useState(
-    cached || catalogProducts.length ? "" : loadingCatalog ? "Loading products..." : "No active products in this category yet."
+    cached || catalogProducts.length ? "" : loadingCatalog ? "Loading products..." : ""
   );
 
   useEffect(() => {
@@ -41,9 +43,8 @@ export default function CategoryPage({
 
     setCategory(instantCategory);
     setProducts(instantProducts);
-    setMessage(
-      instantProducts.length ? "" : loadingCatalog ? "Loading products..." : "No active products in this category yet."
-    );
+    setError("");
+    setMessage(instantProducts.length ? "" : loadingCatalog ? "Loading products..." : "");
 
     if (!loadingCatalog && catalogCategory) {
       return () => {
@@ -61,11 +62,13 @@ export default function CategoryPage({
         });
         setCategory(data.category);
         setProducts(data.products);
-        setMessage(data.products.length ? "" : "No active products in this category yet.");
+        setError("");
+        setMessage("");
       })
       .catch((error) => {
         if (!active) return;
-        setMessage(error.message);
+        setMessage("");
+        setError(error.message || "Unable to load products in this category.");
         setProducts([]);
       });
     return () => {
@@ -93,15 +96,23 @@ export default function CategoryPage({
             {message}
           </div>
         )}
+        {!message && error && (
+          <div className="glass-panel mb-3 rounded-[1.35rem] px-4 py-4">
+            <p className="text-sm font-black text-rose-700">Unable to load products.</p>
+            <p className="mt-1 text-sm font-medium text-slate-600">{error}</p>
+          </div>
+        )}
         <div className="grid gap-3 lg:grid-cols-2">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={{ ...product, isFavorite: favoriteIds.includes(product.id) }}
-              onBuy={onBuy}
-              onFavorite={onFavorite}
-            />
-          ))}
+          {!message && !error && products.length === 0 && <ProductCatalogEmptyState />}
+          {!message && !error &&
+            products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={{ ...product, isFavorite: favoriteIds.includes(product.id) }}
+                onBuy={onBuy}
+                onFavorite={onFavorite}
+              />
+            ))}
         </div>
       </section>
     </div>

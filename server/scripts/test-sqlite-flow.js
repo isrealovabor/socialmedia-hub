@@ -99,10 +99,6 @@ try {
     throw new Error("Approved deposit was not added to wallet.");
   }
 
-  const products = await request("/products");
-  if (!products.products.length) {
-    throw new Error("Seed products are missing.");
-  }
   const categories = await request("/categories");
   const productForm = new FormData();
   productForm.append("categoryId", categories.categories[0].id);

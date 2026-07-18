@@ -1,7 +1,6 @@
-import { categories as fallbackCategories } from "../data/marketData.js";
 import SocialHub from "./SocialHub.jsx";
 
-export default function CategoryDropdown({ open, onSelect, categories = fallbackCategories }) {
+export default function CategoryDropdown({ open, onSelect, categories = [] }) {
   return (
     <div
       id="category-menu"

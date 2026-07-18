@@ -15,7 +15,6 @@ import WishlistPage from "./pages/WishlistPage.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
 import { authApi, catalogApi, clearToken, favoriteApi, notificationApi } from "./api/client.js";
-import { categories as fallbackCategories } from "./data/marketData.js";
 
 export default function App() {
   const [cart, setCart] = useState([]);
@@ -71,11 +70,14 @@ export default function App() {
         catalogApi.categories(),
         catalogApi.products(),
       ]);
+      if (!Array.isArray(categoryData?.categories) || !Array.isArray(productData?.products)) {
+        throw new Error("The marketplace returned an invalid catalog response.");
+      }
       setCategories(categoryData.categories);
       setProducts(productData.products.map((product) => ({ ...product, isFavorite: favoriteIds.includes(product.id) })));
     } catch (error) {
       setCatalogError(error.message || "Unable to load live marketplace products.");
-      setCategories(fallbackCategories);
+      setCategories([]);
       setProducts([]);
     } finally {
       setLoadingCatalog(false);
