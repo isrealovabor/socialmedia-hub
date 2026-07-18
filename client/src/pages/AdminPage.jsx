@@ -296,7 +296,7 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
         <div className="mb-2 text-base font-black text-market-navy">Settings</div>
         {settings && (
           <div className="space-y-2">
-            {["siteName", "supportEmail", "bankName", "bankAccountName", "bankAccountNumber", "btcWalletAddress", "referralBonus", "minimumWithdrawalAmount"].map((key) => (
+            {["siteName", "supportEmail", "bankName", "bankAccountName", "bankAccountNumber", "minimumWithdrawalAmount"].map((key) => (
               <input key={key} value={settings[key] ?? ""} onChange={(event) => setSettings((current) => ({ ...current, [key]: event.target.value }))} className="h-10 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 text-xs" placeholder={key} />
             ))}
             <button type="button" onClick={saveSettings} className="brand-gradient h-10 w-full rounded-full text-xs font-black text-white">Save settings</button>

@@ -36,13 +36,13 @@ export default function LoginPage({ onAuth }) {
           />
         </label>
         <label className="block">
-          <span className="text-xs font-bold text-gray-600">Access code</span>
+          <span className="text-xs font-bold text-gray-600">Password</span>
           <input
-            type="text"
+            type="password"
             value={form.password}
             onChange={(event) => setForm((current) => ({ ...current, password: event.target.value }))}
             className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 outline-none focus:border-market-emerald"
-            placeholder="Enter access code"
+            placeholder="Enter password"
           />
         </label>
         <button

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { authApi, setToken } from "../api/client.js";
 
 export default function RegisterPage({ onAuth }) {
-  const [form, setForm] = useState({ name: "", email: "", password: "", referralCode: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState("");
 
   const submit = async (event) => {
@@ -34,15 +34,6 @@ export default function RegisterPage({ onAuth }) {
           />
         </label>
         <label className="block">
-          <span className="text-xs font-bold text-gray-600">Referral code</span>
-          <input
-            value={form.referralCode}
-            onChange={(event) => setForm((current) => ({ ...current, referralCode: event.target.value }))}
-            className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 outline-none focus:border-market-emerald"
-            placeholder="Optional"
-          />
-        </label>
-        <label className="block">
           <span className="text-xs font-bold text-gray-600">Email</span>
           <input
             type="email"
@@ -53,13 +44,13 @@ export default function RegisterPage({ onAuth }) {
           />
         </label>
         <label className="block">
-          <span className="text-xs font-bold text-gray-600">Access code</span>
+          <span className="text-xs font-bold text-gray-600">Password</span>
           <input
-            type="text"
+            type="password"
             value={form.password}
             onChange={(event) => setForm((current) => ({ ...current, password: event.target.value }))}
             className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 outline-none focus:border-market-emerald"
-            placeholder="Create access code"
+            placeholder="Create password"
           />
         </label>
         <button

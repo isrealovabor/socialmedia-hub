@@ -15,8 +15,6 @@ export function publicUser(user) {
     sellerStatus: user.sellerStatus,
     walletBalance: toNumber(user.walletBalance),
     sellerEarnings: toNumber(user.sellerEarnings),
-    referralCode: user.referralCode,
-    referralEarnings: toNumber(user.referralEarnings),
     createdAt: user.createdAt,
   };
 }

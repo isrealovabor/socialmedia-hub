@@ -4,7 +4,7 @@ import { proofUpload, publicUploadPath } from "../middleware/upload.js";
 import { prisma } from "../prisma.js";
 import { asyncHandler } from "../utils/errors.js";
 import { depositDto, publicUser, toNumber } from "../utils/format.js";
-import { bankDetails, bitcoinDetails } from "../../marketplace-config.js";
+import { bankDetails } from "../../marketplace-config.js";
 import { sendEmail } from "../utils/email.js";
 
 const router = Router();
@@ -32,14 +32,9 @@ router.get(
       totalSpent: toNumber(req.user.totalSpent || 0),
       withdrawals,
       bankDetails,
-      bitcoinDetails,
     });
   })
 );
-
-router.get("/deposits/options", (req, res) => {
-  res.json({ bankDetails, bitcoinDetails });
-});
 
 router.post(
   "/deposits",
@@ -47,13 +42,13 @@ router.post(
   proofUpload.single("proof"),
   asyncHandler(async (req, res) => {
     const amount = Number(req.body.amount);
-    const method = req.body.method || "BANK_TRANSFER";
+    const method = "BANK_TRANSFER";
     if (!amount || amount < 1000) {
       res.status(400).json({ success: false, message: "Deposit amount must be at least NGN 1,000." });
       return;
     }
 
-    const providedReference = String(req.body.reference || req.body.transactionHash || "").trim();
+    const providedReference = String(req.body.reference || "").trim();
     const reference =
       providedReference || `DEP-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
 
@@ -72,7 +67,6 @@ router.post(
         proofText: req.body.proofText || "",
         proofFileUrl: publicUploadPath(req.file),
         proofFileName: req.file?.originalname,
-        transactionHash: req.body.transactionHash || null,
       },
     });
 
@@ -111,40 +105,6 @@ router.post(
     });
     await sendEmail(req.user.email, "depositPending", { amount });
     res.status(201).json({ success: true, deposit: depositDto(deposit), bankDetails });
-  })
-);
-
-router.post(
-  "/deposits/bitcoin",
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    const amount = Number(req.body.amount);
-    const transactionHash = String(req.body.transactionHash || "").trim();
-    if (!amount || amount <= 0) {
-      res.status(400).json({ success: false, message: "BTC amount is required." });
-      return;
-    }
-    if (!transactionHash) {
-      res.status(400).json({ success: false, message: "Transaction hash is required." });
-      return;
-    }
-    const duplicate = await prisma.deposit.findFirst({ where: { transactionHash } });
-    if (duplicate) {
-      res.status(409).json({ success: false, message: "A Bitcoin deposit with this transaction hash already exists." });
-      return;
-    }
-    const deposit = await prisma.deposit.create({
-      data: {
-        userId: req.user.id,
-        amount,
-        method: "BITCOIN",
-        reference: transactionHash,
-        transactionHash,
-        proofText: "Bitcoin deposit submitted.",
-      },
-    });
-    await sendEmail(req.user.email, "depositPending", { amount });
-    res.status(201).json({ success: true, deposit: depositDto(deposit), bitcoinDetails });
   })
 );
 

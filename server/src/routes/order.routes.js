@@ -10,7 +10,6 @@ import { orderDto } from "../utils/format.js";
 import { createNotification } from "../utils/notifications.js";
 import { auditLog } from "../utils/audit.js";
 import { sendEmail } from "../utils/email.js";
-import { getSettings } from "../utils/settings.js";
 import { validate } from "../utils/validation.js";
 import { checkoutSchema } from "../validators/order.validators.js";
 
@@ -130,20 +129,6 @@ router.post(
         },
         include: { items: { include: { product: { include: { deliveryFiles: true } } } } },
       });
-
-      if (user.referrerId && !order.referralBonusPaid) {
-        const settings = await getSettings(tx);
-        if (settings.referralEnabled) {
-          await tx.user.update({
-            where: { id: user.referrerId },
-            data: {
-              walletBalance: { increment: settings.referralBonus },
-              referralEarnings: { increment: settings.referralBonus },
-            },
-          });
-          await tx.order.update({ where: { id: order.id }, data: { referralBonusPaid: true } });
-        }
-      }
 
       await auditLog({ userId: req.user.id, action: "USER_CHECKOUT", entityType: "Order", entityId: order.id }, tx);
       return order;

@@ -6,7 +6,6 @@ import { prisma } from "../prisma.js";
 import { requireAuth } from "../middleware/auth.js";
 import { ApiError, asyncHandler } from "../utils/errors.js";
 import { sendEmail } from "../utils/email.js";
-import { makeReferralCode } from "../utils/referrals.js";
 import { validate } from "../utils/validation.js";
 import {
   forgotPasswordSchema,
@@ -35,8 +34,6 @@ function authUser(user) {
     sellerStatus: user.sellerStatus,
     walletBalance: Number(user.walletBalance || 0),
     sellerEarnings: Number(user.sellerEarnings || 0),
-    referralCode: user.referralCode,
-    referralEarnings: Number(user.referralEarnings || 0),
   };
 }
 
@@ -50,16 +47,11 @@ router.post(
     }
 
     const passwordHash = await bcrypt.hash(req.body.password, 12);
-    const referrer = req.body.referralCode
-      ? await prisma.user.findUnique({ where: { referralCode: req.body.referralCode.toUpperCase() } })
-      : null;
     const user = await prisma.user.create({
       data: {
         name: req.body.name,
         email: req.body.email,
         passwordHash,
-        referralCode: makeReferralCode(req.body.name),
-        referrerId: referrer?.id,
       },
     });
 

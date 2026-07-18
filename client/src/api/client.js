@@ -79,11 +79,8 @@ export const walletApi = {
   wallet: () => apiRequest("/wallet"),
   deposits: () => apiRequest("/deposits/my"),
   withdrawals: () => apiRequest("/withdrawals/my"),
-  depositOptions: () => apiRequest("/deposits/options"),
   createDeposit: (payload) => apiRequest("/deposits", { method: "POST", data: payload }),
   createBankDeposit: (formData) => apiRequest("/deposits/bank", { method: "POST", data: formData }),
-  createBitcoinDeposit: (payload) =>
-    apiRequest("/deposits/bitcoin", { method: "POST", data: payload }),
 };
 
 export const orderApi = {

@@ -1,22 +1,14 @@
 import { useEffect, useState } from "react";
-import { Copy } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
-import { paymentApi, walletApi } from "../api/client.js";
+import { paymentApi } from "../api/client.js";
 import { formatNaira } from "../data/marketData.js";
 
 export default function DepositPage({ user, onUserRefresh }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [options, setOptions] = useState(null);
   const [amount, setAmount] = useState("");
   const [paymentEmail, setPaymentEmail] = useState(user?.email || "");
-  const [btcAmount, setBtcAmount] = useState("");
-  const [txHash, setTxHash] = useState("");
   const [message, setMessage] = useState("");
   const [paying, setPaying] = useState("");
-
-  useEffect(() => {
-    walletApi.depositOptions().then(setOptions).catch((error) => setMessage(error.message));
-  }, []);
 
   useEffect(() => {
     if (user?.email && !paymentEmail) setPaymentEmail(user.email);
@@ -50,20 +42,6 @@ export default function DepositPage({ user, onUserRefresh }) {
       active = false;
     };
   }, [user, searchParams, setSearchParams, onUserRefresh]);
-
-  const submitBitcoin = async (event) => {
-    event.preventDefault();
-    setMessage("");
-    try {
-      await walletApi.createBitcoinDeposit({ amount: Number(btcAmount), transactionHash: txHash });
-      setBtcAmount("");
-      setTxHash("");
-      await onUserRefresh();
-      setMessage("Bitcoin deposit submitted for admin approval.");
-    } catch (error) {
-      setMessage(error.message);
-    }
-  };
 
   const providerPay = async (provider) => {
     setMessage("");
@@ -106,8 +84,6 @@ export default function DepositPage({ user, onUserRefresh }) {
     );
   }
 
-  const bitcoin = options?.bitcoinDetails;
-
   return (
     <div className="space-y-4">
       <div className="px-1">
@@ -132,25 +108,6 @@ export default function DepositPage({ user, onUserRefresh }) {
             {paying === "paystack" ? "Checking Paystack..." : "Pay with Paystack"}
           </button>
         </div>
-      </section>
-
-      <section className="glass-panel rounded-[1.35rem] p-3">
-        <div className="mb-3 text-base font-black text-market-navy">Bitcoin deposit</div>
-        <div className="rounded-2xl border border-cyan-100 bg-white/75 p-3 text-center">
-          {bitcoin?.qrCode && <img className="mx-auto h-32 w-32 rounded-xl" src={bitcoin.qrCode} alt="BTC QR code" />}
-          <p className="mt-2 break-all text-xs font-bold text-gray-700">{bitcoin?.address}</p>
-          <button type="button" onClick={() => navigator.clipboard?.writeText(bitcoin?.address || "")} className="mt-2 inline-flex h-9 items-center gap-2 rounded-full bg-emerald-50 px-3 text-xs font-black text-market-emerald">
-            <Copy size={15} />
-            Copy
-          </button>
-        </div>
-        <form onSubmit={submitBitcoin} className="mt-3 space-y-2">
-          <input className="h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 text-sm" type="number" step="0.00000001" min="0" placeholder="BTC amount" value={btcAmount} onChange={(event) => setBtcAmount(event.target.value)} required />
-          <input className="h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 text-sm" placeholder="Transaction hash" value={txHash} onChange={(event) => setTxHash(event.target.value)} required />
-          <button className="brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow" type="submit">
-            Submit Bitcoin deposit
-          </button>
-        </form>
       </section>
     </div>
   );

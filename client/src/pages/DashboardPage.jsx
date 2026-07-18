@@ -59,19 +59,6 @@ export default function DashboardPage({ user, cartCount, onLogout }) {
         <p className="relative text-xs font-bold uppercase text-emerald-200">Wallet balance</p>
         <p className="relative mt-1 text-3xl font-black">{formatNaira(user.walletBalance)}</p>
         <p className="relative mt-1 text-sm font-semibold text-slate-200">{user.name}</p>
-        {user.referralCode && (
-          <div className="relative mt-3 rounded-2xl bg-white/10 p-3 text-xs font-bold text-slate-100">
-            <p>Referral code: {user.referralCode}</p>
-            <p>Referral earnings: {formatNaira(user.referralEarnings || 0)}</p>
-            <button
-              type="button"
-              onClick={() => navigator.clipboard?.writeText(`${window.location.origin}/register?ref=${user.referralCode}`)}
-              className="mt-2 rounded-full bg-white/15 px-3 py-1 text-xs font-black"
-            >
-              Copy referral link
-            </button>
-          </div>
-        )}
         <div className="mt-4 grid grid-cols-2 gap-2">
           <QuickButton to="/wallet" icon={WalletCards} label="Deposit" />
           <QuickButton to="/dashboard" icon={PackageCheck} label="Orders" />

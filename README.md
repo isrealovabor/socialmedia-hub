@@ -356,7 +356,6 @@ Included in this build:
 Paystack and Flutterwave deposits
 Nodemailer email templates
 Forgot/reset password
-Referral codes and bonuses
 Seller role, seller products, seller orders, seller withdrawals
 Admin analytics, settings, sellers, withdrawals, audit logs
 Support tickets

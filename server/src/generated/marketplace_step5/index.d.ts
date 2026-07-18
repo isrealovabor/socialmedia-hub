@@ -2233,7 +2233,6 @@ export namespace Prisma {
     favorites: number
     reviews: number
     products: number
-    referredUsers: number
     auditLogs: number
     tickets: number
     ticketMessages: number
@@ -2247,7 +2246,6 @@ export namespace Prisma {
     favorites?: boolean | UserCountOutputTypeCountFavoritesArgs
     reviews?: boolean | UserCountOutputTypeCountReviewsArgs
     products?: boolean | UserCountOutputTypeCountProductsArgs
-    referredUsers?: boolean | UserCountOutputTypeCountReferredUsersArgs
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
     tickets?: boolean | UserCountOutputTypeCountTicketsArgs
     ticketMessages?: boolean | UserCountOutputTypeCountTicketMessagesArgs
@@ -2311,13 +2309,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProductWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountReferredUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
   }
 
   /**
@@ -2513,14 +2504,12 @@ export namespace Prisma {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     sellerEarnings: Decimal | null
-    referralEarnings: Decimal | null
   }
 
   export type UserSumAggregateOutputType = {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     sellerEarnings: Decimal | null
-    referralEarnings: Decimal | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -2533,9 +2522,6 @@ export namespace Prisma {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     sellerEarnings: Decimal | null
-    referralCode: string | null
-    referrerId: string | null
-    referralEarnings: Decimal | null
     resetTokenHash: string | null
     resetTokenExpires: Date | null
     createdAt: Date | null
@@ -2551,9 +2537,6 @@ export namespace Prisma {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     sellerEarnings: Decimal | null
-    referralCode: string | null
-    referrerId: string | null
-    referralEarnings: Decimal | null
     resetTokenHash: string | null
     resetTokenExpires: Date | null
     createdAt: Date | null
@@ -2569,9 +2552,6 @@ export namespace Prisma {
     walletBalance: number
     totalSpent: number
     sellerEarnings: number
-    referralCode: number
-    referrerId: number
-    referralEarnings: number
     resetTokenHash: number
     resetTokenExpires: number
     createdAt: number
@@ -2583,14 +2563,12 @@ export namespace Prisma {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
-    referralEarnings?: true
   }
 
   export type UserSumAggregateInputType = {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
-    referralEarnings?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -2603,9 +2581,6 @@ export namespace Prisma {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
-    referralCode?: true
-    referrerId?: true
-    referralEarnings?: true
     resetTokenHash?: true
     resetTokenExpires?: true
     createdAt?: true
@@ -2621,9 +2596,6 @@ export namespace Prisma {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
-    referralCode?: true
-    referrerId?: true
-    referralEarnings?: true
     resetTokenHash?: true
     resetTokenExpires?: true
     createdAt?: true
@@ -2639,9 +2611,6 @@ export namespace Prisma {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
-    referralCode?: true
-    referrerId?: true
-    referralEarnings?: true
     resetTokenHash?: true
     resetTokenExpires?: true
     createdAt?: true
@@ -2744,9 +2713,6 @@ export namespace Prisma {
     walletBalance: Decimal
     totalSpent: Decimal
     sellerEarnings: Decimal
-    referralCode: string | null
-    referrerId: string | null
-    referralEarnings: Decimal
     resetTokenHash: string | null
     resetTokenExpires: Date | null
     createdAt: Date
@@ -2781,9 +2747,6 @@ export namespace Prisma {
     walletBalance?: boolean
     totalSpent?: boolean
     sellerEarnings?: boolean
-    referralCode?: boolean
-    referrerId?: boolean
-    referralEarnings?: boolean
     resetTokenHash?: boolean
     resetTokenExpires?: boolean
     createdAt?: boolean
@@ -2794,8 +2757,6 @@ export namespace Prisma {
     favorites?: boolean | User$favoritesArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
     products?: boolean | User$productsArgs<ExtArgs>
-    referredUsers?: boolean | User$referredUsersArgs<ExtArgs>
-    referrer?: boolean | User$referrerArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
@@ -2812,13 +2773,9 @@ export namespace Prisma {
     walletBalance?: boolean
     totalSpent?: boolean
     sellerEarnings?: boolean
-    referralCode?: boolean
-    referrerId?: boolean
-    referralEarnings?: boolean
     resetTokenHash?: boolean
     resetTokenExpires?: boolean
     createdAt?: boolean
-    referrer?: boolean | User$referrerArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2831,13 +2788,9 @@ export namespace Prisma {
     walletBalance?: boolean
     totalSpent?: boolean
     sellerEarnings?: boolean
-    referralCode?: boolean
-    referrerId?: boolean
-    referralEarnings?: boolean
     resetTokenHash?: boolean
     resetTokenExpires?: boolean
     createdAt?: boolean
-    referrer?: boolean | User$referrerArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2850,15 +2803,12 @@ export namespace Prisma {
     walletBalance?: boolean
     totalSpent?: boolean
     sellerEarnings?: boolean
-    referralCode?: boolean
-    referrerId?: boolean
-    referralEarnings?: boolean
     resetTokenHash?: boolean
     resetTokenExpires?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "sellerStatus" | "walletBalance" | "totalSpent" | "sellerEarnings" | "referralCode" | "referrerId" | "referralEarnings" | "resetTokenHash" | "resetTokenExpires" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "sellerStatus" | "walletBalance" | "totalSpent" | "sellerEarnings" | "resetTokenHash" | "resetTokenExpires" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     deposits?: boolean | User$depositsArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
@@ -2867,19 +2817,13 @@ export namespace Prisma {
     favorites?: boolean | User$favoritesArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
     products?: boolean | User$productsArgs<ExtArgs>
-    referredUsers?: boolean | User$referredUsersArgs<ExtArgs>
-    referrer?: boolean | User$referrerArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    referrer?: boolean | User$referrerArgs<ExtArgs>
-  }
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    referrer?: boolean | User$referrerArgs<ExtArgs>
-  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -2891,8 +2835,6 @@ export namespace Prisma {
       favorites: Prisma.$FavoritePayload<ExtArgs>[]
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
       products: Prisma.$ProductPayload<ExtArgs>[]
-      referredUsers: Prisma.$UserPayload<ExtArgs>[]
-      referrer: Prisma.$UserPayload<ExtArgs> | null
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
       tickets: Prisma.$SupportTicketPayload<ExtArgs>[]
       ticketMessages: Prisma.$SupportMessagePayload<ExtArgs>[]
@@ -2907,9 +2849,6 @@ export namespace Prisma {
       walletBalance: Prisma.Decimal
       totalSpent: Prisma.Decimal
       sellerEarnings: Prisma.Decimal
-      referralCode: string | null
-      referrerId: string | null
-      referralEarnings: Prisma.Decimal
       resetTokenHash: string | null
       resetTokenExpires: Date | null
       createdAt: Date
@@ -3314,8 +3253,6 @@ export namespace Prisma {
     favorites<T extends User$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, User$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends User$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     products<T extends User$productsArgs<ExtArgs> = {}>(args?: Subset<T, User$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    referredUsers<T extends User$referredUsersArgs<ExtArgs> = {}>(args?: Subset<T, User$referredUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    referrer<T extends User$referrerArgs<ExtArgs> = {}>(args?: Subset<T, User$referrerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tickets<T extends User$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ticketMessages<T extends User$ticketMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3357,9 +3294,6 @@ export namespace Prisma {
     readonly walletBalance: FieldRef<"User", 'Decimal'>
     readonly totalSpent: FieldRef<"User", 'Decimal'>
     readonly sellerEarnings: FieldRef<"User", 'Decimal'>
-    readonly referralCode: FieldRef<"User", 'String'>
-    readonly referrerId: FieldRef<"User", 'String'>
-    readonly referralEarnings: FieldRef<"User", 'Decimal'>
     readonly resetTokenHash: FieldRef<"User", 'String'>
     readonly resetTokenExpires: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -3612,10 +3546,6 @@ export namespace Prisma {
      */
     data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3686,10 +3616,6 @@ export namespace Prisma {
      * Limit how many Users to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3924,49 +3850,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
-  }
-
-  /**
-   * User.referredUsers
-   */
-  export type User$referredUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    cursor?: UserWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * User.referrer
-   */
-  export type User$referrerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -7658,7 +7541,6 @@ export namespace Prisma {
     proofText: string | null
     proofFileUrl: string | null
     proofFileName: string | null
-    transactionHash: string | null
     provider: string | null
     providerReference: string | null
     createdAt: Date | null
@@ -7675,7 +7557,6 @@ export namespace Prisma {
     proofText: string | null
     proofFileUrl: string | null
     proofFileName: string | null
-    transactionHash: string | null
     provider: string | null
     providerReference: string | null
     createdAt: Date | null
@@ -7692,7 +7573,6 @@ export namespace Prisma {
     proofText: number
     proofFileUrl: number
     proofFileName: number
-    transactionHash: number
     provider: number
     providerReference: number
     createdAt: number
@@ -7719,7 +7599,6 @@ export namespace Prisma {
     proofText?: true
     proofFileUrl?: true
     proofFileName?: true
-    transactionHash?: true
     provider?: true
     providerReference?: true
     createdAt?: true
@@ -7736,7 +7615,6 @@ export namespace Prisma {
     proofText?: true
     proofFileUrl?: true
     proofFileName?: true
-    transactionHash?: true
     provider?: true
     providerReference?: true
     createdAt?: true
@@ -7753,7 +7631,6 @@ export namespace Prisma {
     proofText?: true
     proofFileUrl?: true
     proofFileName?: true
-    transactionHash?: true
     provider?: true
     providerReference?: true
     createdAt?: true
@@ -7857,7 +7734,6 @@ export namespace Prisma {
     proofText: string | null
     proofFileUrl: string | null
     proofFileName: string | null
-    transactionHash: string | null
     provider: string | null
     providerReference: string | null
     createdAt: Date
@@ -7893,7 +7769,6 @@ export namespace Prisma {
     proofText?: boolean
     proofFileUrl?: boolean
     proofFileName?: boolean
-    transactionHash?: boolean
     provider?: boolean
     providerReference?: boolean
     createdAt?: boolean
@@ -7911,7 +7786,6 @@ export namespace Prisma {
     proofText?: boolean
     proofFileUrl?: boolean
     proofFileName?: boolean
-    transactionHash?: boolean
     provider?: boolean
     providerReference?: boolean
     createdAt?: boolean
@@ -7929,7 +7803,6 @@ export namespace Prisma {
     proofText?: boolean
     proofFileUrl?: boolean
     proofFileName?: boolean
-    transactionHash?: boolean
     provider?: boolean
     providerReference?: boolean
     createdAt?: boolean
@@ -7947,14 +7820,13 @@ export namespace Prisma {
     proofText?: boolean
     proofFileUrl?: boolean
     proofFileName?: boolean
-    transactionHash?: boolean
     provider?: boolean
     providerReference?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DepositOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "method" | "status" | "reference" | "proofText" | "proofFileUrl" | "proofFileName" | "transactionHash" | "provider" | "providerReference" | "createdAt" | "updatedAt", ExtArgs["result"]["deposit"]>
+  export type DepositOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "method" | "status" | "reference" | "proofText" | "proofFileUrl" | "proofFileName" | "provider" | "providerReference" | "createdAt" | "updatedAt", ExtArgs["result"]["deposit"]>
   export type DepositInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -7980,7 +7852,6 @@ export namespace Prisma {
       proofText: string | null
       proofFileUrl: string | null
       proofFileName: string | null
-      transactionHash: string | null
       provider: string | null
       providerReference: string | null
       createdAt: Date
@@ -8418,7 +8289,6 @@ export namespace Prisma {
     readonly proofText: FieldRef<"Deposit", 'String'>
     readonly proofFileUrl: FieldRef<"Deposit", 'String'>
     readonly proofFileName: FieldRef<"Deposit", 'String'>
-    readonly transactionHash: FieldRef<"Deposit", 'String'>
     readonly provider: FieldRef<"Deposit", 'String'>
     readonly providerReference: FieldRef<"Deposit", 'String'>
     readonly createdAt: FieldRef<"Deposit", 'DateTime'>
@@ -8865,7 +8735,6 @@ export namespace Prisma {
     userId: string | null
     totalAmount: Decimal | null
     discountAmount: Decimal | null
-    referralBonusPaid: boolean | null
     status: string | null
     deliveryFileUrl: string | null
     deliveryFileName: string | null
@@ -8880,7 +8749,6 @@ export namespace Prisma {
     userId: string | null
     totalAmount: Decimal | null
     discountAmount: Decimal | null
-    referralBonusPaid: boolean | null
     status: string | null
     deliveryFileUrl: string | null
     deliveryFileName: string | null
@@ -8895,7 +8763,6 @@ export namespace Prisma {
     userId: number
     totalAmount: number
     discountAmount: number
-    referralBonusPaid: number
     status: number
     deliveryFileUrl: number
     deliveryFileName: number
@@ -8922,7 +8789,6 @@ export namespace Prisma {
     userId?: true
     totalAmount?: true
     discountAmount?: true
-    referralBonusPaid?: true
     status?: true
     deliveryFileUrl?: true
     deliveryFileName?: true
@@ -8937,7 +8803,6 @@ export namespace Prisma {
     userId?: true
     totalAmount?: true
     discountAmount?: true
-    referralBonusPaid?: true
     status?: true
     deliveryFileUrl?: true
     deliveryFileName?: true
@@ -8952,7 +8817,6 @@ export namespace Prisma {
     userId?: true
     totalAmount?: true
     discountAmount?: true
-    referralBonusPaid?: true
     status?: true
     deliveryFileUrl?: true
     deliveryFileName?: true
@@ -9054,7 +8918,6 @@ export namespace Prisma {
     userId: string
     totalAmount: Decimal
     discountAmount: Decimal
-    referralBonusPaid: boolean
     status: string
     deliveryFileUrl: string | null
     deliveryFileName: string | null
@@ -9088,7 +8951,6 @@ export namespace Prisma {
     userId?: boolean
     totalAmount?: boolean
     discountAmount?: boolean
-    referralBonusPaid?: boolean
     status?: boolean
     deliveryFileUrl?: boolean
     deliveryFileName?: boolean
@@ -9106,7 +8968,6 @@ export namespace Prisma {
     userId?: boolean
     totalAmount?: boolean
     discountAmount?: boolean
-    referralBonusPaid?: boolean
     status?: boolean
     deliveryFileUrl?: boolean
     deliveryFileName?: boolean
@@ -9122,7 +8983,6 @@ export namespace Prisma {
     userId?: boolean
     totalAmount?: boolean
     discountAmount?: boolean
-    referralBonusPaid?: boolean
     status?: boolean
     deliveryFileUrl?: boolean
     deliveryFileName?: boolean
@@ -9138,7 +8998,6 @@ export namespace Prisma {
     userId?: boolean
     totalAmount?: boolean
     discountAmount?: boolean
-    referralBonusPaid?: boolean
     status?: boolean
     deliveryFileUrl?: boolean
     deliveryFileName?: boolean
@@ -9147,7 +9006,7 @@ export namespace Prisma {
     completedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderNumber" | "userId" | "totalAmount" | "discountAmount" | "referralBonusPaid" | "status" | "deliveryFileUrl" | "deliveryFileName" | "createdAt" | "updatedAt" | "completedAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderNumber" | "userId" | "totalAmount" | "discountAmount" | "status" | "deliveryFileUrl" | "deliveryFileName" | "createdAt" | "updatedAt" | "completedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     items?: boolean | Order$itemsArgs<ExtArgs>
@@ -9172,7 +9031,6 @@ export namespace Prisma {
       userId: string
       totalAmount: Prisma.Decimal
       discountAmount: Prisma.Decimal
-      referralBonusPaid: boolean
       status: string
       deliveryFileUrl: string | null
       deliveryFileName: string | null
@@ -9609,7 +9467,6 @@ export namespace Prisma {
     readonly userId: FieldRef<"Order", 'String'>
     readonly totalAmount: FieldRef<"Order", 'Decimal'>
     readonly discountAmount: FieldRef<"Order", 'Decimal'>
-    readonly referralBonusPaid: FieldRef<"Order", 'Boolean'>
     readonly status: FieldRef<"Order", 'String'>
     readonly deliveryFileUrl: FieldRef<"Order", 'String'>
     readonly deliveryFileName: FieldRef<"Order", 'String'>
@@ -15578,12 +15435,10 @@ export namespace Prisma {
   }
 
   export type AppSettingAvgAggregateOutputType = {
-    referralBonus: Decimal | null
     minimumWithdrawalAmount: Decimal | null
   }
 
   export type AppSettingSumAggregateOutputType = {
-    referralBonus: Decimal | null
     minimumWithdrawalAmount: Decimal | null
   }
 
@@ -15594,14 +15449,10 @@ export namespace Prisma {
     bankName: string | null
     bankAccountName: string | null
     bankAccountNumber: string | null
-    btcWalletAddress: string | null
-    referralBonus: Decimal | null
-    referralEnabled: boolean | null
     minimumWithdrawalAmount: Decimal | null
     maintenanceMode: boolean | null
     paystackEnabled: boolean | null
     flutterwaveEnabled: boolean | null
-    bitcoinDepositEnabled: boolean | null
     manualBankTransferEnabled: boolean | null
     updatedAt: Date | null
   }
@@ -15613,14 +15464,10 @@ export namespace Prisma {
     bankName: string | null
     bankAccountName: string | null
     bankAccountNumber: string | null
-    btcWalletAddress: string | null
-    referralBonus: Decimal | null
-    referralEnabled: boolean | null
     minimumWithdrawalAmount: Decimal | null
     maintenanceMode: boolean | null
     paystackEnabled: boolean | null
     flutterwaveEnabled: boolean | null
-    bitcoinDepositEnabled: boolean | null
     manualBankTransferEnabled: boolean | null
     updatedAt: Date | null
   }
@@ -15632,14 +15479,10 @@ export namespace Prisma {
     bankName: number
     bankAccountName: number
     bankAccountNumber: number
-    btcWalletAddress: number
-    referralBonus: number
-    referralEnabled: number
     minimumWithdrawalAmount: number
     maintenanceMode: number
     paystackEnabled: number
     flutterwaveEnabled: number
-    bitcoinDepositEnabled: number
     manualBankTransferEnabled: number
     updatedAt: number
     _all: number
@@ -15647,12 +15490,10 @@ export namespace Prisma {
 
 
   export type AppSettingAvgAggregateInputType = {
-    referralBonus?: true
     minimumWithdrawalAmount?: true
   }
 
   export type AppSettingSumAggregateInputType = {
-    referralBonus?: true
     minimumWithdrawalAmount?: true
   }
 
@@ -15663,14 +15504,10 @@ export namespace Prisma {
     bankName?: true
     bankAccountName?: true
     bankAccountNumber?: true
-    btcWalletAddress?: true
-    referralBonus?: true
-    referralEnabled?: true
     minimumWithdrawalAmount?: true
     maintenanceMode?: true
     paystackEnabled?: true
     flutterwaveEnabled?: true
-    bitcoinDepositEnabled?: true
     manualBankTransferEnabled?: true
     updatedAt?: true
   }
@@ -15682,14 +15519,10 @@ export namespace Prisma {
     bankName?: true
     bankAccountName?: true
     bankAccountNumber?: true
-    btcWalletAddress?: true
-    referralBonus?: true
-    referralEnabled?: true
     minimumWithdrawalAmount?: true
     maintenanceMode?: true
     paystackEnabled?: true
     flutterwaveEnabled?: true
-    bitcoinDepositEnabled?: true
     manualBankTransferEnabled?: true
     updatedAt?: true
   }
@@ -15701,14 +15534,10 @@ export namespace Prisma {
     bankName?: true
     bankAccountName?: true
     bankAccountNumber?: true
-    btcWalletAddress?: true
-    referralBonus?: true
-    referralEnabled?: true
     minimumWithdrawalAmount?: true
     maintenanceMode?: true
     paystackEnabled?: true
     flutterwaveEnabled?: true
-    bitcoinDepositEnabled?: true
     manualBankTransferEnabled?: true
     updatedAt?: true
     _all?: true
@@ -15807,14 +15636,10 @@ export namespace Prisma {
     bankName: string
     bankAccountName: string
     bankAccountNumber: string
-    btcWalletAddress: string
-    referralBonus: Decimal
-    referralEnabled: boolean
     minimumWithdrawalAmount: Decimal
     maintenanceMode: boolean
     paystackEnabled: boolean
     flutterwaveEnabled: boolean
-    bitcoinDepositEnabled: boolean
     manualBankTransferEnabled: boolean
     updatedAt: Date
     _count: AppSettingCountAggregateOutputType | null
@@ -15845,14 +15670,10 @@ export namespace Prisma {
     bankName?: boolean
     bankAccountName?: boolean
     bankAccountNumber?: boolean
-    btcWalletAddress?: boolean
-    referralBonus?: boolean
-    referralEnabled?: boolean
     minimumWithdrawalAmount?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
-    bitcoinDepositEnabled?: boolean
     manualBankTransferEnabled?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["appSetting"]>
@@ -15864,14 +15685,10 @@ export namespace Prisma {
     bankName?: boolean
     bankAccountName?: boolean
     bankAccountNumber?: boolean
-    btcWalletAddress?: boolean
-    referralBonus?: boolean
-    referralEnabled?: boolean
     minimumWithdrawalAmount?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
-    bitcoinDepositEnabled?: boolean
     manualBankTransferEnabled?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["appSetting"]>
@@ -15883,14 +15700,10 @@ export namespace Prisma {
     bankName?: boolean
     bankAccountName?: boolean
     bankAccountNumber?: boolean
-    btcWalletAddress?: boolean
-    referralBonus?: boolean
-    referralEnabled?: boolean
     minimumWithdrawalAmount?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
-    bitcoinDepositEnabled?: boolean
     manualBankTransferEnabled?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["appSetting"]>
@@ -15902,19 +15715,15 @@ export namespace Prisma {
     bankName?: boolean
     bankAccountName?: boolean
     bankAccountNumber?: boolean
-    btcWalletAddress?: boolean
-    referralBonus?: boolean
-    referralEnabled?: boolean
     minimumWithdrawalAmount?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
-    bitcoinDepositEnabled?: boolean
     manualBankTransferEnabled?: boolean
     updatedAt?: boolean
   }
 
-  export type AppSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "siteName" | "supportEmail" | "bankName" | "bankAccountName" | "bankAccountNumber" | "btcWalletAddress" | "referralBonus" | "referralEnabled" | "minimumWithdrawalAmount" | "maintenanceMode" | "paystackEnabled" | "flutterwaveEnabled" | "bitcoinDepositEnabled" | "manualBankTransferEnabled" | "updatedAt", ExtArgs["result"]["appSetting"]>
+  export type AppSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "siteName" | "supportEmail" | "bankName" | "bankAccountName" | "bankAccountNumber" | "minimumWithdrawalAmount" | "maintenanceMode" | "paystackEnabled" | "flutterwaveEnabled" | "manualBankTransferEnabled" | "updatedAt", ExtArgs["result"]["appSetting"]>
 
   export type $AppSettingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AppSetting"
@@ -15926,14 +15735,10 @@ export namespace Prisma {
       bankName: string
       bankAccountName: string
       bankAccountNumber: string
-      btcWalletAddress: string
-      referralBonus: Prisma.Decimal
-      referralEnabled: boolean
       minimumWithdrawalAmount: Prisma.Decimal
       maintenanceMode: boolean
       paystackEnabled: boolean
       flutterwaveEnabled: boolean
-      bitcoinDepositEnabled: boolean
       manualBankTransferEnabled: boolean
       updatedAt: Date
     }, ExtArgs["result"]["appSetting"]>
@@ -16365,14 +16170,10 @@ export namespace Prisma {
     readonly bankName: FieldRef<"AppSetting", 'String'>
     readonly bankAccountName: FieldRef<"AppSetting", 'String'>
     readonly bankAccountNumber: FieldRef<"AppSetting", 'String'>
-    readonly btcWalletAddress: FieldRef<"AppSetting", 'String'>
-    readonly referralBonus: FieldRef<"AppSetting", 'Decimal'>
-    readonly referralEnabled: FieldRef<"AppSetting", 'Boolean'>
     readonly minimumWithdrawalAmount: FieldRef<"AppSetting", 'Decimal'>
     readonly maintenanceMode: FieldRef<"AppSetting", 'Boolean'>
     readonly paystackEnabled: FieldRef<"AppSetting", 'Boolean'>
     readonly flutterwaveEnabled: FieldRef<"AppSetting", 'Boolean'>
-    readonly bitcoinDepositEnabled: FieldRef<"AppSetting", 'Boolean'>
     readonly manualBankTransferEnabled: FieldRef<"AppSetting", 'Boolean'>
     readonly updatedAt: FieldRef<"AppSetting", 'DateTime'>
   }
@@ -21116,9 +20917,6 @@ export namespace Prisma {
     walletBalance: 'walletBalance',
     totalSpent: 'totalSpent',
     sellerEarnings: 'sellerEarnings',
-    referralCode: 'referralCode',
-    referrerId: 'referrerId',
-    referralEarnings: 'referralEarnings',
     resetTokenHash: 'resetTokenHash',
     resetTokenExpires: 'resetTokenExpires',
     createdAt: 'createdAt'
@@ -21185,7 +20983,6 @@ export namespace Prisma {
     proofText: 'proofText',
     proofFileUrl: 'proofFileUrl',
     proofFileName: 'proofFileName',
-    transactionHash: 'transactionHash',
     provider: 'provider',
     providerReference: 'providerReference',
     createdAt: 'createdAt',
@@ -21201,7 +20998,6 @@ export namespace Prisma {
     userId: 'userId',
     totalAmount: 'totalAmount',
     discountAmount: 'discountAmount',
-    referralBonusPaid: 'referralBonusPaid',
     status: 'status',
     deliveryFileUrl: 'deliveryFileUrl',
     deliveryFileName: 'deliveryFileName',
@@ -21282,14 +21078,10 @@ export namespace Prisma {
     bankName: 'bankName',
     bankAccountName: 'bankAccountName',
     bankAccountNumber: 'bankAccountNumber',
-    btcWalletAddress: 'btcWalletAddress',
-    referralBonus: 'referralBonus',
-    referralEnabled: 'referralEnabled',
     minimumWithdrawalAmount: 'minimumWithdrawalAmount',
     maintenanceMode: 'maintenanceMode',
     paystackEnabled: 'paystackEnabled',
     flutterwaveEnabled: 'flutterwaveEnabled',
-    bitcoinDepositEnabled: 'bitcoinDepositEnabled',
     manualBankTransferEnabled: 'manualBankTransferEnabled',
     updatedAt: 'updatedAt'
   };
@@ -21470,9 +21262,6 @@ export namespace Prisma {
     walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    referralCode?: StringNullableFilter<"User"> | string | null
-    referrerId?: StringNullableFilter<"User"> | string | null
-    referralEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     resetTokenHash?: StringNullableFilter<"User"> | string | null
     resetTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -21483,8 +21272,6 @@ export namespace Prisma {
     favorites?: FavoriteListRelationFilter
     reviews?: ReviewListRelationFilter
     products?: ProductListRelationFilter
-    referredUsers?: UserListRelationFilter
-    referrer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     auditLogs?: AuditLogListRelationFilter
     tickets?: SupportTicketListRelationFilter
     ticketMessages?: SupportMessageListRelationFilter
@@ -21500,9 +21287,6 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    referralCode?: SortOrderInput | SortOrder
-    referrerId?: SortOrderInput | SortOrder
-    referralEarnings?: SortOrder
     resetTokenHash?: SortOrderInput | SortOrder
     resetTokenExpires?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -21513,8 +21297,6 @@ export namespace Prisma {
     favorites?: FavoriteOrderByRelationAggregateInput
     reviews?: ReviewOrderByRelationAggregateInput
     products?: ProductOrderByRelationAggregateInput
-    referredUsers?: UserOrderByRelationAggregateInput
-    referrer?: UserOrderByWithRelationInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
     tickets?: SupportTicketOrderByRelationAggregateInput
     ticketMessages?: SupportMessageOrderByRelationAggregateInput
@@ -21523,7 +21305,6 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
-    referralCode?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -21534,8 +21315,6 @@ export namespace Prisma {
     walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    referrerId?: StringNullableFilter<"User"> | string | null
-    referralEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     resetTokenHash?: StringNullableFilter<"User"> | string | null
     resetTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -21546,12 +21325,10 @@ export namespace Prisma {
     favorites?: FavoriteListRelationFilter
     reviews?: ReviewListRelationFilter
     products?: ProductListRelationFilter
-    referredUsers?: UserListRelationFilter
-    referrer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     auditLogs?: AuditLogListRelationFilter
     tickets?: SupportTicketListRelationFilter
     ticketMessages?: SupportMessageListRelationFilter
-  }, "id" | "email" | "referralCode">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -21563,9 +21340,6 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    referralCode?: SortOrderInput | SortOrder
-    referrerId?: SortOrderInput | SortOrder
-    referralEarnings?: SortOrder
     resetTokenHash?: SortOrderInput | SortOrder
     resetTokenExpires?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -21589,9 +21363,6 @@ export namespace Prisma {
     walletBalance?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
-    referralCode?: StringNullableWithAggregatesFilter<"User"> | string | null
-    referrerId?: StringNullableWithAggregatesFilter<"User"> | string | null
-    referralEarnings?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     resetTokenHash?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetTokenExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -21867,7 +21638,6 @@ export namespace Prisma {
     proofText?: StringNullableFilter<"Deposit"> | string | null
     proofFileUrl?: StringNullableFilter<"Deposit"> | string | null
     proofFileName?: StringNullableFilter<"Deposit"> | string | null
-    transactionHash?: StringNullableFilter<"Deposit"> | string | null
     provider?: StringNullableFilter<"Deposit"> | string | null
     providerReference?: StringNullableFilter<"Deposit"> | string | null
     createdAt?: DateTimeFilter<"Deposit"> | Date | string
@@ -21885,7 +21655,6 @@ export namespace Prisma {
     proofText?: SortOrderInput | SortOrder
     proofFileUrl?: SortOrderInput | SortOrder
     proofFileName?: SortOrderInput | SortOrder
-    transactionHash?: SortOrderInput | SortOrder
     provider?: SortOrderInput | SortOrder
     providerReference?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -21907,7 +21676,6 @@ export namespace Prisma {
     proofText?: StringNullableFilter<"Deposit"> | string | null
     proofFileUrl?: StringNullableFilter<"Deposit"> | string | null
     proofFileName?: StringNullableFilter<"Deposit"> | string | null
-    transactionHash?: StringNullableFilter<"Deposit"> | string | null
     provider?: StringNullableFilter<"Deposit"> | string | null
     createdAt?: DateTimeFilter<"Deposit"> | Date | string
     updatedAt?: DateTimeFilter<"Deposit"> | Date | string
@@ -21924,7 +21692,6 @@ export namespace Prisma {
     proofText?: SortOrderInput | SortOrder
     proofFileUrl?: SortOrderInput | SortOrder
     proofFileName?: SortOrderInput | SortOrder
-    transactionHash?: SortOrderInput | SortOrder
     provider?: SortOrderInput | SortOrder
     providerReference?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -21949,7 +21716,6 @@ export namespace Prisma {
     proofText?: StringNullableWithAggregatesFilter<"Deposit"> | string | null
     proofFileUrl?: StringNullableWithAggregatesFilter<"Deposit"> | string | null
     proofFileName?: StringNullableWithAggregatesFilter<"Deposit"> | string | null
-    transactionHash?: StringNullableWithAggregatesFilter<"Deposit"> | string | null
     provider?: StringNullableWithAggregatesFilter<"Deposit"> | string | null
     providerReference?: StringNullableWithAggregatesFilter<"Deposit"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Deposit"> | Date | string
@@ -21965,7 +21731,6 @@ export namespace Prisma {
     userId?: StringFilter<"Order"> | string
     totalAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFilter<"Order"> | boolean
     status?: StringFilter<"Order"> | string
     deliveryFileUrl?: StringNullableFilter<"Order"> | string | null
     deliveryFileName?: StringNullableFilter<"Order"> | string | null
@@ -21982,7 +21747,6 @@ export namespace Prisma {
     userId?: SortOrder
     totalAmount?: SortOrder
     discountAmount?: SortOrder
-    referralBonusPaid?: SortOrder
     status?: SortOrder
     deliveryFileUrl?: SortOrderInput | SortOrder
     deliveryFileName?: SortOrderInput | SortOrder
@@ -22002,7 +21766,6 @@ export namespace Prisma {
     userId?: StringFilter<"Order"> | string
     totalAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFilter<"Order"> | boolean
     status?: StringFilter<"Order"> | string
     deliveryFileUrl?: StringNullableFilter<"Order"> | string | null
     deliveryFileName?: StringNullableFilter<"Order"> | string | null
@@ -22019,7 +21782,6 @@ export namespace Prisma {
     userId?: SortOrder
     totalAmount?: SortOrder
     discountAmount?: SortOrder
-    referralBonusPaid?: SortOrder
     status?: SortOrder
     deliveryFileUrl?: SortOrderInput | SortOrder
     deliveryFileName?: SortOrderInput | SortOrder
@@ -22042,7 +21804,6 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Order"> | string
     totalAmount?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolWithAggregatesFilter<"Order"> | boolean
     status?: StringWithAggregatesFilter<"Order"> | string
     deliveryFileUrl?: StringNullableWithAggregatesFilter<"Order"> | string | null
     deliveryFileName?: StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -22388,14 +22149,10 @@ export namespace Prisma {
     bankName?: StringFilter<"AppSetting"> | string
     bankAccountName?: StringFilter<"AppSetting"> | string
     bankAccountNumber?: StringFilter<"AppSetting"> | string
-    btcWalletAddress?: StringFilter<"AppSetting"> | string
-    referralBonus?: DecimalFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
-    referralEnabled?: BoolFilter<"AppSetting"> | boolean
     minimumWithdrawalAmount?: DecimalFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
     maintenanceMode?: BoolFilter<"AppSetting"> | boolean
     paystackEnabled?: BoolFilter<"AppSetting"> | boolean
     flutterwaveEnabled?: BoolFilter<"AppSetting"> | boolean
-    bitcoinDepositEnabled?: BoolFilter<"AppSetting"> | boolean
     manualBankTransferEnabled?: BoolFilter<"AppSetting"> | boolean
     updatedAt?: DateTimeFilter<"AppSetting"> | Date | string
   }
@@ -22407,14 +22164,10 @@ export namespace Prisma {
     bankName?: SortOrder
     bankAccountName?: SortOrder
     bankAccountNumber?: SortOrder
-    btcWalletAddress?: SortOrder
-    referralBonus?: SortOrder
-    referralEnabled?: SortOrder
     minimumWithdrawalAmount?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
-    bitcoinDepositEnabled?: SortOrder
     manualBankTransferEnabled?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22429,14 +22182,10 @@ export namespace Prisma {
     bankName?: StringFilter<"AppSetting"> | string
     bankAccountName?: StringFilter<"AppSetting"> | string
     bankAccountNumber?: StringFilter<"AppSetting"> | string
-    btcWalletAddress?: StringFilter<"AppSetting"> | string
-    referralBonus?: DecimalFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
-    referralEnabled?: BoolFilter<"AppSetting"> | boolean
     minimumWithdrawalAmount?: DecimalFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
     maintenanceMode?: BoolFilter<"AppSetting"> | boolean
     paystackEnabled?: BoolFilter<"AppSetting"> | boolean
     flutterwaveEnabled?: BoolFilter<"AppSetting"> | boolean
-    bitcoinDepositEnabled?: BoolFilter<"AppSetting"> | boolean
     manualBankTransferEnabled?: BoolFilter<"AppSetting"> | boolean
     updatedAt?: DateTimeFilter<"AppSetting"> | Date | string
   }, "id">
@@ -22448,14 +22197,10 @@ export namespace Prisma {
     bankName?: SortOrder
     bankAccountName?: SortOrder
     bankAccountNumber?: SortOrder
-    btcWalletAddress?: SortOrder
-    referralBonus?: SortOrder
-    referralEnabled?: SortOrder
     minimumWithdrawalAmount?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
-    bitcoinDepositEnabled?: SortOrder
     manualBankTransferEnabled?: SortOrder
     updatedAt?: SortOrder
     _count?: AppSettingCountOrderByAggregateInput
@@ -22475,14 +22220,10 @@ export namespace Prisma {
     bankName?: StringWithAggregatesFilter<"AppSetting"> | string
     bankAccountName?: StringWithAggregatesFilter<"AppSetting"> | string
     bankAccountNumber?: StringWithAggregatesFilter<"AppSetting"> | string
-    btcWalletAddress?: StringWithAggregatesFilter<"AppSetting"> | string
-    referralBonus?: DecimalWithAggregatesFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
-    referralEnabled?: BoolWithAggregatesFilter<"AppSetting"> | boolean
     minimumWithdrawalAmount?: DecimalWithAggregatesFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
     maintenanceMode?: BoolWithAggregatesFilter<"AppSetting"> | boolean
     paystackEnabled?: BoolWithAggregatesFilter<"AppSetting"> | boolean
     flutterwaveEnabled?: BoolWithAggregatesFilter<"AppSetting"> | boolean
-    bitcoinDepositEnabled?: BoolWithAggregatesFilter<"AppSetting"> | boolean
     manualBankTransferEnabled?: BoolWithAggregatesFilter<"AppSetting"> | boolean
     updatedAt?: DateTimeWithAggregatesFilter<"AppSetting"> | Date | string
   }
@@ -22757,8 +22498,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -22769,8 +22508,6 @@ export namespace Prisma {
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -22786,9 +22523,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -22799,7 +22533,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -22815,8 +22548,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22827,8 +22558,6 @@ export namespace Prisma {
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -22844,9 +22573,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22857,7 +22583,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -22873,9 +22598,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -22891,8 +22613,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22908,9 +22628,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23215,7 +22932,6 @@ export namespace Prisma {
     proofText?: string | null
     proofFileUrl?: string | null
     proofFileName?: string | null
-    transactionHash?: string | null
     provider?: string | null
     providerReference?: string | null
     createdAt?: Date | string
@@ -23233,7 +22949,6 @@ export namespace Prisma {
     proofText?: string | null
     proofFileUrl?: string | null
     proofFileName?: string | null
-    transactionHash?: string | null
     provider?: string | null
     providerReference?: string | null
     createdAt?: Date | string
@@ -23249,7 +22964,6 @@ export namespace Prisma {
     proofText?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionHash?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerReference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23267,7 +22981,6 @@ export namespace Prisma {
     proofText?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionHash?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerReference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23284,7 +22997,6 @@ export namespace Prisma {
     proofText?: string | null
     proofFileUrl?: string | null
     proofFileName?: string | null
-    transactionHash?: string | null
     provider?: string | null
     providerReference?: string | null
     createdAt?: Date | string
@@ -23300,7 +23012,6 @@ export namespace Prisma {
     proofText?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionHash?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerReference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23317,7 +23028,6 @@ export namespace Prisma {
     proofText?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionHash?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerReference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23329,7 +23039,6 @@ export namespace Prisma {
     orderNumber: string
     totalAmount: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: boolean
     status?: string
     deliveryFileUrl?: string | null
     deliveryFileName?: string | null
@@ -23346,7 +23055,6 @@ export namespace Prisma {
     userId: string
     totalAmount: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: boolean
     status?: string
     deliveryFileUrl?: string | null
     deliveryFileName?: string | null
@@ -23361,7 +23069,6 @@ export namespace Prisma {
     orderNumber?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23378,7 +23085,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23394,7 +23100,6 @@ export namespace Prisma {
     userId: string
     totalAmount: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: boolean
     status?: string
     deliveryFileUrl?: string | null
     deliveryFileName?: string | null
@@ -23408,7 +23113,6 @@ export namespace Prisma {
     orderNumber?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23423,7 +23127,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23760,14 +23463,10 @@ export namespace Prisma {
     bankName?: string
     bankAccountName?: string
     bankAccountNumber?: string
-    btcWalletAddress?: string
-    referralBonus?: Decimal | DecimalJsLike | number | string
-    referralEnabled?: boolean
     minimumWithdrawalAmount?: Decimal | DecimalJsLike | number | string
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
-    bitcoinDepositEnabled?: boolean
     manualBankTransferEnabled?: boolean
     updatedAt?: Date | string
   }
@@ -23779,14 +23478,10 @@ export namespace Prisma {
     bankName?: string
     bankAccountName?: string
     bankAccountNumber?: string
-    btcWalletAddress?: string
-    referralBonus?: Decimal | DecimalJsLike | number | string
-    referralEnabled?: boolean
     minimumWithdrawalAmount?: Decimal | DecimalJsLike | number | string
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
-    bitcoinDepositEnabled?: boolean
     manualBankTransferEnabled?: boolean
     updatedAt?: Date | string
   }
@@ -23798,14 +23493,10 @@ export namespace Prisma {
     bankName?: StringFieldUpdateOperationsInput | string
     bankAccountName?: StringFieldUpdateOperationsInput | string
     bankAccountNumber?: StringFieldUpdateOperationsInput | string
-    btcWalletAddress?: StringFieldUpdateOperationsInput | string
-    referralBonus?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralEnabled?: BoolFieldUpdateOperationsInput | boolean
     minimumWithdrawalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceMode?: BoolFieldUpdateOperationsInput | boolean
     paystackEnabled?: BoolFieldUpdateOperationsInput | boolean
     flutterwaveEnabled?: BoolFieldUpdateOperationsInput | boolean
-    bitcoinDepositEnabled?: BoolFieldUpdateOperationsInput | boolean
     manualBankTransferEnabled?: BoolFieldUpdateOperationsInput | boolean
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23817,14 +23508,10 @@ export namespace Prisma {
     bankName?: StringFieldUpdateOperationsInput | string
     bankAccountName?: StringFieldUpdateOperationsInput | string
     bankAccountNumber?: StringFieldUpdateOperationsInput | string
-    btcWalletAddress?: StringFieldUpdateOperationsInput | string
-    referralBonus?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralEnabled?: BoolFieldUpdateOperationsInput | boolean
     minimumWithdrawalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceMode?: BoolFieldUpdateOperationsInput | boolean
     paystackEnabled?: BoolFieldUpdateOperationsInput | boolean
     flutterwaveEnabled?: BoolFieldUpdateOperationsInput | boolean
-    bitcoinDepositEnabled?: BoolFieldUpdateOperationsInput | boolean
     manualBankTransferEnabled?: BoolFieldUpdateOperationsInput | boolean
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23836,14 +23523,10 @@ export namespace Prisma {
     bankName?: string
     bankAccountName?: string
     bankAccountNumber?: string
-    btcWalletAddress?: string
-    referralBonus?: Decimal | DecimalJsLike | number | string
-    referralEnabled?: boolean
     minimumWithdrawalAmount?: Decimal | DecimalJsLike | number | string
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
-    bitcoinDepositEnabled?: boolean
     manualBankTransferEnabled?: boolean
     updatedAt?: Date | string
   }
@@ -23855,14 +23538,10 @@ export namespace Prisma {
     bankName?: StringFieldUpdateOperationsInput | string
     bankAccountName?: StringFieldUpdateOperationsInput | string
     bankAccountNumber?: StringFieldUpdateOperationsInput | string
-    btcWalletAddress?: StringFieldUpdateOperationsInput | string
-    referralBonus?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralEnabled?: BoolFieldUpdateOperationsInput | boolean
     minimumWithdrawalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceMode?: BoolFieldUpdateOperationsInput | boolean
     paystackEnabled?: BoolFieldUpdateOperationsInput | boolean
     flutterwaveEnabled?: BoolFieldUpdateOperationsInput | boolean
-    bitcoinDepositEnabled?: BoolFieldUpdateOperationsInput | boolean
     manualBankTransferEnabled?: BoolFieldUpdateOperationsInput | boolean
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23874,14 +23553,10 @@ export namespace Prisma {
     bankName?: StringFieldUpdateOperationsInput | string
     bankAccountName?: StringFieldUpdateOperationsInput | string
     bankAccountNumber?: StringFieldUpdateOperationsInput | string
-    btcWalletAddress?: StringFieldUpdateOperationsInput | string
-    referralBonus?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralEnabled?: BoolFieldUpdateOperationsInput | boolean
     minimumWithdrawalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     maintenanceMode?: BoolFieldUpdateOperationsInput | boolean
     paystackEnabled?: BoolFieldUpdateOperationsInput | boolean
     flutterwaveEnabled?: BoolFieldUpdateOperationsInput | boolean
-    bitcoinDepositEnabled?: BoolFieldUpdateOperationsInput | boolean
     manualBankTransferEnabled?: BoolFieldUpdateOperationsInput | boolean
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24264,17 +23939,6 @@ export namespace Prisma {
     none?: ProductWhereInput
   }
 
-  export type UserListRelationFilter = {
-    every?: UserWhereInput
-    some?: UserWhereInput
-    none?: UserWhereInput
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
   export type AuditLogListRelationFilter = {
     every?: AuditLogWhereInput
     some?: AuditLogWhereInput
@@ -24326,10 +23990,6 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type UserOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type AuditLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -24352,9 +24012,6 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    referralCode?: SortOrder
-    referrerId?: SortOrder
-    referralEarnings?: SortOrder
     resetTokenHash?: SortOrder
     resetTokenExpires?: SortOrder
     createdAt?: SortOrder
@@ -24364,7 +24021,6 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    referralEarnings?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -24377,9 +24033,6 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    referralCode?: SortOrder
-    referrerId?: SortOrder
-    referralEarnings?: SortOrder
     resetTokenHash?: SortOrder
     resetTokenExpires?: SortOrder
     createdAt?: SortOrder
@@ -24395,9 +24048,6 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    referralCode?: SortOrder
-    referrerId?: SortOrder
-    referralEarnings?: SortOrder
     resetTokenHash?: SortOrder
     resetTokenExpires?: SortOrder
     createdAt?: SortOrder
@@ -24407,7 +24057,6 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    referralEarnings?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -24533,6 +24182,11 @@ export namespace Prisma {
   export type CategoryScalarRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type OrderItemListRelationFilter = {
@@ -24706,7 +24360,6 @@ export namespace Prisma {
     proofText?: SortOrder
     proofFileUrl?: SortOrder
     proofFileName?: SortOrder
-    transactionHash?: SortOrder
     provider?: SortOrder
     providerReference?: SortOrder
     createdAt?: SortOrder
@@ -24727,7 +24380,6 @@ export namespace Prisma {
     proofText?: SortOrder
     proofFileUrl?: SortOrder
     proofFileName?: SortOrder
-    transactionHash?: SortOrder
     provider?: SortOrder
     providerReference?: SortOrder
     createdAt?: SortOrder
@@ -24744,7 +24396,6 @@ export namespace Prisma {
     proofText?: SortOrder
     proofFileUrl?: SortOrder
     proofFileName?: SortOrder
-    transactionHash?: SortOrder
     provider?: SortOrder
     providerReference?: SortOrder
     createdAt?: SortOrder
@@ -24761,7 +24412,6 @@ export namespace Prisma {
     userId?: SortOrder
     totalAmount?: SortOrder
     discountAmount?: SortOrder
-    referralBonusPaid?: SortOrder
     status?: SortOrder
     deliveryFileUrl?: SortOrder
     deliveryFileName?: SortOrder
@@ -24781,7 +24431,6 @@ export namespace Prisma {
     userId?: SortOrder
     totalAmount?: SortOrder
     discountAmount?: SortOrder
-    referralBonusPaid?: SortOrder
     status?: SortOrder
     deliveryFileUrl?: SortOrder
     deliveryFileName?: SortOrder
@@ -24796,7 +24445,6 @@ export namespace Prisma {
     userId?: SortOrder
     totalAmount?: SortOrder
     discountAmount?: SortOrder
-    referralBonusPaid?: SortOrder
     status?: SortOrder
     deliveryFileUrl?: SortOrder
     deliveryFileName?: SortOrder
@@ -24999,20 +24647,15 @@ export namespace Prisma {
     bankName?: SortOrder
     bankAccountName?: SortOrder
     bankAccountNumber?: SortOrder
-    btcWalletAddress?: SortOrder
-    referralBonus?: SortOrder
-    referralEnabled?: SortOrder
     minimumWithdrawalAmount?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
-    bitcoinDepositEnabled?: SortOrder
     manualBankTransferEnabled?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type AppSettingAvgOrderByAggregateInput = {
-    referralBonus?: SortOrder
     minimumWithdrawalAmount?: SortOrder
   }
 
@@ -25023,14 +24666,10 @@ export namespace Prisma {
     bankName?: SortOrder
     bankAccountName?: SortOrder
     bankAccountNumber?: SortOrder
-    btcWalletAddress?: SortOrder
-    referralBonus?: SortOrder
-    referralEnabled?: SortOrder
     minimumWithdrawalAmount?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
-    bitcoinDepositEnabled?: SortOrder
     manualBankTransferEnabled?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25042,20 +24681,15 @@ export namespace Prisma {
     bankName?: SortOrder
     bankAccountName?: SortOrder
     bankAccountNumber?: SortOrder
-    btcWalletAddress?: SortOrder
-    referralBonus?: SortOrder
-    referralEnabled?: SortOrder
     minimumWithdrawalAmount?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
-    bitcoinDepositEnabled?: SortOrder
     manualBankTransferEnabled?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type AppSettingSumOrderByAggregateInput = {
-    referralBonus?: SortOrder
     minimumWithdrawalAmount?: SortOrder
   }
 
@@ -25238,19 +24872,6 @@ export namespace Prisma {
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
-  export type UserCreateNestedManyWithoutReferrerInput = {
-    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput> | UserCreateWithoutReferrerInput[] | UserUncheckedCreateWithoutReferrerInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput | UserCreateOrConnectWithoutReferrerInput[]
-    createMany?: UserCreateManyReferrerInputEnvelope
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-  }
-
-  export type UserCreateNestedOneWithoutReferredUsersInput = {
-    create?: XOR<UserCreateWithoutReferredUsersInput, UserUncheckedCreateWithoutReferredUsersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReferredUsersInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type AuditLogCreateNestedManyWithoutUserInput = {
     create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
@@ -25319,13 +24940,6 @@ export namespace Prisma {
     connectOrCreate?: ProductCreateOrConnectWithoutSellerInput | ProductCreateOrConnectWithoutSellerInput[]
     createMany?: ProductCreateManySellerInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-  }
-
-  export type UserUncheckedCreateNestedManyWithoutReferrerInput = {
-    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput> | UserCreateWithoutReferrerInput[] | UserUncheckedCreateWithoutReferrerInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput | UserCreateOrConnectWithoutReferrerInput[]
-    createMany?: UserCreateManyReferrerInputEnvelope
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type AuditLogUncheckedCreateNestedManyWithoutUserInput = {
@@ -25471,30 +25085,6 @@ export namespace Prisma {
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
-  export type UserUpdateManyWithoutReferrerNestedInput = {
-    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput> | UserCreateWithoutReferrerInput[] | UserUncheckedCreateWithoutReferrerInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput | UserCreateOrConnectWithoutReferrerInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutReferrerInput | UserUpsertWithWhereUniqueWithoutReferrerInput[]
-    createMany?: UserCreateManyReferrerInputEnvelope
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutReferrerInput | UserUpdateWithWhereUniqueWithoutReferrerInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutReferrerInput | UserUpdateManyWithWhereWithoutReferrerInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
-  }
-
-  export type UserUpdateOneWithoutReferredUsersNestedInput = {
-    create?: XOR<UserCreateWithoutReferredUsersInput, UserUncheckedCreateWithoutReferredUsersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReferredUsersInput
-    upsert?: UserUpsertWithoutReferredUsersInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReferredUsersInput, UserUpdateWithoutReferredUsersInput>, UserUncheckedUpdateWithoutReferredUsersInput>
-  }
-
   export type AuditLogUpdateManyWithoutUserNestedInput = {
     create?: XOR<AuditLogCreateWithoutUserInput, AuditLogUncheckedCreateWithoutUserInput> | AuditLogCreateWithoutUserInput[] | AuditLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutUserInput | AuditLogCreateOrConnectWithoutUserInput[]
@@ -25633,20 +25223,6 @@ export namespace Prisma {
     update?: ProductUpdateWithWhereUniqueWithoutSellerInput | ProductUpdateWithWhereUniqueWithoutSellerInput[]
     updateMany?: ProductUpdateManyWithWhereWithoutSellerInput | ProductUpdateManyWithWhereWithoutSellerInput[]
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
-  }
-
-  export type UserUncheckedUpdateManyWithoutReferrerNestedInput = {
-    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput> | UserCreateWithoutReferrerInput[] | UserUncheckedCreateWithoutReferrerInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput | UserCreateOrConnectWithoutReferrerInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutReferrerInput | UserUpsertWithWhereUniqueWithoutReferrerInput[]
-    createMany?: UserCreateManyReferrerInputEnvelope
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutReferrerInput | UserUpdateWithWhereUniqueWithoutReferrerInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutReferrerInput | UserUpdateManyWithWhereWithoutReferrerInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type AuditLogUncheckedUpdateManyWithoutUserNestedInput = {
@@ -26449,7 +26025,6 @@ export namespace Prisma {
     proofText?: string | null
     proofFileUrl?: string | null
     proofFileName?: string | null
-    transactionHash?: string | null
     provider?: string | null
     providerReference?: string | null
     createdAt?: Date | string
@@ -26465,7 +26040,6 @@ export namespace Prisma {
     proofText?: string | null
     proofFileUrl?: string | null
     proofFileName?: string | null
-    transactionHash?: string | null
     provider?: string | null
     providerReference?: string | null
     createdAt?: Date | string
@@ -26487,7 +26061,6 @@ export namespace Prisma {
     orderNumber: string
     totalAmount: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: boolean
     status?: string
     deliveryFileUrl?: string | null
     deliveryFileName?: string | null
@@ -26502,7 +26075,6 @@ export namespace Prisma {
     orderNumber: string
     totalAmount: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: boolean
     status?: string
     deliveryFileUrl?: string | null
     deliveryFileName?: string | null
@@ -26694,133 +26266,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserCreateWithoutReferrerInput = {
-    id?: string
-    name: string
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
-    createdAt?: Date | string
-    deposits?: DepositCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    favorites?: FavoriteCreateNestedManyWithoutUserInput
-    reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    tickets?: SupportTicketCreateNestedManyWithoutUserInput
-    ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutReferrerInput = {
-    id?: string
-    name: string
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
-    createdAt?: Date | string
-    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
-    ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutReferrerInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
-  }
-
-  export type UserCreateManyReferrerInputEnvelope = {
-    data: UserCreateManyReferrerInput | UserCreateManyReferrerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserCreateWithoutReferredUsersInput = {
-    id?: string
-    name: string
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
-    createdAt?: Date | string
-    deposits?: DepositCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    favorites?: FavoriteCreateNestedManyWithoutUserInput
-    reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    tickets?: SupportTicketCreateNestedManyWithoutUserInput
-    ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutReferredUsersInput = {
-    id?: string
-    name: string
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
-    createdAt?: Date | string
-    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
-    ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutReferredUsersInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutReferredUsersInput, UserUncheckedCreateWithoutReferredUsersInput>
-  }
-
   export type AuditLogCreateWithoutUserInput = {
     id?: string
     action: string
@@ -26930,7 +26375,6 @@ export namespace Prisma {
     proofText?: StringNullableFilter<"Deposit"> | string | null
     proofFileUrl?: StringNullableFilter<"Deposit"> | string | null
     proofFileName?: StringNullableFilter<"Deposit"> | string | null
-    transactionHash?: StringNullableFilter<"Deposit"> | string | null
     provider?: StringNullableFilter<"Deposit"> | string | null
     providerReference?: StringNullableFilter<"Deposit"> | string | null
     createdAt?: DateTimeFilter<"Deposit"> | Date | string
@@ -26962,7 +26406,6 @@ export namespace Prisma {
     userId?: StringFilter<"Order"> | string
     totalAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFilter<"Order"> | boolean
     status?: StringFilter<"Order"> | string
     deliveryFileUrl?: StringNullableFilter<"Order"> | string | null
     deliveryFileName?: StringNullableFilter<"Order"> | string | null
@@ -27126,110 +26569,6 @@ export namespace Prisma {
     orderCount?: IntFilter<"Product"> | number
     isActive?: BoolFilter<"Product"> | boolean
     createdAt?: DateTimeFilter<"Product"> | Date | string
-  }
-
-  export type UserUpsertWithWhereUniqueWithoutReferrerInput = {
-    where: UserWhereUniqueInput
-    update: XOR<UserUpdateWithoutReferrerInput, UserUncheckedUpdateWithoutReferrerInput>
-    create: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
-  }
-
-  export type UserUpdateWithWhereUniqueWithoutReferrerInput = {
-    where: UserWhereUniqueInput
-    data: XOR<UserUpdateWithoutReferrerInput, UserUncheckedUpdateWithoutReferrerInput>
-  }
-
-  export type UserUpdateManyWithWhereWithoutReferrerInput = {
-    where: UserScalarWhereInput
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutReferrerInput>
-  }
-
-  export type UserScalarWhereInput = {
-    AND?: UserScalarWhereInput | UserScalarWhereInput[]
-    OR?: UserScalarWhereInput[]
-    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
-    id?: StringFilter<"User"> | string
-    name?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
-    passwordHash?: StringFilter<"User"> | string
-    role?: StringFilter<"User"> | string
-    sellerStatus?: StringFilter<"User"> | string
-    walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    referralCode?: StringNullableFilter<"User"> | string | null
-    referrerId?: StringNullableFilter<"User"> | string | null
-    referralEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: StringNullableFilter<"User"> | string | null
-    resetTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
-    createdAt?: DateTimeFilter<"User"> | Date | string
-  }
-
-  export type UserUpsertWithoutReferredUsersInput = {
-    update: XOR<UserUpdateWithoutReferredUsersInput, UserUncheckedUpdateWithoutReferredUsersInput>
-    create: XOR<UserCreateWithoutReferredUsersInput, UserUncheckedCreateWithoutReferredUsersInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutReferredUsersInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutReferredUsersInput, UserUncheckedUpdateWithoutReferredUsersInput>
-  }
-
-  export type UserUpdateWithoutReferredUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deposits?: DepositUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    tickets?: SupportTicketUpdateManyWithoutUserNestedInput
-    ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutReferredUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
-    ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AuditLogUpsertWithWhereUniqueWithoutUserInput = {
@@ -27425,8 +26764,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -27436,8 +26773,6 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -27453,9 +26788,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -27465,7 +26797,6 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -27622,8 +26953,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27633,8 +26962,6 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -27650,9 +26977,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27662,7 +26986,6 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -27884,8 +27207,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -27895,8 +27216,6 @@ export namespace Prisma {
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -27912,9 +27231,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -27924,7 +27240,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -27956,8 +27271,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27967,8 +27280,6 @@ export namespace Prisma {
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -27984,9 +27295,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27996,7 +27304,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -28012,8 +27319,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28023,8 +27328,6 @@ export namespace Prisma {
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -28040,9 +27343,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28052,7 +27352,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -28108,8 +27407,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28119,8 +27416,6 @@ export namespace Prisma {
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -28136,9 +27431,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28148,7 +27440,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -28175,7 +27466,6 @@ export namespace Prisma {
     orderNumber: string
     totalAmount: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: boolean
     status?: string
     deliveryFileUrl?: string | null
     deliveryFileName?: string | null
@@ -28191,7 +27481,6 @@ export namespace Prisma {
     userId: string
     totalAmount: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: boolean
     status?: string
     deliveryFileUrl?: string | null
     deliveryFileName?: string | null
@@ -28278,7 +27567,6 @@ export namespace Prisma {
     orderNumber?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28294,7 +27582,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28376,8 +27663,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28387,8 +27672,6 @@ export namespace Prisma {
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -28404,9 +27687,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28416,7 +27696,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -28448,8 +27727,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28459,8 +27736,6 @@ export namespace Prisma {
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -28476,9 +27751,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28488,7 +27760,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -28504,8 +27775,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28515,8 +27784,6 @@ export namespace Prisma {
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -28532,9 +27799,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28544,7 +27808,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -28576,8 +27839,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28587,8 +27848,6 @@ export namespace Prisma {
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -28604,9 +27863,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28616,7 +27872,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -28632,8 +27887,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28643,8 +27896,6 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -28660,9 +27911,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28672,7 +27920,6 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -28761,8 +28008,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28772,8 +28017,6 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -28789,9 +28032,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28801,7 +28041,6 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -28880,8 +28119,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28891,8 +28128,6 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -28908,9 +28143,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -28920,7 +28152,6 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -29009,8 +28240,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29020,8 +28249,6 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -29037,9 +28264,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29049,7 +28273,6 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -29128,8 +28351,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -29140,8 +28361,6 @@ export namespace Prisma {
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
   }
@@ -29156,9 +28375,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -29169,7 +28385,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
   }
@@ -29200,8 +28415,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29212,8 +28425,6 @@ export namespace Prisma {
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
   }
@@ -29228,9 +28439,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29241,7 +28449,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -29256,8 +28463,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -29268,8 +28473,6 @@ export namespace Prisma {
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
   }
@@ -29284,9 +28487,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -29297,7 +28497,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
   }
@@ -29352,8 +28551,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29364,8 +28561,6 @@ export namespace Prisma {
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
   }
@@ -29380,9 +28575,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29393,7 +28585,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -29447,8 +28638,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -29459,8 +28648,6 @@ export namespace Prisma {
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
     products?: ProductCreateNestedManyWithoutSellerInput
-    referredUsers?: UserCreateNestedManyWithoutReferrerInput
-    referrer?: UserCreateNestedOneWithoutReferredUsersInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
   }
@@ -29475,9 +28662,6 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referrerId?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
     resetTokenHash?: string | null
     resetTokenExpires?: Date | string | null
     createdAt?: Date | string
@@ -29488,7 +28672,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    referredUsers?: UserUncheckedCreateNestedManyWithoutReferrerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
   }
@@ -29548,8 +28731,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29560,8 +28741,6 @@ export namespace Prisma {
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
     products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    referrer?: UserUpdateOneWithoutReferredUsersNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
   }
@@ -29576,9 +28755,6 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referrerId?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
     resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29589,7 +28765,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -29603,7 +28778,6 @@ export namespace Prisma {
     proofText?: string | null
     proofFileUrl?: string | null
     proofFileName?: string | null
-    transactionHash?: string | null
     provider?: string | null
     providerReference?: string | null
     createdAt?: Date | string
@@ -29615,7 +28789,6 @@ export namespace Prisma {
     orderNumber: string
     totalAmount: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: boolean
     status?: string
     deliveryFileUrl?: string | null
     deliveryFileName?: string | null
@@ -29681,23 +28854,6 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type UserCreateManyReferrerInput = {
-    id?: string
-    name: string
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    referralCode?: string | null
-    referralEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
-    createdAt?: Date | string
-  }
-
   export type AuditLogCreateManyUserInput = {
     id?: string
     action: string
@@ -29731,7 +28887,6 @@ export namespace Prisma {
     proofText?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionHash?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerReference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29747,7 +28902,6 @@ export namespace Prisma {
     proofText?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionHash?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerReference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29763,7 +28917,6 @@ export namespace Prisma {
     proofText?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     proofFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    transactionHash?: NullableStringFieldUpdateOperationsInput | string | null
     provider?: NullableStringFieldUpdateOperationsInput | string | null
     providerReference?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29775,7 +28928,6 @@ export namespace Prisma {
     orderNumber?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29790,7 +28942,6 @@ export namespace Prisma {
     orderNumber?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29805,7 +28956,6 @@ export namespace Prisma {
     orderNumber?: StringFieldUpdateOperationsInput | string
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralBonusPaid?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
     deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29990,79 +29140,6 @@ export namespace Prisma {
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserUpdateWithoutReferrerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deposits?: DepositUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUpdateManyWithoutReferrerNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    tickets?: SupportTicketUpdateManyWithoutUserNestedInput
-    ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutReferrerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    referredUsers?: UserUncheckedUpdateManyWithoutReferrerNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
-    ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateManyWithoutReferrerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
-    referralEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

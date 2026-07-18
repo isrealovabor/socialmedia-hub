@@ -19,8 +19,8 @@ async function upsertUser({ name, email, password, role, walletBalance = 0 }) {
   const passwordHash = await bcrypt.hash(password, 12);
   return prisma.user.upsert({
     where: { email },
-    update: { name, passwordHash, role, walletBalance, referralCode: `${name.replace(/[^a-z0-9]/gi, "").slice(0, 5).toUpperCase()}123` },
-    create: { name, email, passwordHash, role, walletBalance, referralCode: `${name.replace(/[^a-z0-9]/gi, "").slice(0, 5).toUpperCase()}123` },
+    update: { name, passwordHash, role, walletBalance },
+    create: { name, email, passwordHash, role, walletBalance },
   });
 }
 

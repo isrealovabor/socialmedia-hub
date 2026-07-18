@@ -19,9 +19,6 @@ model User {
   walletBalance     Decimal          @default(0)
   totalSpent        Decimal          @default(0)
   sellerEarnings    Decimal          @default(0)
-  referralCode      String?          @unique
-  referrerId        String?
-  referralEarnings  Decimal          @default(0)
   resetTokenHash    String?
   resetTokenExpires DateTime?
   createdAt         DateTime         @default(now())
@@ -32,8 +29,6 @@ model User {
   favorites         Favorite[]
   reviews           Review[]
   products          Product[]
-  referredUsers     User[]           @relation("UserReferrals")
-  referrer          User?            @relation("UserReferrals", fields: [referrerId], references: [id])
   auditLogs         AuditLog[]
   tickets           SupportTicket[]
   ticketMessages    SupportMessage[]
@@ -96,7 +91,6 @@ model Deposit {
   proofText         String?
   proofFileUrl      String?
   proofFileName     String?
-  transactionHash   String?
   provider          String?
   providerReference String?  @unique
   createdAt         DateTime @default(now())
@@ -105,20 +99,19 @@ model Deposit {
 }
 
 model Order {
-  id                String      @id @default(cuid())
-  orderNumber       String      @unique
-  userId            String
-  totalAmount       Decimal
-  discountAmount    Decimal     @default(0)
-  referralBonusPaid Boolean     @default(false)
-  status            String      @default("PROCESSING")
-  deliveryFileUrl   String?
-  deliveryFileName  String?
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  completedAt       DateTime?
-  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items             OrderItem[]
+  id               String      @id @default(cuid())
+  orderNumber      String      @unique
+  userId           String
+  totalAmount      Decimal
+  discountAmount   Decimal     @default(0)
+  status           String      @default("PROCESSING")
+  deliveryFileUrl  String?
+  deliveryFileName String?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  completedAt      DateTime?
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items            OrderItem[]
 }
 
 model OrderItem {
@@ -187,14 +180,10 @@ model AppSetting {
   bankName                  String   @default("Moniepoint")
   bankAccountName           String   @default("SocialHub Market Ltd")
   bankAccountNumber         String   @default("XXXXXXXXXX")
-  btcWalletAddress          String   @default("bc1qsocialhubmarketdevwallet0000000000")
-  referralBonus             Decimal  @default(1000)
-  referralEnabled           Boolean  @default(true)
   minimumWithdrawalAmount   Decimal  @default(5000)
   maintenanceMode           Boolean  @default(false)
   paystackEnabled           Boolean  @default(false)
   flutterwaveEnabled        Boolean  @default(false)
-  bitcoinDepositEnabled     Boolean  @default(true)
   manualBankTransferEnabled Boolean  @default(true)
   updatedAt                 DateTime @updatedAt
 }
