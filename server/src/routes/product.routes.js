@@ -29,8 +29,8 @@ router.get(
     const where = {
       isActive: true,
       status: "ACTIVE",
+      stock: { gt: 0 },
       ...(platform ? { platform: { contains: String(platform) } } : {}),
-      ...(stock === "in" ? { stock: { gt: 0 } } : {}),
       ...(minPrice || maxPrice
         ? {
             price: {
@@ -61,7 +61,7 @@ router.get(
 
     const products = await prisma.product.findMany({
       where,
-      include: { category: true, deliveryFiles: true, reviews: { where: { isActive: true } } },
+      include: { category: true, reviews: { where: { isActive: true } } },
       orderBy,
     });
     res.json({ products: products.map(productDto) });
@@ -72,8 +72,8 @@ router.get(
   "/products/:id",
   asyncHandler(async (req, res) => {
     const product = await prisma.product.findFirst({
-      where: { id: req.params.id, isActive: true, status: "ACTIVE" },
-      include: { category: true, deliveryFiles: true, reviews: { where: { isActive: true }, include: { user: true } } },
+      where: { id: req.params.id, isActive: true, status: "ACTIVE", stock: { gt: 0 } },
+      include: { category: true, reviews: { where: { isActive: true }, include: { user: true } } },
     });
     if (!product) {
       throw new ApiError(404, "Product not found.");
@@ -89,8 +89,8 @@ router.get(
       where: { slug: req.params.slug },
       include: {
         products: {
-          where: { isActive: true, status: "ACTIVE" },
-          include: { deliveryFiles: true, reviews: { where: { isActive: true } } },
+          where: { isActive: true, status: "ACTIVE", stock: { gt: 0 } },
+          include: { reviews: { where: { isActive: true } } },
           orderBy: { createdAt: "desc" },
         },
       },

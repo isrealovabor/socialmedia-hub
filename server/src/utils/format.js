@@ -20,12 +20,42 @@ export function publicUser(user) {
 }
 
 export function productDto(product) {
+  const {
+    deliveryFiles,
+    deliveryFileUrl,
+    deliveryFileName,
+    deliveryInstructions,
+    ...publicProduct
+  } = product;
   return {
-    ...product,
+    ...publicProduct,
     price: toNumber(product.price),
-    reviews: product.reviews,
+    reviews: product.reviews?.map(({ user, ...review }) => ({
+      ...review,
+      user: user ? { id: user.id, name: user.name } : undefined,
+    })),
     category: product.category,
     isFavorite: product.isFavorite,
+  };
+}
+
+export function managedProductDto(product) {
+  return {
+    ...productDto(product),
+    deliveryInstructions: product.deliveryInstructions,
+    deliveryFiles: product.deliveryFiles?.map(inventoryDto),
+  };
+}
+
+export function inventoryDto(item) {
+  return {
+    id: item.id,
+    fileName: item.fileName,
+    status: item.status,
+    orderItemId: item.orderItemId,
+    reservedAt: item.reservedAt,
+    soldAt: item.soldAt,
+    createdAt: item.createdAt,
   };
 }
 
@@ -47,6 +77,7 @@ export function orderDto(order) {
       ...item,
       unitPrice: toNumber(item.unitPrice),
       product: item.product ? productDto(item.product) : undefined,
+      deliveries: item.deliveries?.map(inventoryDto),
     })),
   };
 }

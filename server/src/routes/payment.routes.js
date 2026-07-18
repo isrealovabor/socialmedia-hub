@@ -121,6 +121,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const provider = String(req.params.provider).toUpperCase();
     if (!supportedProviders.includes(provider)) throw new ApiError(400, "Unsupported payment provider.");
+    if (!providerSecretKey(provider)) throw new ApiError(503, `${provider} payments are not configured.`);
     const amount = Number(req.body.amount);
     if (!amount || amount < 1000) throw new ApiError(400, "Amount must be at least NGN 1,000.");
     const customerEmail = paymentEmail(req.body.customerEmail);
@@ -134,7 +135,7 @@ router.post(
       amount,
       reference,
       email: customerEmail,
-      name: req.user.name,
+      name: req.user.name || req.user.email.split("@")[0],
     });
     const key = providerPublicKey(provider);
     res.status(201).json({
@@ -171,16 +172,20 @@ router.get(
   })
 );
 
-async function approvePaymentTransaction(id) {
+export async function approvePaymentTransaction(id) {
   return prisma.$transaction(async (db) => {
+    const claimed = await db.paymentTransaction.updateMany({
+      where: { id, status: "PENDING" },
+      data: { status: "PROCESSING" },
+    });
     const current = await db.paymentTransaction.findUnique({ where: { id } });
     if (!current) throw new ApiError(404, "Payment not found.");
-    if (current.status === "SUCCESS") {
+    if (claimed.count === 0) {
       const existing = await db.deposit.findUnique({ where: { providerReference: current.reference } });
-      if (existing) return existing;
+      if (current.status === "SUCCESS" && existing) return existing;
+      throw new ApiError(409, "Payment verification is already being processed.");
     }
 
-    await db.paymentTransaction.update({ where: { id: current.id }, data: { status: "SUCCESS" } });
     const created = await db.deposit.create({
       data: {
         userId: current.userId,
@@ -194,6 +199,7 @@ async function approvePaymentTransaction(id) {
       },
     });
     await db.user.update({ where: { id: current.userId }, data: { walletBalance: { increment: current.amount } } });
+    await db.paymentTransaction.update({ where: { id: current.id }, data: { status: "SUCCESS" } });
     return created;
   });
 }
@@ -211,11 +217,7 @@ async function approveVerifiedPayment(provider, reference, amount) {
 async function initializeProviderPayment(provider, { amount, reference, email, name }) {
   const secret = providerSecretKey(provider);
   if (!secret) {
-    return {
-      authorizationUrl: null,
-      devMode: true,
-      message: `${provider} secret key is not configured. Use verify to simulate success in development.`,
-    };
+    throw new ApiError(503, `${provider} payments are not configured.`);
   }
 
   const redirectUrl = `${process.env.CLIENT_URL || "http://localhost:5173"}/deposit?provider=${provider.toLowerCase()}&reference=${encodeURIComponent(reference)}`;
@@ -293,7 +295,7 @@ function providerCheckoutUrl(provider, data) {
 
 async function verifyProviderPayment(provider, reference, amount) {
   const secret = providerSecretKey(provider);
-  if (!secret) return true;
+  if (!secret) return false;
   const url = providerVerifyUrl(provider, reference);
   const response = await fetch(url, { headers: { Authorization: `Bearer ${secret}` } }).catch(() => null);
   if (!response?.ok) return false;

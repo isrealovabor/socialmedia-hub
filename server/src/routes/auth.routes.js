@@ -49,13 +49,12 @@ router.post(
     const passwordHash = await bcrypt.hash(req.body.password, 12);
     const user = await prisma.user.create({
       data: {
-        name: req.body.name,
         email: req.body.email,
         passwordHash,
       },
     });
 
-    await sendEmail(user.email, "welcome", { name: user.name });
+    await sendEmail(user.email, "welcome", { name: user.email.split("@")[0] });
     res.status(201).json({ success: true, token: signToken(user), user: authUser(user) });
   })
 );

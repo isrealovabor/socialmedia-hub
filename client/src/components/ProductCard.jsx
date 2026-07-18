@@ -14,6 +14,7 @@ export default function ProductCard({ product, onBuy, onFavorite }) {
     product.platform ||
     platform.name;
   const stock = typeof product.stock === "number" ? `${product.stock.toLocaleString()} pcs.` : product.stock;
+  const outOfStock = Number(product.stock) <= 0;
   return (
     <article className="product-card mb-3 rounded-[1.35rem] border border-white/70 bg-white/88 p-3 shadow-soft backdrop-blur-sm">
       <div className="grid grid-cols-[3.25rem_1fr] gap-3">
@@ -64,11 +65,12 @@ export default function ProductCard({ product, onBuy, onFavorite }) {
             </div>
             <button
               type="button"
-              onClick={() => onBuy(product)}
-              className="tap-highlight brand-gradient flex h-10 min-w-24 items-center justify-center gap-1 rounded-full px-4 text-sm font-black text-white shadow-glow transition hover:scale-[1.02]"
+              onClick={() => !outOfStock && onBuy(product)}
+              disabled={outOfStock}
+              className="tap-highlight brand-gradient flex h-10 min-w-24 items-center justify-center gap-1 rounded-full px-4 text-sm font-black text-white shadow-glow transition hover:scale-[1.02] disabled:bg-none disabled:bg-gray-300 disabled:text-gray-600 disabled:shadow-none"
             >
               <ShoppingCart size={17} />
-              Buy
+              {outOfStock ? "Sold out" : "Buy"}
             </button>
           </div>
         </div>

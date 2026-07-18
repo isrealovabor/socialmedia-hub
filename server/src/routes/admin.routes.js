@@ -8,7 +8,7 @@ import { ApiError, asyncHandler } from "../utils/errors.js";
 import { createNotification } from "../utils/notifications.js";
 import { sendEmail } from "../utils/email.js";
 import { auditLog } from "../utils/audit.js";
-import { depositDto, orderDto, productDto, publicUser, reviewDto } from "../utils/format.js";
+import { depositDto, managedProductDto, orderDto, publicUser, reviewDto } from "../utils/format.js";
 import { validate } from "../utils/validation.js";
 import {
   categoryCreateSchema,
@@ -170,9 +170,8 @@ router.post(
     }
     if (deliveryFiles.length) {
       req.deliveryFiles = deliveryFiles;
-      req.body.deliveryFileUrl = publicUploadPath(deliveryFiles[0]);
-      req.body.deliveryFileName = deliveryFiles[0].originalname;
     }
+    req.body.stock = deliveryFiles.length;
     await normalizeProductPlatform(req.body);
     next();
   }),
@@ -192,7 +191,7 @@ router.post(
       },
       include: { category: true, deliveryFiles: true },
     });
-    res.status(201).json({ product: productDto(product) });
+    res.status(201).json({ product: managedProductDto(product) });
   })
 );
 
@@ -203,7 +202,7 @@ router.get(
       include: { category: true, deliveryFiles: true },
       orderBy: { createdAt: "desc" },
     });
-    res.json({ products: products.map(productDto) });
+    res.json({ products: products.map(managedProductDto) });
   })
 );
 
@@ -242,8 +241,6 @@ router.patch(
     }
     if (deliveryFiles.length) {
       req.deliveryFiles = deliveryFiles;
-      req.body.deliveryFileUrl = publicUploadPath(deliveryFiles[0]);
-      req.body.deliveryFileName = deliveryFiles[0].originalname;
     }
     await normalizeProductPlatform(req.body);
     next();
@@ -252,6 +249,7 @@ router.patch(
   asyncHandler(async (req, res) => {
     const newDeliveryCount = req.deliveryFiles?.length || 0;
     const data = { ...req.body };
+    delete data.stock;
     if (newDeliveryCount) {
       data.stock =
         data.stock !== undefined
@@ -274,7 +272,7 @@ router.patch(
       include: { category: true, deliveryFiles: true },
     });
     await auditLog({ userId: req.user.id, action: "PRODUCT_EDITED", entityType: "Product", entityId: product.id });
-    res.json({ product: productDto(product) });
+    res.json({ product: managedProductDto(product) });
   })
 );
 
@@ -288,8 +286,6 @@ router.post(
     const product = await prisma.product.update({
       where: { id: req.params.id },
       data: {
-        deliveryFileUrl: publicUploadPath(files[0]),
-        deliveryFileName: files[0].originalname,
         stock: { increment: files.length },
         deliveryFiles: {
           create: files.map((file) => ({
@@ -307,7 +303,7 @@ router.post(
       entityId: product.id,
       metadata: { count: files.length },
     });
-    res.status(201).json({ product: productDto(product) });
+    res.status(201).json({ product: managedProductDto(product) });
   })
 );
 
@@ -331,7 +327,7 @@ router.patch(
       data: { isActive: true, status: "ACTIVE" },
       include: { category: true, deliveryFiles: true },
     });
-    res.json({ product: productDto(product) });
+    res.json({ product: managedProductDto(product) });
   })
 );
 
@@ -343,7 +339,7 @@ router.patch(
       data: { isActive: false, status: "DISABLED" },
       include: { category: true, deliveryFiles: true },
     });
-    res.json({ product: productDto(product) });
+    res.json({ product: managedProductDto(product) });
   })
 );
 
@@ -351,7 +347,7 @@ router.get(
   "/orders",
   asyncHandler(async (req, res) => {
     const orders = await prisma.order.findMany({
-      include: { user: true, items: { include: { product: { include: { deliveryFiles: true } } } } },
+      include: { user: true, items: { include: { product: true, deliveries: true } } },
       orderBy: { createdAt: "desc" },
     });
     res.json({ orders: orders.map(orderDto) });
@@ -372,7 +368,7 @@ router.patch(
           status,
           completedAt: status === "COMPLETED" ? new Date() : undefined,
         },
-        include: { user: true, items: { include: { product: { include: { deliveryFiles: true } } } } },
+        include: { user: true, items: { include: { product: true, deliveries: true } } },
       });
       if (status === "COMPLETED" || status === "CANCELLED") {
         await createNotification(
@@ -408,7 +404,7 @@ router.post(
           status: "COMPLETED",
           completedAt: new Date(),
         },
-        include: { user: true, items: { include: { product: { include: { deliveryFiles: true } } } } },
+        include: { user: true, items: { include: { product: true, deliveries: true } } },
       });
       await createNotification(
         {

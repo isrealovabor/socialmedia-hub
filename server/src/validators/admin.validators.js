@@ -23,8 +23,6 @@ export const productCreateSchema = z.object({
   platform: z.string().trim().min(2),
   deliveryTime: z.string().trim().min(2),
   deliveryType: z.string().trim().min(2).default("SERVICE"),
-  deliveryFileUrl: z.string().optional().nullable(),
-  deliveryFileName: z.string().optional().nullable(),
   deliveryInstructions: z.string().optional().nullable(),
   imageUrl: z.string().optional().nullable(),
   imageName: z.string().optional().nullable(),

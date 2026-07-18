@@ -4,7 +4,7 @@ import { requireSeller } from "../middleware/roles.js";
 import { productAssetUpload, deliveryUpload, publicUploadPath } from "../middleware/upload.js";
 import { prisma } from "../prisma.js";
 import { ApiError, asyncHandler } from "../utils/errors.js";
-import { productDto, orderDto, toNumber } from "../utils/format.js";
+import { managedProductDto, orderDto, toNumber } from "../utils/format.js";
 import { auditLog } from "../utils/audit.js";
 import { createNotification } from "../utils/notifications.js";
 
@@ -39,7 +39,7 @@ router.get("/seller/analytics", asyncHandler(async (req, res) => {
 
 router.get("/seller/products", asyncHandler(async (req, res) => {
   const products = await prisma.product.findMany({ where: { sellerId: req.user.id }, include: { category: true, deliveryFiles: true } });
-  res.json({ products: products.map(productDto) });
+  res.json({ products: products.map(managedProductDto) });
 }));
 
 router.post("/seller/products", productAssetUpload.fields([
@@ -58,13 +58,11 @@ router.post("/seller/products", productAssetUpload.fields([
       title: req.body.title,
       description: req.body.description,
       price: Number(req.body.price),
-      stock: Number(req.body.stock),
+      stock: deliveryFiles.length,
       platform: category.name,
       deliveryTime: req.body.deliveryTime || "48h",
       deliveryType: req.body.deliveryType || "MANUAL_SERVICE",
       deliveryInstructions: req.body.deliveryInstructions || null,
-      deliveryFileUrl: deliveryFiles[0] ? publicUploadPath(deliveryFiles[0]) : null,
-      deliveryFileName: deliveryFiles[0]?.originalname,
       deliveryFiles: deliveryFiles.length
         ? {
             create: deliveryFiles.map((file) => ({
@@ -81,7 +79,7 @@ router.post("/seller/products", productAssetUpload.fields([
     },
     include: { category: true, deliveryFiles: true },
   });
-  res.status(201).json({ product: productDto(product) });
+  res.status(201).json({ product: managedProductDto(product) });
 }));
 
 router.patch("/seller/products/:id", productAssetUpload.fields([
@@ -100,12 +98,10 @@ router.patch("/seller/products/:id", productAssetUpload.fields([
       title: req.body.title ?? undefined,
       description: req.body.description ?? undefined,
       price: req.body.price ? Number(req.body.price) : undefined,
-      stock: req.body.stock ? Number(req.body.stock) : undefined,
+      stock: deliveryFiles.length ? { increment: deliveryFiles.length } : undefined,
       deliveryTime: req.body.deliveryTime ?? undefined,
       deliveryType: req.body.deliveryType ?? undefined,
       deliveryInstructions: req.body.deliveryInstructions ?? undefined,
-      deliveryFileUrl: deliveryFiles[0] ? publicUploadPath(deliveryFiles[0]) : undefined,
-      deliveryFileName: deliveryFiles[0]?.originalname,
       deliveryFiles: deliveryFiles.length
         ? {
             create: deliveryFiles.map((file) => ({
@@ -119,13 +115,13 @@ router.patch("/seller/products/:id", productAssetUpload.fields([
     },
     include: { category: true, deliveryFiles: true },
   });
-  res.json({ product: productDto(updated) });
+  res.json({ product: managedProductDto(updated) });
 }));
 
 router.get("/seller/orders", asyncHandler(async (req, res) => {
   const orders = await prisma.order.findMany({
     where: { items: { some: { product: { sellerId: req.user.id } } } },
-    include: { user: true, items: { include: { product: { include: { deliveryFiles: true } } } } },
+    include: { user: true, items: { include: { product: true } } },
     orderBy: { createdAt: "desc" },
   });
   res.json({ orders: orders.map(orderDto) });
@@ -139,7 +135,7 @@ router.post("/seller/orders/:id/delivery", deliveryUpload.single("file"), asyncH
   const updated = await prisma.order.update({
     where: { id: order.id },
     data: { deliveryFileUrl: publicUploadPath(req.file), deliveryFileName: req.file?.originalname, status: "COMPLETED", completedAt: new Date() },
-    include: { user: true, items: { include: { product: { include: { deliveryFiles: true } } } } },
+    include: { user: true, items: { include: { product: true } } },
   });
   await createNotification({ userId: updated.userId, title: "Order completed", message: "Your seller delivery is ready.", type: "ORDER_COMPLETED" });
   await auditLog({ userId: req.user.id, action: "SELLER_DELIVERY_UPLOADED", entityType: "Order", entityId: updated.id });

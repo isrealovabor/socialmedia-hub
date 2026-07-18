@@ -16,6 +16,7 @@
     "prisma:seed": "prisma db seed",
     "services:clear": "node scripts/clear-services.js",
     "test:auth": "node scripts/test-auth.js",
+    "test:inventory": "node scripts/test-inventory-flow.js",
     "test:sqlite-flow": "node scripts/test-sqlite-flow.js",
     "test:step4-flow": "node scripts/test-step4-flow.js"
   },

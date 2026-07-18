@@ -11,7 +11,7 @@ datasource db {
 
 model User {
   id                String           @id @default(cuid())
-  name              String
+  name              String?
   email             String           @unique
   passwordHash      String
   role              String           @default("USER")
@@ -73,12 +73,20 @@ model Product {
 }
 
 model ProductDeliveryFile {
-  id        String   @id @default(cuid())
-  productId String
-  fileUrl   String
-  fileName  String
-  createdAt DateTime @default(now())
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  id          String     @id @default(cuid())
+  productId   String
+  orderItemId String?
+  fileUrl     String
+  fileName    String
+  status      String     @default("AVAILABLE")
+  reservedAt  DateTime?
+  soldAt      DateTime?
+  createdAt   DateTime   @default(now())
+  product     Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItem   OrderItem? @relation(fields: [orderItemId], references: [id], onDelete: Restrict)
+
+  @@index([productId, status])
+  @@index([orderItemId])
 }
 
 model Deposit {
@@ -115,13 +123,14 @@ model Order {
 }
 
 model OrderItem {
-  id        String  @id @default(cuid())
-  orderId   String
-  productId String
-  quantity  Int
-  unitPrice Decimal
-  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product   Product @relation(fields: [productId], references: [id])
+  id         String                @id @default(cuid())
+  orderId    String
+  productId  String
+  quantity   Int
+  unitPrice  Decimal
+  order      Order                 @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product    Product               @relation(fields: [productId], references: [id])
+  deliveries ProductDeliveryFile[]
 }
 
 model Withdrawal {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { authApi, setToken } from "../api/client.js";
 
 export default function RegisterPage({ onAuth }) {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
 
   const submit = async (event) => {
@@ -24,15 +24,6 @@ export default function RegisterPage({ onAuth }) {
         <h1 className="text-2xl font-black text-market-navy">Create account</h1>
       </div>
       <form onSubmit={submit} className="glass-panel space-y-3 rounded-[1.35rem] p-4">
-        <label className="block">
-          <span className="text-xs font-bold text-gray-600">Full name</span>
-          <input
-            value={form.name}
-            onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
-            className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 outline-none focus:border-market-emerald"
-            placeholder="Your name"
-          />
-        </label>
         <label className="block">
           <span className="text-xs font-bold text-gray-600">Email</span>
           <input

@@ -14,7 +14,7 @@ import DepositPage from "./pages/DepositPage.jsx";
 import WishlistPage from "./pages/WishlistPage.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
-import { authApi, catalogApi, clearToken, favoriteApi, notificationApi } from "./api/client.js";
+import { authApi, catalogApi, clearToken, favoriteApi, getToken, notificationApi } from "./api/client.js";
 
 export default function App() {
   const [cart, setCart] = useState([]);
@@ -25,6 +25,7 @@ export default function App() {
   const [unreadCount, setUnreadCount] = useState(0);
   const [loadingCatalog, setLoadingCatalog] = useState(true);
   const [catalogError, setCatalogError] = useState("");
+  const [restoringSession, setRestoringSession] = useState(() => Boolean(getToken()));
   const navigate = useNavigate();
 
   const cartCount = useMemo(
@@ -85,7 +86,9 @@ export default function App() {
   };
 
   useEffect(() => {
-    refreshUser();
+    if (getToken()) {
+      refreshUser().finally(() => setRestoringSession(false));
+    }
     refreshCatalog();
   }, []);
 
@@ -159,9 +162,18 @@ export default function App() {
 
   return (
     <Layout cartCount={cartCount} categories={categories} unreadCount={unreadCount}>
+      {restoringSession ? (
+        <div className="glass-panel rounded-[1.35rem] px-4 py-8 text-center text-sm font-bold text-slate-600">
+          Restoring your session...
+        </div>
+      ) : (
       <Routes>
         <Route
           path="/"
+          element={<HomePage products={products} loading={loadingCatalog} error={catalogError} onBuy={addToCart} onFavorite={toggleFavorite} />}
+        />
+        <Route
+          path="/products"
           element={<HomePage products={products} loading={loadingCatalog} error={catalogError} onBuy={addToCart} onFavorite={toggleFavorite} />}
         />
         <Route
@@ -185,6 +197,7 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/register" element={<RegisterPage onAuth={handleAuth} />} />
+        <Route path="/payment" element={<Navigate to="/deposit" replace />} />
         <Route
           path="/dashboard"
           element={<DashboardPage user={user} cartCount={cartCount} onLogout={handleLogout} />}
@@ -219,8 +232,11 @@ export default function App() {
           path="/admin"
           element={<AdminPage user={user} categories={categories} onCatalogRefresh={refreshCatalog} />}
         />
+        <Route path="/orders" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/orders/:id" element={<DashboardPage user={user} cartCount={cartCount} onLogout={handleLogout} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      )}
     </Layout>
   );
 }

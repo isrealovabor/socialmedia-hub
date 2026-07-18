@@ -58,7 +58,7 @@ export default function DashboardPage({ user, cartCount, onLogout }) {
         <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-market-cyan/30 blur-2xl" />
         <p className="relative text-xs font-bold uppercase text-emerald-200">Wallet balance</p>
         <p className="relative mt-1 text-3xl font-black">{formatNaira(user.walletBalance)}</p>
-        <p className="relative mt-1 text-sm font-semibold text-slate-200">{user.name}</p>
+        <p className="relative mt-1 text-sm font-semibold text-slate-200">{user.name || user.email}</p>
         <div className="mt-4 grid grid-cols-2 gap-2">
           <QuickButton to="/wallet" icon={WalletCards} label="Deposit" />
           <QuickButton to="/dashboard" icon={PackageCheck} label="Orders" />
@@ -131,9 +131,8 @@ export default function DashboardPage({ user, cartCount, onLogout }) {
                     </button>
                   )}
                   {order.items
-                    ?.filter((item) => item.product?.deliveryType === "INSTANT_DOWNLOAD")
                     .flatMap((item) =>
-                      (item.product.deliveryFiles || []).map((file) => (
+                      (item.deliveries || []).map((file) => (
                         <button
                           key={`${item.id}-${file.id}`}
                           type="button"

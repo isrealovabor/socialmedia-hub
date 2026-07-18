@@ -10,7 +10,6 @@ const emptyProduct = {
   title: "",
   description: "",
   price: "",
-  stock: "",
   platform: "",
   deliveryTime: "48h",
   deliveryType: "MANUAL_SERVICE",
@@ -98,7 +97,6 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
         ...productForm,
         platform: selectedCategory?.name || productForm.platform,
         price: Number(productForm.price),
-        stock: Number(productForm.stock),
       }).forEach(([key, value]) => payload.append(key, value));
       if (productImage) payload.append("image", productImage);
       productDeliveryFiles.forEach((file) => payload.append("deliveryFiles", file));
@@ -178,7 +176,6 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
       title: product.title,
       description: product.description,
       price: product.price,
-      stock: product.stock,
       platform: product.platform,
       deliveryTime: product.deliveryTime,
       deliveryType: product.deliveryType || "SERVICE",
@@ -416,7 +413,7 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
             placeholder="Service/package description"
             required
           />
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid gap-2">
             <input
               type="number"
               value={productForm.price}
@@ -425,15 +422,10 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
               placeholder="Price"
               required
             />
-            <input
-              type="number"
-              value={productForm.stock}
-              onChange={(event) => setProductForm((form) => ({ ...form, stock: event.target.value }))}
-              className="h-11 rounded-2xl border border-emerald-100 bg-white/85 px-3 text-sm"
-              placeholder="Stock"
-              required
-            />
           </div>
+          <p className="rounded-2xl bg-emerald-50 px-3 py-2 text-xs font-semibold text-slate-600">
+            Available stock is calculated automatically from the individual delivery files added below.
+          </p>
           <div className="grid grid-cols-2 gap-2">
             <select
               value={productForm.deliveryType}
@@ -543,7 +535,7 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
                 {product.platform} - {formatNaira(product.price)} - {product.stock} pcs.
               </p>
               <p className="mt-1 text-xs text-gray-500">
-                Delivery files: {product.deliveryFiles?.length ? product.deliveryFiles.map((file) => file.fileName).join(", ") : product.deliveryFileName || "None"}
+                Inventory records: {product.deliveryFiles?.length ? product.deliveryFiles.map((file) => `${file.fileName} (${file.status})`).join(", ") : "None"}
               </p>
               <div className="mt-3 grid grid-cols-[1fr_auto] gap-2">
                 <input

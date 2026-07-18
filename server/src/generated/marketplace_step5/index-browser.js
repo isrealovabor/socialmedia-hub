@@ -170,8 +170,12 @@ exports.Prisma.ProductScalarFieldEnum = {
 exports.Prisma.ProductDeliveryFileScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
+  orderItemId: 'orderItemId',
   fileUrl: 'fileUrl',
   fileName: 'fileName',
+  status: 'status',
+  reservedAt: 'reservedAt',
+  soldAt: 'soldAt',
   createdAt: 'createdAt'
 };
 

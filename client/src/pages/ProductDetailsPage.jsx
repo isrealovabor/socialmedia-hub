@@ -51,6 +51,7 @@ export default function ProductDetailsPage({ products, onBuy, onFavorite }) {
   const color = product.color || platform.color;
   const icon = product.icon || platform.icon;
   const stock = typeof product.stock === "number" ? `${product.stock.toLocaleString()} pcs.` : product.stock;
+  const outOfStock = Number(product.stock) <= 0;
   const reviews = product.reviews || [];
 
   const submitReview = async (event) => {
@@ -108,11 +109,12 @@ export default function ProductDetailsPage({ products, onBuy, onFavorite }) {
         </div>
         <button
           type="button"
-          onClick={() => onBuy(product)}
-          className="tap-highlight brand-gradient mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full text-base font-black text-white shadow-glow"
+          onClick={() => !outOfStock && onBuy(product)}
+          disabled={outOfStock}
+          className="tap-highlight brand-gradient mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-full text-base font-black text-white shadow-glow disabled:bg-none disabled:bg-gray-300 disabled:text-gray-600 disabled:shadow-none"
         >
           <ShoppingCart size={19} />
-          Buy
+          {outOfStock ? "Sold out" : "Buy"}
         </button>
         <button
           type="button"

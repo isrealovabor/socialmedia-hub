@@ -12,7 +12,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const favorites = await prisma.favorite.findMany({
       where: { userId: req.user.id },
-      include: { product: { include: { category: true, deliveryFiles: true } } },
+      include: { product: { include: { category: true } } },
       orderBy: { createdAt: "desc" },
     });
     res.json({

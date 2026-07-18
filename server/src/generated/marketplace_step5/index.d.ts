@@ -2454,6 +2454,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type OrderItemCountOutputType
+   */
+
+  export type OrderItemCountOutputType = {
+    deliveries: number
+  }
+
+  export type OrderItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deliveries?: boolean | OrderItemCountOutputTypeCountDeliveriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OrderItemCountOutputType without action
+   */
+  export type OrderItemCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderItemCountOutputType
+     */
+    select?: OrderItemCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OrderItemCountOutputType without action
+   */
+  export type OrderItemCountOutputTypeCountDeliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductDeliveryFileWhereInput
+  }
+
+
+  /**
    * Count Type SupportTicketCountOutputType
    */
 
@@ -2705,7 +2736,7 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    name: string
+    name: string | null
     email: string
     passwordHash: string
     role: string
@@ -2841,7 +2872,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
+      name: string | null
       email: string
       passwordHash: string
       role: string
@@ -6466,24 +6497,36 @@ export namespace Prisma {
   export type ProductDeliveryFileMinAggregateOutputType = {
     id: string | null
     productId: string | null
+    orderItemId: string | null
     fileUrl: string | null
     fileName: string | null
+    status: string | null
+    reservedAt: Date | null
+    soldAt: Date | null
     createdAt: Date | null
   }
 
   export type ProductDeliveryFileMaxAggregateOutputType = {
     id: string | null
     productId: string | null
+    orderItemId: string | null
     fileUrl: string | null
     fileName: string | null
+    status: string | null
+    reservedAt: Date | null
+    soldAt: Date | null
     createdAt: Date | null
   }
 
   export type ProductDeliveryFileCountAggregateOutputType = {
     id: number
     productId: number
+    orderItemId: number
     fileUrl: number
     fileName: number
+    status: number
+    reservedAt: number
+    soldAt: number
     createdAt: number
     _all: number
   }
@@ -6492,24 +6535,36 @@ export namespace Prisma {
   export type ProductDeliveryFileMinAggregateInputType = {
     id?: true
     productId?: true
+    orderItemId?: true
     fileUrl?: true
     fileName?: true
+    status?: true
+    reservedAt?: true
+    soldAt?: true
     createdAt?: true
   }
 
   export type ProductDeliveryFileMaxAggregateInputType = {
     id?: true
     productId?: true
+    orderItemId?: true
     fileUrl?: true
     fileName?: true
+    status?: true
+    reservedAt?: true
+    soldAt?: true
     createdAt?: true
   }
 
   export type ProductDeliveryFileCountAggregateInputType = {
     id?: true
     productId?: true
+    orderItemId?: true
     fileUrl?: true
     fileName?: true
+    status?: true
+    reservedAt?: true
+    soldAt?: true
     createdAt?: true
     _all?: true
   }
@@ -6589,8 +6644,12 @@ export namespace Prisma {
   export type ProductDeliveryFileGroupByOutputType = {
     id: string
     productId: string
+    orderItemId: string | null
     fileUrl: string
     fileName: string
+    status: string
+    reservedAt: Date | null
+    soldAt: Date | null
     createdAt: Date
     _count: ProductDeliveryFileCountAggregateOutputType | null
     _min: ProductDeliveryFileMinAggregateOutputType | null
@@ -6614,59 +6673,86 @@ export namespace Prisma {
   export type ProductDeliveryFileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     productId?: boolean
+    orderItemId?: boolean
     fileUrl?: boolean
     fileName?: boolean
+    status?: boolean
+    reservedAt?: boolean
+    soldAt?: boolean
     createdAt?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
+    orderItem?: boolean | ProductDeliveryFile$orderItemArgs<ExtArgs>
   }, ExtArgs["result"]["productDeliveryFile"]>
 
   export type ProductDeliveryFileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     productId?: boolean
+    orderItemId?: boolean
     fileUrl?: boolean
     fileName?: boolean
+    status?: boolean
+    reservedAt?: boolean
+    soldAt?: boolean
     createdAt?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
+    orderItem?: boolean | ProductDeliveryFile$orderItemArgs<ExtArgs>
   }, ExtArgs["result"]["productDeliveryFile"]>
 
   export type ProductDeliveryFileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     productId?: boolean
+    orderItemId?: boolean
     fileUrl?: boolean
     fileName?: boolean
+    status?: boolean
+    reservedAt?: boolean
+    soldAt?: boolean
     createdAt?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
+    orderItem?: boolean | ProductDeliveryFile$orderItemArgs<ExtArgs>
   }, ExtArgs["result"]["productDeliveryFile"]>
 
   export type ProductDeliveryFileSelectScalar = {
     id?: boolean
     productId?: boolean
+    orderItemId?: boolean
     fileUrl?: boolean
     fileName?: boolean
+    status?: boolean
+    reservedAt?: boolean
+    soldAt?: boolean
     createdAt?: boolean
   }
 
-  export type ProductDeliveryFileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "fileUrl" | "fileName" | "createdAt", ExtArgs["result"]["productDeliveryFile"]>
+  export type ProductDeliveryFileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "orderItemId" | "fileUrl" | "fileName" | "status" | "reservedAt" | "soldAt" | "createdAt", ExtArgs["result"]["productDeliveryFile"]>
   export type ProductDeliveryFileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
+    orderItem?: boolean | ProductDeliveryFile$orderItemArgs<ExtArgs>
   }
   export type ProductDeliveryFileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
+    orderItem?: boolean | ProductDeliveryFile$orderItemArgs<ExtArgs>
   }
   export type ProductDeliveryFileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
+    orderItem?: boolean | ProductDeliveryFile$orderItemArgs<ExtArgs>
   }
 
   export type $ProductDeliveryFilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ProductDeliveryFile"
     objects: {
       product: Prisma.$ProductPayload<ExtArgs>
+      orderItem: Prisma.$OrderItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       productId: string
+      orderItemId: string | null
       fileUrl: string
       fileName: string
+      status: string
+      reservedAt: Date | null
+      soldAt: Date | null
       createdAt: Date
     }, ExtArgs["result"]["productDeliveryFile"]>
     composites: {}
@@ -7063,6 +7149,7 @@ export namespace Prisma {
   export interface Prisma__ProductDeliveryFileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    orderItem<T extends ProductDeliveryFile$orderItemArgs<ExtArgs> = {}>(args?: Subset<T, ProductDeliveryFile$orderItemArgs<ExtArgs>>): Prisma__OrderItemClient<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7094,8 +7181,12 @@ export namespace Prisma {
   interface ProductDeliveryFileFieldRefs {
     readonly id: FieldRef<"ProductDeliveryFile", 'String'>
     readonly productId: FieldRef<"ProductDeliveryFile", 'String'>
+    readonly orderItemId: FieldRef<"ProductDeliveryFile", 'String'>
     readonly fileUrl: FieldRef<"ProductDeliveryFile", 'String'>
     readonly fileName: FieldRef<"ProductDeliveryFile", 'String'>
+    readonly status: FieldRef<"ProductDeliveryFile", 'String'>
+    readonly reservedAt: FieldRef<"ProductDeliveryFile", 'DateTime'>
+    readonly soldAt: FieldRef<"ProductDeliveryFile", 'DateTime'>
     readonly createdAt: FieldRef<"ProductDeliveryFile", 'DateTime'>
   }
     
@@ -7490,6 +7581,25 @@ export namespace Prisma {
      * Limit how many ProductDeliveryFiles to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ProductDeliveryFile.orderItem
+   */
+  export type ProductDeliveryFile$orderItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderItem
+     */
+    select?: OrderItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderItem
+     */
+    omit?: OrderItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderItemInclude<ExtArgs> | null
+    where?: OrderItemWhereInput
   }
 
   /**
@@ -10115,6 +10225,8 @@ export namespace Prisma {
     unitPrice?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
+    deliveries?: boolean | OrderItem$deliveriesArgs<ExtArgs>
+    _count?: boolean | OrderItemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10149,6 +10261,8 @@ export namespace Prisma {
   export type OrderItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
+    deliveries?: boolean | OrderItem$deliveriesArgs<ExtArgs>
+    _count?: boolean | OrderItemCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrderItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
@@ -10164,6 +10278,7 @@ export namespace Prisma {
     objects: {
       order: Prisma.$OrderPayload<ExtArgs>
       product: Prisma.$ProductPayload<ExtArgs>
+      deliveries: Prisma.$ProductDeliveryFilePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10567,6 +10682,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deliveries<T extends OrderItem$deliveriesArgs<ExtArgs> = {}>(args?: Subset<T, OrderItem$deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductDeliveryFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10994,6 +11110,30 @@ export namespace Prisma {
      * Limit how many OrderItems to delete.
      */
     limit?: number
+  }
+
+  /**
+   * OrderItem.deliveries
+   */
+  export type OrderItem$deliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductDeliveryFile
+     */
+    select?: ProductDeliveryFileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductDeliveryFile
+     */
+    omit?: ProductDeliveryFileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductDeliveryFileInclude<ExtArgs> | null
+    where?: ProductDeliveryFileWhereInput
+    orderBy?: ProductDeliveryFileOrderByWithRelationInput | ProductDeliveryFileOrderByWithRelationInput[]
+    cursor?: ProductDeliveryFileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductDeliveryFileScalarFieldEnum | ProductDeliveryFileScalarFieldEnum[]
   }
 
   /**
@@ -20965,8 +21105,12 @@ export namespace Prisma {
   export const ProductDeliveryFileScalarFieldEnum: {
     id: 'id',
     productId: 'productId',
+    orderItemId: 'orderItemId',
     fileUrl: 'fileUrl',
     fileName: 'fileName',
+    status: 'status',
+    reservedAt: 'reservedAt',
+    soldAt: 'soldAt',
     createdAt: 'createdAt'
   };
 
@@ -21254,7 +21398,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
-    name?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
     role?: StringFilter<"User"> | string
@@ -21279,7 +21423,7 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    name?: SortOrderInput | SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
@@ -21308,7 +21452,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    name?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringFilter<"User"> | string
     role?: StringFilter<"User"> | string
     sellerStatus?: StringFilter<"User"> | string
@@ -21332,7 +21476,7 @@ export namespace Prisma {
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    name?: SortOrderInput | SortOrder
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
@@ -21355,7 +21499,7 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
-    name?: StringWithAggregatesFilter<"User"> | string
+    name?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     role?: StringWithAggregatesFilter<"User"> | string
@@ -21576,19 +21720,29 @@ export namespace Prisma {
     NOT?: ProductDeliveryFileWhereInput | ProductDeliveryFileWhereInput[]
     id?: StringFilter<"ProductDeliveryFile"> | string
     productId?: StringFilter<"ProductDeliveryFile"> | string
+    orderItemId?: StringNullableFilter<"ProductDeliveryFile"> | string | null
     fileUrl?: StringFilter<"ProductDeliveryFile"> | string
     fileName?: StringFilter<"ProductDeliveryFile"> | string
+    status?: StringFilter<"ProductDeliveryFile"> | string
+    reservedAt?: DateTimeNullableFilter<"ProductDeliveryFile"> | Date | string | null
+    soldAt?: DateTimeNullableFilter<"ProductDeliveryFile"> | Date | string | null
     createdAt?: DateTimeFilter<"ProductDeliveryFile"> | Date | string
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    orderItem?: XOR<OrderItemNullableScalarRelationFilter, OrderItemWhereInput> | null
   }
 
   export type ProductDeliveryFileOrderByWithRelationInput = {
     id?: SortOrder
     productId?: SortOrder
+    orderItemId?: SortOrderInput | SortOrder
     fileUrl?: SortOrder
     fileName?: SortOrder
+    status?: SortOrder
+    reservedAt?: SortOrderInput | SortOrder
+    soldAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     product?: ProductOrderByWithRelationInput
+    orderItem?: OrderItemOrderByWithRelationInput
   }
 
   export type ProductDeliveryFileWhereUniqueInput = Prisma.AtLeast<{
@@ -21597,17 +21751,26 @@ export namespace Prisma {
     OR?: ProductDeliveryFileWhereInput[]
     NOT?: ProductDeliveryFileWhereInput | ProductDeliveryFileWhereInput[]
     productId?: StringFilter<"ProductDeliveryFile"> | string
+    orderItemId?: StringNullableFilter<"ProductDeliveryFile"> | string | null
     fileUrl?: StringFilter<"ProductDeliveryFile"> | string
     fileName?: StringFilter<"ProductDeliveryFile"> | string
+    status?: StringFilter<"ProductDeliveryFile"> | string
+    reservedAt?: DateTimeNullableFilter<"ProductDeliveryFile"> | Date | string | null
+    soldAt?: DateTimeNullableFilter<"ProductDeliveryFile"> | Date | string | null
     createdAt?: DateTimeFilter<"ProductDeliveryFile"> | Date | string
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    orderItem?: XOR<OrderItemNullableScalarRelationFilter, OrderItemWhereInput> | null
   }, "id">
 
   export type ProductDeliveryFileOrderByWithAggregationInput = {
     id?: SortOrder
     productId?: SortOrder
+    orderItemId?: SortOrderInput | SortOrder
     fileUrl?: SortOrder
     fileName?: SortOrder
+    status?: SortOrder
+    reservedAt?: SortOrderInput | SortOrder
+    soldAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: ProductDeliveryFileCountOrderByAggregateInput
     _max?: ProductDeliveryFileMaxOrderByAggregateInput
@@ -21620,8 +21783,12 @@ export namespace Prisma {
     NOT?: ProductDeliveryFileScalarWhereWithAggregatesInput | ProductDeliveryFileScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ProductDeliveryFile"> | string
     productId?: StringWithAggregatesFilter<"ProductDeliveryFile"> | string
+    orderItemId?: StringNullableWithAggregatesFilter<"ProductDeliveryFile"> | string | null
     fileUrl?: StringWithAggregatesFilter<"ProductDeliveryFile"> | string
     fileName?: StringWithAggregatesFilter<"ProductDeliveryFile"> | string
+    status?: StringWithAggregatesFilter<"ProductDeliveryFile"> | string
+    reservedAt?: DateTimeNullableWithAggregatesFilter<"ProductDeliveryFile"> | Date | string | null
+    soldAt?: DateTimeNullableWithAggregatesFilter<"ProductDeliveryFile"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"ProductDeliveryFile"> | Date | string
   }
 
@@ -21823,6 +21990,7 @@ export namespace Prisma {
     unitPrice?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    deliveries?: ProductDeliveryFileListRelationFilter
   }
 
   export type OrderItemOrderByWithRelationInput = {
@@ -21833,6 +22001,7 @@ export namespace Prisma {
     unitPrice?: SortOrder
     order?: OrderOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
+    deliveries?: ProductDeliveryFileOrderByRelationAggregateInput
   }
 
   export type OrderItemWhereUniqueInput = Prisma.AtLeast<{
@@ -21846,6 +22015,7 @@ export namespace Prisma {
     unitPrice?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    deliveries?: ProductDeliveryFileListRelationFilter
   }, "id">
 
   export type OrderItemOrderByWithAggregationInput = {
@@ -22490,7 +22660,7 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -22515,7 +22685,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -22540,7 +22710,7 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -22565,7 +22735,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -22590,7 +22760,7 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -22605,7 +22775,7 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -22620,7 +22790,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -22872,15 +23042,23 @@ export namespace Prisma {
     id?: string
     fileUrl: string
     fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
     createdAt?: Date | string
     product: ProductCreateNestedOneWithoutDeliveryFilesInput
+    orderItem?: OrderItemCreateNestedOneWithoutDeliveriesInput
   }
 
   export type ProductDeliveryFileUncheckedCreateInput = {
     id?: string
     productId: string
+    orderItemId?: string | null
     fileUrl: string
     fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -22888,23 +23066,35 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     product?: ProductUpdateOneRequiredWithoutDeliveryFilesNestedInput
+    orderItem?: OrderItemUpdateOneWithoutDeliveriesNestedInput
   }
 
   export type ProductDeliveryFileUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductDeliveryFileCreateManyInput = {
     id?: string
     productId: string
+    orderItemId?: string | null
     fileUrl: string
     fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -22912,14 +23102,21 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductDeliveryFileUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -23141,6 +23338,7 @@ export namespace Prisma {
     unitPrice: Decimal | DecimalJsLike | number | string
     order: OrderCreateNestedOneWithoutItemsInput
     product: ProductCreateNestedOneWithoutOrderItemsInput
+    deliveries?: ProductDeliveryFileCreateNestedManyWithoutOrderItemInput
   }
 
   export type OrderItemUncheckedCreateInput = {
@@ -23149,6 +23347,7 @@ export namespace Prisma {
     productId: string
     quantity: number
     unitPrice: Decimal | DecimalJsLike | number | string
+    deliveries?: ProductDeliveryFileUncheckedCreateNestedManyWithoutOrderItemInput
   }
 
   export type OrderItemUpdateInput = {
@@ -23157,6 +23356,7 @@ export namespace Prisma {
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
     product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
+    deliveries?: ProductDeliveryFileUpdateManyWithoutOrderItemNestedInput
   }
 
   export type OrderItemUncheckedUpdateInput = {
@@ -23165,6 +23365,7 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveries?: ProductDeliveryFileUncheckedUpdateManyWithoutOrderItemNestedInput
   }
 
   export type OrderItemCreateManyInput = {
@@ -23849,17 +24050,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -23873,6 +24063,17 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -24077,22 +24278,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -24109,6 +24294,22 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -24321,27 +24522,44 @@ export namespace Prisma {
     isNot?: ProductWhereInput
   }
 
+  export type OrderItemNullableScalarRelationFilter = {
+    is?: OrderItemWhereInput | null
+    isNot?: OrderItemWhereInput | null
+  }
+
   export type ProductDeliveryFileCountOrderByAggregateInput = {
     id?: SortOrder
     productId?: SortOrder
+    orderItemId?: SortOrder
     fileUrl?: SortOrder
     fileName?: SortOrder
+    status?: SortOrder
+    reservedAt?: SortOrder
+    soldAt?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ProductDeliveryFileMaxOrderByAggregateInput = {
     id?: SortOrder
     productId?: SortOrder
+    orderItemId?: SortOrder
     fileUrl?: SortOrder
     fileName?: SortOrder
+    status?: SortOrder
+    reservedAt?: SortOrder
+    soldAt?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ProductDeliveryFileMinOrderByAggregateInput = {
     id?: SortOrder
     productId?: SortOrder
+    orderItemId?: SortOrder
     fileUrl?: SortOrder
     fileName?: SortOrder
+    status?: SortOrder
+    reservedAt?: SortOrder
+    soldAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -24967,16 +25185,16 @@ export namespace Prisma {
     set?: string
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -25525,12 +25743,28 @@ export namespace Prisma {
     connect?: ProductWhereUniqueInput
   }
 
+  export type OrderItemCreateNestedOneWithoutDeliveriesInput = {
+    create?: XOR<OrderItemCreateWithoutDeliveriesInput, OrderItemUncheckedCreateWithoutDeliveriesInput>
+    connectOrCreate?: OrderItemCreateOrConnectWithoutDeliveriesInput
+    connect?: OrderItemWhereUniqueInput
+  }
+
   export type ProductUpdateOneRequiredWithoutDeliveryFilesNestedInput = {
     create?: XOR<ProductCreateWithoutDeliveryFilesInput, ProductUncheckedCreateWithoutDeliveryFilesInput>
     connectOrCreate?: ProductCreateOrConnectWithoutDeliveryFilesInput
     upsert?: ProductUpsertWithoutDeliveryFilesInput
     connect?: ProductWhereUniqueInput
     update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutDeliveryFilesInput, ProductUpdateWithoutDeliveryFilesInput>, ProductUncheckedUpdateWithoutDeliveryFilesInput>
+  }
+
+  export type OrderItemUpdateOneWithoutDeliveriesNestedInput = {
+    create?: XOR<OrderItemCreateWithoutDeliveriesInput, OrderItemUncheckedCreateWithoutDeliveriesInput>
+    connectOrCreate?: OrderItemCreateOrConnectWithoutDeliveriesInput
+    upsert?: OrderItemUpsertWithoutDeliveriesInput
+    disconnect?: OrderItemWhereInput | boolean
+    delete?: OrderItemWhereInput | boolean
+    connect?: OrderItemWhereUniqueInput
+    update?: XOR<XOR<OrderItemUpdateToOneWithWhereWithoutDeliveriesInput, OrderItemUpdateWithoutDeliveriesInput>, OrderItemUncheckedUpdateWithoutDeliveriesInput>
   }
 
   export type UserCreateNestedOneWithoutDepositsInput = {
@@ -25615,6 +25849,20 @@ export namespace Prisma {
     connect?: ProductWhereUniqueInput
   }
 
+  export type ProductDeliveryFileCreateNestedManyWithoutOrderItemInput = {
+    create?: XOR<ProductDeliveryFileCreateWithoutOrderItemInput, ProductDeliveryFileUncheckedCreateWithoutOrderItemInput> | ProductDeliveryFileCreateWithoutOrderItemInput[] | ProductDeliveryFileUncheckedCreateWithoutOrderItemInput[]
+    connectOrCreate?: ProductDeliveryFileCreateOrConnectWithoutOrderItemInput | ProductDeliveryFileCreateOrConnectWithoutOrderItemInput[]
+    createMany?: ProductDeliveryFileCreateManyOrderItemInputEnvelope
+    connect?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+  }
+
+  export type ProductDeliveryFileUncheckedCreateNestedManyWithoutOrderItemInput = {
+    create?: XOR<ProductDeliveryFileCreateWithoutOrderItemInput, ProductDeliveryFileUncheckedCreateWithoutOrderItemInput> | ProductDeliveryFileCreateWithoutOrderItemInput[] | ProductDeliveryFileUncheckedCreateWithoutOrderItemInput[]
+    connectOrCreate?: ProductDeliveryFileCreateOrConnectWithoutOrderItemInput | ProductDeliveryFileCreateOrConnectWithoutOrderItemInput[]
+    createMany?: ProductDeliveryFileCreateManyOrderItemInputEnvelope
+    connect?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+  }
+
   export type OrderUpdateOneRequiredWithoutItemsNestedInput = {
     create?: XOR<OrderCreateWithoutItemsInput, OrderUncheckedCreateWithoutItemsInput>
     connectOrCreate?: OrderCreateOrConnectWithoutItemsInput
@@ -25629,6 +25877,34 @@ export namespace Prisma {
     upsert?: ProductUpsertWithoutOrderItemsInput
     connect?: ProductWhereUniqueInput
     update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutOrderItemsInput, ProductUpdateWithoutOrderItemsInput>, ProductUncheckedUpdateWithoutOrderItemsInput>
+  }
+
+  export type ProductDeliveryFileUpdateManyWithoutOrderItemNestedInput = {
+    create?: XOR<ProductDeliveryFileCreateWithoutOrderItemInput, ProductDeliveryFileUncheckedCreateWithoutOrderItemInput> | ProductDeliveryFileCreateWithoutOrderItemInput[] | ProductDeliveryFileUncheckedCreateWithoutOrderItemInput[]
+    connectOrCreate?: ProductDeliveryFileCreateOrConnectWithoutOrderItemInput | ProductDeliveryFileCreateOrConnectWithoutOrderItemInput[]
+    upsert?: ProductDeliveryFileUpsertWithWhereUniqueWithoutOrderItemInput | ProductDeliveryFileUpsertWithWhereUniqueWithoutOrderItemInput[]
+    createMany?: ProductDeliveryFileCreateManyOrderItemInputEnvelope
+    set?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+    disconnect?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+    delete?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+    connect?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+    update?: ProductDeliveryFileUpdateWithWhereUniqueWithoutOrderItemInput | ProductDeliveryFileUpdateWithWhereUniqueWithoutOrderItemInput[]
+    updateMany?: ProductDeliveryFileUpdateManyWithWhereWithoutOrderItemInput | ProductDeliveryFileUpdateManyWithWhereWithoutOrderItemInput[]
+    deleteMany?: ProductDeliveryFileScalarWhereInput | ProductDeliveryFileScalarWhereInput[]
+  }
+
+  export type ProductDeliveryFileUncheckedUpdateManyWithoutOrderItemNestedInput = {
+    create?: XOR<ProductDeliveryFileCreateWithoutOrderItemInput, ProductDeliveryFileUncheckedCreateWithoutOrderItemInput> | ProductDeliveryFileCreateWithoutOrderItemInput[] | ProductDeliveryFileUncheckedCreateWithoutOrderItemInput[]
+    connectOrCreate?: ProductDeliveryFileCreateOrConnectWithoutOrderItemInput | ProductDeliveryFileCreateOrConnectWithoutOrderItemInput[]
+    upsert?: ProductDeliveryFileUpsertWithWhereUniqueWithoutOrderItemInput | ProductDeliveryFileUpsertWithWhereUniqueWithoutOrderItemInput[]
+    createMany?: ProductDeliveryFileCreateManyOrderItemInputEnvelope
+    set?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+    disconnect?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+    delete?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+    connect?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
+    update?: ProductDeliveryFileUpdateWithWhereUniqueWithoutOrderItemInput | ProductDeliveryFileUpdateWithWhereUniqueWithoutOrderItemInput[]
+    updateMany?: ProductDeliveryFileUpdateManyWithWhereWithoutOrderItemInput | ProductDeliveryFileUpdateManyWithWhereWithoutOrderItemInput[]
+    deleteMany?: ProductDeliveryFileScalarWhereInput | ProductDeliveryFileScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWithdrawalsInput = {
@@ -25829,17 +26105,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -25852,6 +26117,17 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -25904,22 +26180,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -25946,6 +26206,22 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -26756,7 +27032,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutProductsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -26780,7 +27056,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutProductsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -26812,6 +27088,7 @@ export namespace Prisma {
     quantity: number
     unitPrice: Decimal | DecimalJsLike | number | string
     order: OrderCreateNestedOneWithoutItemsInput
+    deliveries?: ProductDeliveryFileCreateNestedManyWithoutOrderItemInput
   }
 
   export type OrderItemUncheckedCreateWithoutProductInput = {
@@ -26819,6 +27096,7 @@ export namespace Prisma {
     orderId: string
     quantity: number
     unitPrice: Decimal | DecimalJsLike | number | string
+    deliveries?: ProductDeliveryFileUncheckedCreateNestedManyWithoutOrderItemInput
   }
 
   export type OrderItemCreateOrConnectWithoutProductInput = {
@@ -26885,13 +27163,21 @@ export namespace Prisma {
     id?: string
     fileUrl: string
     fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
     createdAt?: Date | string
+    orderItem?: OrderItemCreateNestedOneWithoutDeliveriesInput
   }
 
   export type ProductDeliveryFileUncheckedCreateWithoutProductInput = {
     id?: string
+    orderItemId?: string | null
     fileUrl: string
     fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -26945,7 +27231,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -26969,7 +27255,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutProductsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27072,8 +27358,12 @@ export namespace Prisma {
     NOT?: ProductDeliveryFileScalarWhereInput | ProductDeliveryFileScalarWhereInput[]
     id?: StringFilter<"ProductDeliveryFile"> | string
     productId?: StringFilter<"ProductDeliveryFile"> | string
+    orderItemId?: StringNullableFilter<"ProductDeliveryFile"> | string | null
     fileUrl?: StringFilter<"ProductDeliveryFile"> | string
     fileName?: StringFilter<"ProductDeliveryFile"> | string
+    status?: StringFilter<"ProductDeliveryFile"> | string
+    reservedAt?: DateTimeNullableFilter<"ProductDeliveryFile"> | Date | string | null
+    soldAt?: DateTimeNullableFilter<"ProductDeliveryFile"> | Date | string | null
     createdAt?: DateTimeFilter<"ProductDeliveryFile"> | Date | string
   }
 
@@ -27132,6 +27422,27 @@ export namespace Prisma {
   export type ProductCreateOrConnectWithoutDeliveryFilesInput = {
     where: ProductWhereUniqueInput
     create: XOR<ProductCreateWithoutDeliveryFilesInput, ProductUncheckedCreateWithoutDeliveryFilesInput>
+  }
+
+  export type OrderItemCreateWithoutDeliveriesInput = {
+    id?: string
+    quantity: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    order: OrderCreateNestedOneWithoutItemsInput
+    product: ProductCreateNestedOneWithoutOrderItemsInput
+  }
+
+  export type OrderItemUncheckedCreateWithoutDeliveriesInput = {
+    id?: string
+    orderId: string
+    productId: string
+    quantity: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+  }
+
+  export type OrderItemCreateOrConnectWithoutDeliveriesInput = {
+    where: OrderItemWhereUniqueInput
+    create: XOR<OrderItemCreateWithoutDeliveriesInput, OrderItemUncheckedCreateWithoutDeliveriesInput>
   }
 
   export type ProductUpsertWithoutDeliveryFilesInput = {
@@ -27197,9 +27508,36 @@ export namespace Prisma {
     reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
   }
 
+  export type OrderItemUpsertWithoutDeliveriesInput = {
+    update: XOR<OrderItemUpdateWithoutDeliveriesInput, OrderItemUncheckedUpdateWithoutDeliveriesInput>
+    create: XOR<OrderItemCreateWithoutDeliveriesInput, OrderItemUncheckedCreateWithoutDeliveriesInput>
+    where?: OrderItemWhereInput
+  }
+
+  export type OrderItemUpdateToOneWithWhereWithoutDeliveriesInput = {
+    where?: OrderItemWhereInput
+    data: XOR<OrderItemUpdateWithoutDeliveriesInput, OrderItemUncheckedUpdateWithoutDeliveriesInput>
+  }
+
+  export type OrderItemUpdateWithoutDeliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    order?: OrderUpdateOneRequiredWithoutItemsNestedInput
+    product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
+  }
+
+  export type OrderItemUncheckedUpdateWithoutDeliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
   export type UserCreateWithoutDepositsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27223,7 +27561,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutDepositsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27263,7 +27601,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutDepositsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27287,7 +27625,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutDepositsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27311,7 +27649,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutOrdersInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27335,7 +27673,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutOrdersInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27367,6 +27705,7 @@ export namespace Prisma {
     quantity: number
     unitPrice: Decimal | DecimalJsLike | number | string
     product: ProductCreateNestedOneWithoutOrderItemsInput
+    deliveries?: ProductDeliveryFileCreateNestedManyWithoutOrderItemInput
   }
 
   export type OrderItemUncheckedCreateWithoutOrderInput = {
@@ -27374,6 +27713,7 @@ export namespace Prisma {
     productId: string
     quantity: number
     unitPrice: Decimal | DecimalJsLike | number | string
+    deliveries?: ProductDeliveryFileUncheckedCreateNestedManyWithoutOrderItemInput
   }
 
   export type OrderItemCreateOrConnectWithoutOrderInput = {
@@ -27399,7 +27739,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27423,7 +27763,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27551,6 +27891,38 @@ export namespace Prisma {
     create: XOR<ProductCreateWithoutOrderItemsInput, ProductUncheckedCreateWithoutOrderItemsInput>
   }
 
+  export type ProductDeliveryFileCreateWithoutOrderItemInput = {
+    id?: string
+    fileUrl: string
+    fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
+    createdAt?: Date | string
+    product: ProductCreateNestedOneWithoutDeliveryFilesInput
+  }
+
+  export type ProductDeliveryFileUncheckedCreateWithoutOrderItemInput = {
+    id?: string
+    productId: string
+    fileUrl: string
+    fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ProductDeliveryFileCreateOrConnectWithoutOrderItemInput = {
+    where: ProductDeliveryFileWhereUniqueInput
+    create: XOR<ProductDeliveryFileCreateWithoutOrderItemInput, ProductDeliveryFileUncheckedCreateWithoutOrderItemInput>
+  }
+
+  export type ProductDeliveryFileCreateManyOrderItemInputEnvelope = {
+    data: ProductDeliveryFileCreateManyOrderItemInput | ProductDeliveryFileCreateManyOrderItemInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrderUpsertWithoutItemsInput = {
     update: XOR<OrderUpdateWithoutItemsInput, OrderUncheckedUpdateWithoutItemsInput>
     create: XOR<OrderCreateWithoutItemsInput, OrderUncheckedCreateWithoutItemsInput>
@@ -27653,9 +28025,25 @@ export namespace Prisma {
     deliveryFiles?: ProductDeliveryFileUncheckedUpdateManyWithoutProductNestedInput
   }
 
+  export type ProductDeliveryFileUpsertWithWhereUniqueWithoutOrderItemInput = {
+    where: ProductDeliveryFileWhereUniqueInput
+    update: XOR<ProductDeliveryFileUpdateWithoutOrderItemInput, ProductDeliveryFileUncheckedUpdateWithoutOrderItemInput>
+    create: XOR<ProductDeliveryFileCreateWithoutOrderItemInput, ProductDeliveryFileUncheckedCreateWithoutOrderItemInput>
+  }
+
+  export type ProductDeliveryFileUpdateWithWhereUniqueWithoutOrderItemInput = {
+    where: ProductDeliveryFileWhereUniqueInput
+    data: XOR<ProductDeliveryFileUpdateWithoutOrderItemInput, ProductDeliveryFileUncheckedUpdateWithoutOrderItemInput>
+  }
+
+  export type ProductDeliveryFileUpdateManyWithWhereWithoutOrderItemInput = {
+    where: ProductDeliveryFileScalarWhereInput
+    data: XOR<ProductDeliveryFileUpdateManyMutationInput, ProductDeliveryFileUncheckedUpdateManyWithoutOrderItemInput>
+  }
+
   export type UserCreateWithoutWithdrawalsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27679,7 +28067,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutWithdrawalsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27719,7 +28107,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutWithdrawalsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27743,7 +28131,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutWithdrawalsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27767,7 +28155,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutNotificationsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27791,7 +28179,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27831,7 +28219,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutNotificationsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27855,7 +28243,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -27879,7 +28267,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutFavoritesInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -27903,7 +28291,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutFavoritesInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28000,7 +28388,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFavoritesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28024,7 +28412,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutFavoritesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28111,7 +28499,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutReviewsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28135,7 +28523,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutReviewsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28232,7 +28620,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28256,7 +28644,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28343,7 +28731,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutAuditLogsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28367,7 +28755,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28407,7 +28795,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutAuditLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28431,7 +28819,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28455,7 +28843,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutTicketsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28479,7 +28867,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutTicketsInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28543,7 +28931,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutTicketsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28567,7 +28955,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutTicketsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28630,7 +29018,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutTicketMessagesInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28654,7 +29042,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutTicketMessagesInput = {
     id?: string
-    name: string
+    name?: string | null
     email: string
     passwordHash: string
     role?: string
@@ -28723,7 +29111,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutTicketMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -28747,7 +29135,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutTicketMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -29337,8 +29725,12 @@ export namespace Prisma {
 
   export type ProductDeliveryFileCreateManyProductInput = {
     id?: string
+    orderItemId?: string | null
     fileUrl: string
     fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -29347,6 +29739,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
+    deliveries?: ProductDeliveryFileUpdateManyWithoutOrderItemNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutProductInput = {
@@ -29354,6 +29747,7 @@ export namespace Prisma {
     orderId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveries?: ProductDeliveryFileUncheckedUpdateManyWithoutOrderItemNestedInput
   }
 
   export type OrderItemUncheckedUpdateManyWithoutProductInput = {
@@ -29412,20 +29806,32 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orderItem?: OrderItemUpdateOneWithoutDeliveriesNestedInput
   }
 
   export type ProductDeliveryFileUncheckedUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductDeliveryFileUncheckedUpdateManyWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
+    orderItemId?: NullableStringFieldUpdateOperationsInput | string | null
     fileUrl?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -29441,6 +29847,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
+    deliveries?: ProductDeliveryFileUpdateManyWithoutOrderItemNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutOrderInput = {
@@ -29448,6 +29855,7 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    deliveries?: ProductDeliveryFileUncheckedUpdateManyWithoutOrderItemNestedInput
   }
 
   export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
@@ -29455,6 +29863,50 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type ProductDeliveryFileCreateManyOrderItemInput = {
+    id?: string
+    productId: string
+    fileUrl: string
+    fileName: string
+    status?: string
+    reservedAt?: Date | string | null
+    soldAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ProductDeliveryFileUpdateWithoutOrderItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutDeliveryFilesNestedInput
+  }
+
+  export type ProductDeliveryFileUncheckedUpdateWithoutOrderItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductDeliveryFileUncheckedUpdateManyWithoutOrderItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    soldAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SupportMessageCreateManyTicketInput = {
