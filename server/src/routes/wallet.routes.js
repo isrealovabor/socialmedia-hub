@@ -13,16 +13,10 @@ router.get(
   "/wallet",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const [pendingDeposits, withdrawals] = await Promise.all([
-      prisma.deposit.aggregate({
-        where: { userId: req.user.id, status: "PENDING" },
-        _sum: { amount: true },
-      }),
-      prisma.withdrawal.findMany({
-        where: { userId: req.user.id },
-        orderBy: { createdAt: "desc" },
-      }),
-    ]);
+    const pendingDeposits = await prisma.deposit.aggregate({
+      where: { userId: req.user.id, status: "PENDING" },
+      _sum: { amount: true },
+    });
 
     res.json({
       user: publicUser(req.user),
@@ -30,7 +24,6 @@ router.get(
       balance: toNumber(req.user.walletBalance),
       pendingDeposits: toNumber(pendingDeposits._sum.amount || 0),
       totalSpent: toNumber(req.user.totalSpent || 0),
-      withdrawals,
       bankDetails,
     });
   })
@@ -117,18 +110,6 @@ router.get(
       orderBy: { createdAt: "desc" },
     });
     res.json({ success: true, deposits: deposits.map(depositDto) });
-  })
-);
-
-router.get(
-  "/withdrawals/my",
-  requireAuth,
-  asyncHandler(async (req, res) => {
-    const withdrawals = await prisma.withdrawal.findMany({
-      where: { userId: req.user.id },
-      orderBy: { createdAt: "desc" },
-    });
-    res.json({ success: true, withdrawals, enabled: false });
   })
 );
 

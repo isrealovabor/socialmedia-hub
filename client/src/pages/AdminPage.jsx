@@ -36,19 +36,19 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
   const selectedCategory = categories.find((category) => category.id === productForm.categoryId);
   const [analytics, setAnalytics] = useState(null);
   const [settings, setSettings] = useState(null);
-  const [sellers, setSellers] = useState([]);
-  const [withdrawals, setWithdrawals] = useState([]);
+  const [configuration, setConfiguration] = useState(null);
+  const [customers, setCustomers] = useState([]);
+  const [brandingFiles, setBrandingFiles] = useState({ logo: null, favicon: null });
   const [auditLogs, setAuditLogs] = useState([]);
 
   const loadAdminData = async () => {
-    const [depositData, orderData, productData, analyticsData, settingsData, sellerData, withdrawalData, auditData] = await Promise.all([
+    const [depositData, orderData, productData, analyticsData, settingsData, customerData, auditData] = await Promise.all([
       adminApi.deposits(),
       adminApi.orders(),
       adminApi.products(),
       adminApi.analytics(),
       adminApi.settings(),
-      adminApi.sellers(),
-      adminApi.withdrawals(),
+      adminApi.users(),
       adminApi.auditLogs(),
     ]);
     setDeposits(depositData.deposits);
@@ -56,8 +56,8 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
     setProducts(productData.products);
     setAnalytics(analyticsData);
     setSettings(settingsData.settings);
-    setSellers(sellerData.sellers);
-    setWithdrawals(withdrawalData.withdrawals);
+    setConfiguration(settingsData.configuration);
+    setCustomers(customerData.users || []);
     setAuditLogs(auditData.logs);
   };
 
@@ -248,6 +248,24 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
     }
   };
 
+  const uploadBranding = async () => {
+    if (!brandingFiles.logo && !brandingFiles.favicon) {
+      setMessage("Choose a logo or favicon first.");
+      return;
+    }
+    try {
+      const form = new FormData();
+      if (brandingFiles.logo) form.append("logo", brandingFiles.logo);
+      if (brandingFiles.favicon) form.append("favicon", brandingFiles.favicon);
+      const data = await adminApi.uploadBranding(form);
+      setSettings(data.settings);
+      setBrandingFiles({ logo: null, favicon: null });
+      setMessage("Brand assets updated.");
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="px-1">
@@ -260,117 +278,44 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
         </div>
       )}
 
-      <section className="glass-panel rounded-[1.35rem] p-3">
-        <div className="mb-2 text-base font-black text-market-navy">Analytics</div>
-        {analytics && (
-          <>
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              <Stat label="Users" value={analytics.totalUsers} />
-              <Stat label="Sellers" value={analytics.totalSellers} />
-              <Stat label="Orders" value={analytics.totalOrders} />
-              <Stat label="Revenue" value={formatNaira(analytics.totalRevenue)} />
-            </div>
-            {(analytics.bestSellingProducts || []).length > 0 ? (
-              <div className="mt-3 h-40">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={analytics.bestSellingProducts}>
-                    <XAxis dataKey="platform" hide />
-                    <YAxis hide />
-                    <Bar dataKey="orderCount" fill="#10b981" radius={[8, 8, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            ) : (
-              <div className="mt-3 rounded-2xl bg-white/75 px-3 py-4 text-sm font-semibold text-slate-500">
-                No sales data yet.
-              </div>
-            )}
-          </>
-        )}
-      </section>
-
-      <section className="glass-panel rounded-[1.35rem] p-3">
-        <div className="mb-2 text-base font-black text-market-navy">Settings</div>
-        {settings && (
-          <div className="space-y-2">
-            {["siteName", "supportEmail", "bankName", "bankAccountName", "bankAccountNumber", "minimumWithdrawalAmount"].map((key) => (
-              <input key={key} value={settings[key] ?? ""} onChange={(event) => setSettings((current) => ({ ...current, [key]: event.target.value }))} className="h-10 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 text-xs" placeholder={key} />
-            ))}
-            <button type="button" onClick={saveSettings} className="brand-gradient h-10 w-full rounded-full text-xs font-black text-white">Save settings</button>
+      <section className="rounded-[1.6rem] bg-market-navy p-4 text-white shadow-soft">
+        <div className="mb-3 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-200">Dashboard overview</p>
+            <h2 className="mt-1 text-lg font-black">Store performance</h2>
           </div>
-        )}
+          <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">Live</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+          <Stat label="Revenue" value={formatNaira(analytics?.totalRevenue || 0)} dark />
+          <Stat label="Orders" value={analytics?.totalOrders || 0} dark />
+          <Stat label="Available stock" value={products.reduce((total, product) => total + Number(product.stock || 0), 0)} dark />
+          <Stat label="Low stock" value={products.filter((product) => Number(product.stock || 0) <= 3).length} dark />
+        </div>
       </section>
 
-      <section className="glass-panel rounded-[1.35rem] p-3">
-        <div className="mb-2 text-base font-black text-market-navy">Sellers & Withdrawals</div>
-        {sellers.slice(0, 4).map((seller) => (
-          <div key={seller.id} className="mb-2 flex items-center justify-between gap-2 text-xs">
-            <span className="font-bold">{seller.email} ({seller.sellerStatus})</span>
-            <button type="button" onClick={() => adminApi.updateSellerStatus(seller.id, "APPROVED").then(loadAdminData)} className="rounded-full bg-emerald-50 px-2 py-1 font-black text-market-emerald">Approve</button>
+      <section className="glass-panel rounded-[1.6rem] p-4">
+        <div className="mb-3 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-market-emerald">Orders</p>
+            <h2 className="text-lg font-black text-market-navy">Latest orders</h2>
           </div>
-        ))}
-        {withdrawals.slice(0, 4).map((item) => (
-          <div key={item.id} className="mb-2 flex items-center justify-between gap-2 text-xs">
-            <span>{item.user?.email} - {formatNaira(item.amount)} - {item.status}</span>
-            <button type="button" onClick={() => adminApi.updateWithdrawal(item.id, "approve").then(loadAdminData)} className="rounded-full bg-emerald-50 px-2 py-1 font-black text-market-emerald">Approve</button>
-          </div>
-        ))}
-      </section>
-
-      <section className="glass-panel rounded-[1.35rem] p-3">
-        <div className="mb-2 text-base font-black text-market-navy">Audit Logs</div>
-        {auditLogs.slice(0, 6).map((log) => (
-          <p key={log.id} className="mb-1 text-xs text-gray-600">{log.action} - {log.entityType}</p>
-        ))}
-      </section>
-
-      <section>
-        <div className="mb-2 px-1 text-base font-black text-market-navy">Pending Deposits</div>
+          <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-market-emerald">{orders.length} total</span>
+        </div>
         <div className="space-y-2">
-          {pendingDeposits.length === 0 && (
-            <div className="glass-panel rounded-2xl px-3 py-3 text-sm text-gray-600">
-              No pending deposits.
-            </div>
-          )}
-          {pendingDeposits.map((deposit) => (
-            <div key={deposit.id} className="glass-panel rounded-2xl px-3 py-3">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-sm font-bold text-gray-900">{deposit.user?.email}</p>
-                  <p className="text-xs text-gray-500">{deposit.reference}</p>
-                  <p className="mt-1 text-sm font-semibold text-gray-700">
-                    {deposit.method.replace("_", " ")} - {formatNaira(deposit.amount)}
-                  </p>
-                  {deposit.proofFileUrl && (
-                    <a
-                      href={adminApi.proofUrl(deposit.id)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-2 inline-flex text-xs font-black text-market-cyan underline"
-                    >
-                      View Proof
-                    </a>
-                  )}
-                </div>
-                <div className="flex flex-col gap-2">
-                  <button
-                    type="button"
-                    onClick={() => handleDeposit(deposit.id, "approve")}
-                    className="brand-gradient h-9 rounded-full px-3 text-xs font-black text-white shadow-sm"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDeposit(deposit.id, "reject")}
-                    className="h-9 rounded-full bg-slate-100 px-3 text-xs font-bold text-gray-800"
-                  >
-                    Reject
-                  </button>
-                </div>
+          {orders.slice(0, 5).map((order) => (
+            <div key={order.id} className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 bg-white/80 px-3 py-3">
+              <div className="min-w-0">
+                <p className="truncate text-sm font-black text-market-navy">{order.user?.email}</p>
+                <p className="text-xs text-slate-500">{order.orderNumber}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-black text-market-navy">{formatNaira(order.totalAmount)}</p>
+                <p className="text-[11px] font-bold text-market-emerald">{order.status}</p>
               </div>
             </div>
           ))}
+          {!orders.length && <EmptyPanel message="No orders have been placed yet." />}
         </div>
       </section>
 
@@ -635,8 +580,111 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
         </div>
       </section>
 
+      <section className="glass-panel rounded-[1.6rem] p-4">
+        <div className="mb-3 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-market-emerald">Customers</p>
+            <h2 className="text-lg font-black text-market-navy">Recent customers</h2>
+          </div>
+          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-600">{customers.length}</span>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {customers.filter((customer) => customer.role !== "ADMIN").slice(0, 6).map((customer) => (
+            <div key={customer.id} className="rounded-2xl border border-slate-100 bg-white/80 px-3 py-3">
+              <p className="truncate text-sm font-black text-market-navy">{customer.email}</p>
+              <p className="mt-1 text-xs text-slate-500">Joined {new Date(customer.createdAt).toLocaleDateString()}</p>
+            </div>
+          ))}
+          {!customers.filter((customer) => customer.role !== "ADMIN").length && <EmptyPanel message="No customers yet." />}
+        </div>
+      </section>
+
+      <section className="glass-panel rounded-[1.6rem] p-4">
+        <div className="mb-3 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-market-emerald">Payments</p>
+            <h2 className="text-lg font-black text-market-navy">Recent payments</h2>
+          </div>
+          {pendingDeposits.length > 0 && <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-black text-amber-700">{pendingDeposits.length} pending</span>}
+        </div>
+        <div className="space-y-2">
+          {deposits.slice(0, 6).map((deposit) => (
+            <div key={deposit.id} className="rounded-2xl border border-slate-100 bg-white/80 px-3 py-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-black text-market-navy">{deposit.user?.email}</p>
+                  <p className="text-xs text-slate-500">{deposit.reference}</p>
+                  {deposit.proofFileUrl && (
+                    <a href={adminApi.proofUrl(deposit.id)} target="_blank" rel="noreferrer" className="mt-1 inline-flex text-xs font-black text-market-cyan underline">View proof</a>
+                  )}
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-black text-market-navy">{formatNaira(deposit.amount)}</p>
+                  <p className="text-[11px] font-bold text-market-emerald">{deposit.status}</p>
+                </div>
+              </div>
+              {deposit.status === "PENDING" && (
+                <div className="mt-3 grid grid-cols-2 gap-2">
+                  <button type="button" onClick={() => handleDeposit(deposit.id, "approve")} className="brand-gradient h-9 rounded-full text-xs font-black text-white">Approve</button>
+                  <button type="button" onClick={() => handleDeposit(deposit.id, "reject")} className="h-9 rounded-full bg-slate-100 text-xs font-black text-slate-700">Reject</button>
+                </div>
+              )}
+            </div>
+          ))}
+          {!deposits.length && <EmptyPanel message="No payments have been received yet." />}
+        </div>
+      </section>
+
+      <section className="glass-panel rounded-[1.6rem] p-4">
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-market-emerald">Activity</p>
+        <h2 className="mb-3 text-lg font-black text-market-navy">Recent activity</h2>
+        <div className="space-y-2">
+          {auditLogs.slice(0, 8).map((log) => (
+            <div key={log.id} className="flex items-center justify-between gap-3 rounded-2xl bg-white/80 px-3 py-2.5 text-xs">
+              <span className="font-bold text-slate-700">{log.action.replaceAll("_", " ")}</span>
+              <span className="text-slate-400">{log.entityType}</span>
+            </div>
+          ))}
+          {!auditLogs.length && <EmptyPanel message="No activity recorded yet." />}
+        </div>
+      </section>
+
+      <section className="glass-panel rounded-[1.6rem] p-4">
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-market-emerald">Configuration</p>
+        <h2 className="mb-4 text-lg font-black text-market-navy">Store settings</h2>
+        {settings && (
+          <div className="space-y-5">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <SettingInput label="Store name" value={settings.siteName} onChange={(value) => setSettings((current) => ({ ...current, siteName: value }))} />
+              <SettingInput label="Support email" type="email" value={settings.supportEmail} onChange={(value) => setSettings((current) => ({ ...current, supportEmail: value }))} />
+              <SettingInput label="Currency" value={settings.currency || "NGN"} onChange={(value) => setSettings((current) => ({ ...current, currency: value.toUpperCase() }))} />
+            </div>
+            <div>
+              <h3 className="mb-2 text-sm font-black text-market-navy">Brand assets</h3>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <BrandUpload label="Logo" accept=".jpg,.jpeg,.png" configured={Boolean(settings.logoUrl)} onChange={(file) => setBrandingFiles((current) => ({ ...current, logo: file }))} />
+                <BrandUpload label="Favicon" accept=".ico,.png" configured={Boolean(settings.faviconUrl)} onChange={(file) => setBrandingFiles((current) => ({ ...current, favicon: file }))} />
+              </div>
+              <button type="button" onClick={uploadBranding} className="mt-2 h-10 w-full rounded-full bg-slate-100 text-xs font-black text-slate-700">Upload brand assets</button>
+            </div>
+            <SettingsGroup title="Payment settings">
+              <SettingToggle label="Paystack" checked={settings.paystackEnabled} onChange={(checked) => setSettings((current) => ({ ...current, paystackEnabled: checked }))} status={configuration?.paystackConfigured} />
+              <SettingToggle label="Flutterwave" checked={settings.flutterwaveEnabled} onChange={(checked) => setSettings((current) => ({ ...current, flutterwaveEnabled: checked }))} status={configuration?.flutterwaveConfigured} />
+              <SettingToggle label="Manual bank transfer" checked={settings.manualBankTransferEnabled} onChange={(checked) => setSettings((current) => ({ ...current, manualBankTransferEnabled: checked }))} />
+              <SettingToggle label="Automatic delivery" checked={settings.automaticDeliveryEnabled} onChange={(checked) => setSettings((current) => ({ ...current, automaticDeliveryEnabled: checked }))} />
+            </SettingsGroup>
+            <SettingsGroup title="Security and email">
+              <ConfigStatus label="JWT secret" configured={configuration?.jwtConfigured} />
+              <ConfigStatus label={`Email provider: ${configuration?.emailProvider || "not configured"}`} configured={configuration?.emailProvider && configuration.emailProvider !== "not configured"} />
+              <ConfigStatus label="Resend" configured={configuration?.resendConfigured} />
+            </SettingsGroup>
+            <button type="button" onClick={saveSettings} className="brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow">Save settings</button>
+          </div>
+        )}
+      </section>
+
       <section>
-        <div className="mb-2 px-1 text-base font-black text-market-navy">Orders</div>
+        <div className="mb-2 px-1 text-base font-black text-market-navy">Order management</div>
         <div className="space-y-2">
           {orders.map((order) => (
             <div key={order.id} className="glass-panel rounded-2xl px-3 py-3">
@@ -684,6 +732,32 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
           ))}
         </div>
       </section>
+
+      <section className="glass-panel rounded-[1.6rem] p-4">
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-market-emerald">Insights</p>
+        <h2 className="mb-3 text-lg font-black text-market-navy">Analytics</h2>
+        {analytics && (
+          <>
+            <div className="grid grid-cols-2 gap-2 text-sm lg:grid-cols-4">
+              <Stat label="Customers" value={analytics.totalUsers} />
+              <Stat label="Products" value={analytics.totalProducts} />
+              <Stat label="Completed orders" value={analytics.completedOrders} />
+              <Stat label="Revenue" value={formatNaira(analytics.totalRevenue)} />
+            </div>
+            {(analytics.bestSellingProducts || []).length > 0 ? (
+              <div className="mt-4 h-48 rounded-2xl bg-white/70 p-2">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={analytics.bestSellingProducts}>
+                    <XAxis dataKey="platform" hide />
+                    <YAxis hide />
+                    <Bar dataKey="orderCount" fill="#10b981" radius={[8, 8, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            ) : <EmptyPanel message="No sales data yet." />}
+          </>
+        )}
+      </section>
     </div>
   );
 }
@@ -702,11 +776,60 @@ function Gate({ message }) {
   );
 }
 
-function Stat({ label, value }) {
+function Stat({ label, value, dark = false }) {
   return (
-    <div className="rounded-2xl bg-white/80 p-3">
-      <p className="text-[11px] font-bold uppercase text-gray-500">{label}</p>
-      <p className="text-base font-black text-market-navy">{value}</p>
+    <div className={dark ? "rounded-2xl bg-white/10 p-3" : "rounded-2xl bg-white/80 p-3"}>
+      <p className={dark ? "text-[11px] font-bold uppercase text-emerald-100" : "text-[11px] font-bold uppercase text-gray-500"}>{label}</p>
+      <p className={dark ? "text-base font-black text-white" : "text-base font-black text-market-navy"}>{value}</p>
     </div>
+  );
+}
+
+function EmptyPanel({ message }) {
+  return <div className="rounded-2xl bg-white/75 px-3 py-4 text-sm font-semibold text-slate-500">{message}</div>;
+}
+
+function SettingInput({ label, value, onChange, type = "text" }) {
+  return (
+    <label className="grid gap-1.5 text-xs font-black text-slate-600">
+      {label}
+      <input type={type} value={value || ""} onChange={(event) => onChange(event.target.value)} className="h-11 rounded-2xl border border-emerald-100 bg-white/85 px-3 text-sm font-semibold text-slate-800 outline-none focus:border-emerald-300" />
+    </label>
+  );
+}
+
+function SettingsGroup({ title, children }) {
+  return (
+    <div>
+      <h3 className="mb-2 text-sm font-black text-market-navy">{title}</h3>
+      <div className="grid gap-2 sm:grid-cols-2">{children}</div>
+    </div>
+  );
+}
+
+function SettingToggle({ label, checked, onChange, status }) {
+  return (
+    <label className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 bg-white/80 px-3 py-3 text-sm font-bold text-slate-700">
+      <span>{label}{status !== undefined && <small className={`ml-2 ${status ? "text-emerald-600" : "text-amber-600"}`}>{status ? "Configured" : "Key missing"}</small>}</span>
+      <input type="checkbox" checked={Boolean(checked)} onChange={(event) => onChange(event.target.checked)} className="h-5 w-5 accent-emerald-500" />
+    </label>
+  );
+}
+
+function ConfigStatus({ label, configured }) {
+  return (
+    <div className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white/80 px-3 py-3 text-sm font-bold text-slate-700">
+      <span>{label}</span>
+      <span className={configured ? "text-emerald-600" : "text-amber-600"}>{configured ? "Configured" : "Needs setup"}</span>
+    </div>
+  );
+}
+
+function BrandUpload({ label, accept, configured, onChange }) {
+  return (
+    <label className="grid gap-1.5 rounded-2xl border border-slate-100 bg-white/80 px-3 py-3 text-xs font-black text-slate-600">
+      <span>{label} <small className={configured ? "text-emerald-600" : "text-slate-400"}>{configured ? "Uploaded" : "Not uploaded"}</small></span>
+      <input type="file" accept={accept} onChange={(event) => onChange(event.target.files?.[0] || null)} className="text-xs font-normal" />
+    </label>
   );
 }

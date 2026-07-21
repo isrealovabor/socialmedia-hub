@@ -62,9 +62,7 @@ function authUser(user) {
     name: user.name,
     email: user.email,
     role: user.role,
-    sellerStatus: user.sellerStatus,
     walletBalance: Number(user.walletBalance || 0),
-    sellerEarnings: Number(user.sellerEarnings || 0),
   };
 }
 

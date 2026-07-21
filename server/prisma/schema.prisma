@@ -15,21 +15,17 @@ model User {
   email               String               @unique
   passwordHash        String
   role                String               @default("USER")
-  sellerStatus        String               @default("NONE")
   walletBalance       Decimal              @default(0)
   totalSpent          Decimal              @default(0)
-  sellerEarnings      Decimal              @default(0)
   emailVerified       Boolean              @default(false)
   emailVerifiedAt     DateTime?
   sessionVersion      Int                  @default(0)
   createdAt           DateTime             @default(now())
   deposits            Deposit[]
   orders              Order[]
-  withdrawals         Withdrawal[]
   notifications       Notification[]
   favorites           Favorite[]
   reviews             Review[]
-  products            Product[]
   auditLogs           AuditLog[]
   tickets             SupportTicket[]
   ticketMessages      SupportMessage[]
@@ -91,13 +87,11 @@ model Product {
   imageUrl             String?
   imageName            String?
   status               String                @default("ACTIVE")
-  sellerId             String?
   rating               Decimal               @default(0)
   orderCount           Int                   @default(0)
   isActive             Boolean               @default(true)
   createdAt            DateTime              @default(now())
   category             Category              @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  seller               User?                 @relation(fields: [sellerId], references: [id], onDelete: SetNull)
   orderItems           OrderItem[]
   favorites            Favorite[]
   reviews              Review[]
@@ -165,19 +159,6 @@ model OrderItem {
   deliveries ProductDeliveryFile[]
 }
 
-model Withdrawal {
-  id            String   @id @default(cuid())
-  userId        String
-  amount        Decimal
-  bankName      String?
-  accountName   String?
-  accountNumber String?
-  status        String   @default("PENDING")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model Notification {
   id        String   @id @default(cuid())
   userId    String
@@ -218,10 +199,10 @@ model AppSetting {
   id                        String   @id @default("site")
   siteName                  String   @default("SocialHub Market")
   supportEmail              String   @default("support@socialhubmarket.com")
-  bankName                  String   @default("Moniepoint")
-  bankAccountName           String   @default("SocialHub Market Ltd")
-  bankAccountNumber         String   @default("XXXXXXXXXX")
-  minimumWithdrawalAmount   Decimal  @default(5000)
+  logoUrl                   String?
+  faviconUrl                String?
+  currency                  String   @default("NGN")
+  automaticDeliveryEnabled  Boolean  @default(true)
   maintenanceMode           Boolean  @default(false)
   paystackEnabled           Boolean  @default(false)
   flutterwaveEnabled        Boolean  @default(false)

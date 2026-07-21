@@ -127,10 +127,8 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   role: 'role',
-  sellerStatus: 'sellerStatus',
   walletBalance: 'walletBalance',
   totalSpent: 'totalSpent',
-  sellerEarnings: 'sellerEarnings',
   emailVerified: 'emailVerified',
   emailVerifiedAt: 'emailVerifiedAt',
   sessionVersion: 'sessionVersion',
@@ -185,7 +183,6 @@ exports.Prisma.ProductScalarFieldEnum = {
   imageUrl: 'imageUrl',
   imageName: 'imageName',
   status: 'status',
-  sellerId: 'sellerId',
   rating: 'rating',
   orderCount: 'orderCount',
   isActive: 'isActive',
@@ -242,18 +239,6 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   unitPrice: 'unitPrice'
 };
 
-exports.Prisma.WithdrawalScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  amount: 'amount',
-  bankName: 'bankName',
-  accountName: 'accountName',
-  accountNumber: 'accountNumber',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -285,10 +270,10 @@ exports.Prisma.AppSettingScalarFieldEnum = {
   id: 'id',
   siteName: 'siteName',
   supportEmail: 'supportEmail',
-  bankName: 'bankName',
-  bankAccountName: 'bankAccountName',
-  bankAccountNumber: 'bankAccountNumber',
-  minimumWithdrawalAmount: 'minimumWithdrawalAmount',
+  logoUrl: 'logoUrl',
+  faviconUrl: 'faviconUrl',
+  currency: 'currency',
+  automaticDeliveryEnabled: 'automaticDeliveryEnabled',
   maintenanceMode: 'maintenanceMode',
   paystackEnabled: 'paystackEnabled',
   flutterwaveEnabled: 'flutterwaveEnabled',
@@ -361,7 +346,6 @@ exports.Prisma.ModelName = {
   Deposit: 'Deposit',
   Order: 'Order',
   OrderItem: 'OrderItem',
-  Withdrawal: 'Withdrawal',
   Notification: 'Notification',
   Favorite: 'Favorite',
   Review: 'Review',

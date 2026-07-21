@@ -4,7 +4,7 @@ import multer from "multer";
 import { ApiError } from "../utils/errors.js";
 
 const uploadRoot = path.resolve("uploads");
-for (const folder of ["proofs", "products", "deliveries"]) {
+for (const folder of ["proofs", "products", "deliveries", "branding"]) {
   fs.mkdirSync(path.join(uploadRoot, folder), { recursive: true });
 }
 
@@ -20,6 +20,7 @@ const allowed = new Set([
 
 const allowedDeliveryExtensions = new Set([".jpg", ".jpeg", ".png", ".pdf", ".zip", ".txt"]);
 const allowedImageExtensions = new Set([".jpg", ".jpeg", ".png"]);
+const allowedBrandingExtensions = new Set([".jpg", ".jpeg", ".png", ".ico"]);
 
 function extensionOf(file) {
   return path.extname(file.originalname || "").toLowerCase();
@@ -99,6 +100,19 @@ export const deliveryUpload = multer({
   storage: storage("deliveries"),
   fileFilter,
   limits: { fileSize: 20 * 1024 * 1024 },
+});
+
+export const brandingUpload = multer({
+  storage: storage("branding"),
+  fileFilter(req, file, cb) {
+    const validMime = ["image/jpeg", "image/png", "image/x-icon", "image/vnd.microsoft.icon", "application/octet-stream"].includes(file.mimetype);
+    if (!validMime || !allowedBrandingExtensions.has(extensionOf(file))) {
+      cb(new ApiError(400, "Brand assets must be JPG, PNG, or ICO files."));
+      return;
+    }
+    cb(null, true);
+  },
+  limits: { fileSize: 2 * 1024 * 1024 },
 });
 
 export function publicUploadPath(file) {

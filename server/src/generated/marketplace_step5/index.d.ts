@@ -59,11 +59,6 @@ export type Order = $Result.DefaultSelection<Prisma.$OrderPayload>
  */
 export type OrderItem = $Result.DefaultSelection<Prisma.$OrderItemPayload>
 /**
- * Model Withdrawal
- * 
- */
-export type Withdrawal = $Result.DefaultSelection<Prisma.$WithdrawalPayload>
-/**
  * Model Notification
  * 
  */
@@ -311,16 +306,6 @@ export class PrismaClient<
     * ```
     */
   get orderItem(): Prisma.OrderItemDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.withdrawal`: Exposes CRUD operations for the **Withdrawal** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Withdrawals
-    * const withdrawals = await prisma.withdrawal.findMany()
-    * ```
-    */
-  get withdrawal(): Prisma.WithdrawalDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
@@ -851,7 +836,6 @@ export namespace Prisma {
     Deposit: 'Deposit',
     Order: 'Order',
     OrderItem: 'OrderItem',
-    Withdrawal: 'Withdrawal',
     Notification: 'Notification',
     Favorite: 'Favorite',
     Review: 'Review',
@@ -878,7 +862,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "pendingRegistration" | "passwordResetToken" | "category" | "product" | "productDeliveryFile" | "deposit" | "order" | "orderItem" | "withdrawal" | "notification" | "favorite" | "review" | "appSetting" | "auditLog" | "supportTicket" | "supportMessage" | "paymentTransaction"
+      modelProps: "user" | "pendingRegistration" | "passwordResetToken" | "category" | "product" | "productDeliveryFile" | "deposit" | "order" | "orderItem" | "notification" | "favorite" | "review" | "appSetting" | "auditLog" | "supportTicket" | "supportMessage" | "paymentTransaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1545,80 +1529,6 @@ export namespace Prisma {
           count: {
             args: Prisma.OrderItemCountArgs<ExtArgs>
             result: $Utils.Optional<OrderItemCountAggregateOutputType> | number
-          }
-        }
-      }
-      Withdrawal: {
-        payload: Prisma.$WithdrawalPayload<ExtArgs>
-        fields: Prisma.WithdrawalFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.WithdrawalFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.WithdrawalFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>
-          }
-          findFirst: {
-            args: Prisma.WithdrawalFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.WithdrawalFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>
-          }
-          findMany: {
-            args: Prisma.WithdrawalFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>[]
-          }
-          create: {
-            args: Prisma.WithdrawalCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>
-          }
-          createMany: {
-            args: Prisma.WithdrawalCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.WithdrawalCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>[]
-          }
-          delete: {
-            args: Prisma.WithdrawalDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>
-          }
-          update: {
-            args: Prisma.WithdrawalUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>
-          }
-          deleteMany: {
-            args: Prisma.WithdrawalDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.WithdrawalUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.WithdrawalUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>[]
-          }
-          upsert: {
-            args: Prisma.WithdrawalUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WithdrawalPayload>
-          }
-          aggregate: {
-            args: Prisma.WithdrawalAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateWithdrawal>
-          }
-          groupBy: {
-            args: Prisma.WithdrawalGroupByArgs<ExtArgs>
-            result: $Utils.Optional<WithdrawalGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.WithdrawalCountArgs<ExtArgs>
-            result: $Utils.Optional<WithdrawalCountAggregateOutputType> | number
           }
         }
       }
@@ -2319,7 +2229,6 @@ export namespace Prisma {
     deposit?: DepositOmit
     order?: OrderOmit
     orderItem?: OrderItemOmit
-    withdrawal?: WithdrawalOmit
     notification?: NotificationOmit
     favorite?: FavoriteOmit
     review?: ReviewOmit
@@ -2410,11 +2319,9 @@ export namespace Prisma {
   export type UserCountOutputType = {
     deposits: number
     orders: number
-    withdrawals: number
     notifications: number
     favorites: number
     reviews: number
-    products: number
     auditLogs: number
     tickets: number
     ticketMessages: number
@@ -2424,11 +2331,9 @@ export namespace Prisma {
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     deposits?: boolean | UserCountOutputTypeCountDepositsArgs
     orders?: boolean | UserCountOutputTypeCountOrdersArgs
-    withdrawals?: boolean | UserCountOutputTypeCountWithdrawalsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     favorites?: boolean | UserCountOutputTypeCountFavoritesArgs
     reviews?: boolean | UserCountOutputTypeCountReviewsArgs
-    products?: boolean | UserCountOutputTypeCountProductsArgs
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
     tickets?: boolean | UserCountOutputTypeCountTicketsArgs
     ticketMessages?: boolean | UserCountOutputTypeCountTicketMessagesArgs
@@ -2463,13 +2368,6 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountWithdrawalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WithdrawalWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
   }
@@ -2486,13 +2384,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReviewWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProductWhereInput
   }
 
   /**
@@ -2725,14 +2616,12 @@ export namespace Prisma {
   export type UserAvgAggregateOutputType = {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
-    sellerEarnings: Decimal | null
     sessionVersion: number | null
   }
 
   export type UserSumAggregateOutputType = {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
-    sellerEarnings: Decimal | null
     sessionVersion: number | null
   }
 
@@ -2742,10 +2631,8 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     role: string | null
-    sellerStatus: string | null
     walletBalance: Decimal | null
     totalSpent: Decimal | null
-    sellerEarnings: Decimal | null
     emailVerified: boolean | null
     emailVerifiedAt: Date | null
     sessionVersion: number | null
@@ -2758,10 +2645,8 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     role: string | null
-    sellerStatus: string | null
     walletBalance: Decimal | null
     totalSpent: Decimal | null
-    sellerEarnings: Decimal | null
     emailVerified: boolean | null
     emailVerifiedAt: Date | null
     sessionVersion: number | null
@@ -2774,10 +2659,8 @@ export namespace Prisma {
     email: number
     passwordHash: number
     role: number
-    sellerStatus: number
     walletBalance: number
     totalSpent: number
-    sellerEarnings: number
     emailVerified: number
     emailVerifiedAt: number
     sessionVersion: number
@@ -2789,14 +2672,12 @@ export namespace Prisma {
   export type UserAvgAggregateInputType = {
     walletBalance?: true
     totalSpent?: true
-    sellerEarnings?: true
     sessionVersion?: true
   }
 
   export type UserSumAggregateInputType = {
     walletBalance?: true
     totalSpent?: true
-    sellerEarnings?: true
     sessionVersion?: true
   }
 
@@ -2806,10 +2687,8 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
-    sellerStatus?: true
     walletBalance?: true
     totalSpent?: true
-    sellerEarnings?: true
     emailVerified?: true
     emailVerifiedAt?: true
     sessionVersion?: true
@@ -2822,10 +2701,8 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
-    sellerStatus?: true
     walletBalance?: true
     totalSpent?: true
-    sellerEarnings?: true
     emailVerified?: true
     emailVerifiedAt?: true
     sessionVersion?: true
@@ -2838,10 +2715,8 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
-    sellerStatus?: true
     walletBalance?: true
     totalSpent?: true
-    sellerEarnings?: true
     emailVerified?: true
     emailVerifiedAt?: true
     sessionVersion?: true
@@ -2941,10 +2816,8 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role: string
-    sellerStatus: string
     walletBalance: Decimal
     totalSpent: Decimal
-    sellerEarnings: Decimal
     emailVerified: boolean
     emailVerifiedAt: Date | null
     sessionVersion: number
@@ -2976,21 +2849,17 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
-    sellerStatus?: boolean
     walletBalance?: boolean
     totalSpent?: boolean
-    sellerEarnings?: boolean
     emailVerified?: boolean
     emailVerifiedAt?: boolean
     sessionVersion?: boolean
     createdAt?: boolean
     deposits?: boolean | User$depositsArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
-    withdrawals?: boolean | User$withdrawalsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     favorites?: boolean | User$favoritesArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
-    products?: boolean | User$productsArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
@@ -3004,10 +2873,8 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
-    sellerStatus?: boolean
     walletBalance?: boolean
     totalSpent?: boolean
-    sellerEarnings?: boolean
     emailVerified?: boolean
     emailVerifiedAt?: boolean
     sessionVersion?: boolean
@@ -3020,10 +2887,8 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
-    sellerStatus?: boolean
     walletBalance?: boolean
     totalSpent?: boolean
-    sellerEarnings?: boolean
     emailVerified?: boolean
     emailVerifiedAt?: boolean
     sessionVersion?: boolean
@@ -3036,25 +2901,21 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
-    sellerStatus?: boolean
     walletBalance?: boolean
     totalSpent?: boolean
-    sellerEarnings?: boolean
     emailVerified?: boolean
     emailVerifiedAt?: boolean
     sessionVersion?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "sellerStatus" | "walletBalance" | "totalSpent" | "sellerEarnings" | "emailVerified" | "emailVerifiedAt" | "sessionVersion" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "walletBalance" | "totalSpent" | "emailVerified" | "emailVerifiedAt" | "sessionVersion" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     deposits?: boolean | User$depositsArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
-    withdrawals?: boolean | User$withdrawalsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     favorites?: boolean | User$favoritesArgs<ExtArgs>
     reviews?: boolean | User$reviewsArgs<ExtArgs>
-    products?: boolean | User$productsArgs<ExtArgs>
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
@@ -3069,11 +2930,9 @@ export namespace Prisma {
     objects: {
       deposits: Prisma.$DepositPayload<ExtArgs>[]
       orders: Prisma.$OrderPayload<ExtArgs>[]
-      withdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       favorites: Prisma.$FavoritePayload<ExtArgs>[]
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
-      products: Prisma.$ProductPayload<ExtArgs>[]
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
       tickets: Prisma.$SupportTicketPayload<ExtArgs>[]
       ticketMessages: Prisma.$SupportMessagePayload<ExtArgs>[]
@@ -3085,10 +2944,8 @@ export namespace Prisma {
       email: string
       passwordHash: string
       role: string
-      sellerStatus: string
       walletBalance: Prisma.Decimal
       totalSpent: Prisma.Decimal
-      sellerEarnings: Prisma.Decimal
       emailVerified: boolean
       emailVerifiedAt: Date | null
       sessionVersion: number
@@ -3489,11 +3346,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     deposits<T extends User$depositsArgs<ExtArgs> = {}>(args?: Subset<T, User$depositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orders<T extends User$ordersArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    withdrawals<T extends User$withdrawalsArgs<ExtArgs> = {}>(args?: Subset<T, User$withdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     favorites<T extends User$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, User$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends User$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    products<T extends User$productsArgs<ExtArgs> = {}>(args?: Subset<T, User$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tickets<T extends User$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ticketMessages<T extends User$ticketMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3532,10 +3387,8 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'String'>
-    readonly sellerStatus: FieldRef<"User", 'String'>
     readonly walletBalance: FieldRef<"User", 'Decimal'>
     readonly totalSpent: FieldRef<"User", 'Decimal'>
-    readonly sellerEarnings: FieldRef<"User", 'Decimal'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly emailVerifiedAt: FieldRef<"User", 'DateTime'>
     readonly sessionVersion: FieldRef<"User", 'Int'>
@@ -3976,30 +3829,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.withdrawals
-   */
-  export type User$withdrawalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    where?: WithdrawalWhereInput
-    orderBy?: WithdrawalOrderByWithRelationInput | WithdrawalOrderByWithRelationInput[]
-    cursor?: WithdrawalWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: WithdrawalScalarFieldEnum | WithdrawalScalarFieldEnum[]
-  }
-
-  /**
    * User.notifications
    */
   export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4069,30 +3898,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
-  }
-
-  /**
-   * User.products
-   */
-  export type User$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Product
-     */
-    select?: ProductSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Product
-     */
-    omit?: ProductOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProductInclude<ExtArgs> | null
-    where?: ProductWhereInput
-    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
-    cursor?: ProductWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
   }
 
   /**
@@ -7547,7 +7352,6 @@ export namespace Prisma {
     imageUrl: string | null
     imageName: string | null
     status: string | null
-    sellerId: string | null
     rating: Decimal | null
     orderCount: number | null
     isActive: boolean | null
@@ -7570,7 +7374,6 @@ export namespace Prisma {
     imageUrl: string | null
     imageName: string | null
     status: string | null
-    sellerId: string | null
     rating: Decimal | null
     orderCount: number | null
     isActive: boolean | null
@@ -7593,7 +7396,6 @@ export namespace Prisma {
     imageUrl: number
     imageName: number
     status: number
-    sellerId: number
     rating: number
     orderCount: number
     isActive: number
@@ -7632,7 +7434,6 @@ export namespace Prisma {
     imageUrl?: true
     imageName?: true
     status?: true
-    sellerId?: true
     rating?: true
     orderCount?: true
     isActive?: true
@@ -7655,7 +7456,6 @@ export namespace Prisma {
     imageUrl?: true
     imageName?: true
     status?: true
-    sellerId?: true
     rating?: true
     orderCount?: true
     isActive?: true
@@ -7678,7 +7478,6 @@ export namespace Prisma {
     imageUrl?: true
     imageName?: true
     status?: true
-    sellerId?: true
     rating?: true
     orderCount?: true
     isActive?: true
@@ -7788,7 +7587,6 @@ export namespace Prisma {
     imageUrl: string | null
     imageName: string | null
     status: string
-    sellerId: string | null
     rating: Decimal
     orderCount: number
     isActive: boolean
@@ -7830,13 +7628,11 @@ export namespace Prisma {
     imageUrl?: boolean
     imageName?: boolean
     status?: boolean
-    sellerId?: boolean
     rating?: boolean
     orderCount?: boolean
     isActive?: boolean
     createdAt?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
-    seller?: boolean | Product$sellerArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
     favorites?: boolean | Product$favoritesArgs<ExtArgs>
     reviews?: boolean | Product$reviewsArgs<ExtArgs>
@@ -7860,13 +7656,11 @@ export namespace Prisma {
     imageUrl?: boolean
     imageName?: boolean
     status?: boolean
-    sellerId?: boolean
     rating?: boolean
     orderCount?: boolean
     isActive?: boolean
     createdAt?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
-    seller?: boolean | Product$sellerArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7885,13 +7679,11 @@ export namespace Prisma {
     imageUrl?: boolean
     imageName?: boolean
     status?: boolean
-    sellerId?: boolean
     rating?: boolean
     orderCount?: boolean
     isActive?: boolean
     createdAt?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
-    seller?: boolean | Product$sellerArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -7910,17 +7702,15 @@ export namespace Prisma {
     imageUrl?: boolean
     imageName?: boolean
     status?: boolean
-    sellerId?: boolean
     rating?: boolean
     orderCount?: boolean
     isActive?: boolean
     createdAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "title" | "description" | "price" | "stock" | "platform" | "deliveryTime" | "deliveryType" | "deliveryFileUrl" | "deliveryFileName" | "deliveryInstructions" | "imageUrl" | "imageName" | "status" | "sellerId" | "rating" | "orderCount" | "isActive" | "createdAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "title" | "description" | "price" | "stock" | "platform" | "deliveryTime" | "deliveryType" | "deliveryFileUrl" | "deliveryFileName" | "deliveryInstructions" | "imageUrl" | "imageName" | "status" | "rating" | "orderCount" | "isActive" | "createdAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
-    seller?: boolean | Product$sellerArgs<ExtArgs>
     orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
     favorites?: boolean | Product$favoritesArgs<ExtArgs>
     reviews?: boolean | Product$reviewsArgs<ExtArgs>
@@ -7929,18 +7719,15 @@ export namespace Prisma {
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
-    seller?: boolean | Product$sellerArgs<ExtArgs>
   }
   export type ProductIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
-    seller?: boolean | Product$sellerArgs<ExtArgs>
   }
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
     objects: {
       category: Prisma.$CategoryPayload<ExtArgs>
-      seller: Prisma.$UserPayload<ExtArgs> | null
       orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
       favorites: Prisma.$FavoritePayload<ExtArgs>[]
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
@@ -7962,7 +7749,6 @@ export namespace Prisma {
       imageUrl: string | null
       imageName: string | null
       status: string
-      sellerId: string | null
       rating: Prisma.Decimal
       orderCount: number
       isActive: boolean
@@ -8362,7 +8148,6 @@ export namespace Prisma {
   export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    seller<T extends Product$sellerArgs<ExtArgs> = {}>(args?: Subset<T, Product$sellerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     orderItems<T extends Product$orderItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     favorites<T extends Product$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, Product$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends Product$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Product$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8411,7 +8196,6 @@ export namespace Prisma {
     readonly imageUrl: FieldRef<"Product", 'String'>
     readonly imageName: FieldRef<"Product", 'String'>
     readonly status: FieldRef<"Product", 'String'>
-    readonly sellerId: FieldRef<"Product", 'String'>
     readonly rating: FieldRef<"Product", 'Decimal'>
     readonly orderCount: FieldRef<"Product", 'Int'>
     readonly isActive: FieldRef<"Product", 'Boolean'>
@@ -8809,25 +8593,6 @@ export namespace Prisma {
      * Limit how many Products to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Product.seller
-   */
-  export type Product$sellerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -13617,1150 +13382,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Withdrawal
-   */
-
-  export type AggregateWithdrawal = {
-    _count: WithdrawalCountAggregateOutputType | null
-    _avg: WithdrawalAvgAggregateOutputType | null
-    _sum: WithdrawalSumAggregateOutputType | null
-    _min: WithdrawalMinAggregateOutputType | null
-    _max: WithdrawalMaxAggregateOutputType | null
-  }
-
-  export type WithdrawalAvgAggregateOutputType = {
-    amount: Decimal | null
-  }
-
-  export type WithdrawalSumAggregateOutputType = {
-    amount: Decimal | null
-  }
-
-  export type WithdrawalMinAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    amount: Decimal | null
-    bankName: string | null
-    accountName: string | null
-    accountNumber: string | null
-    status: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type WithdrawalMaxAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    amount: Decimal | null
-    bankName: string | null
-    accountName: string | null
-    accountNumber: string | null
-    status: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type WithdrawalCountAggregateOutputType = {
-    id: number
-    userId: number
-    amount: number
-    bankName: number
-    accountName: number
-    accountNumber: number
-    status: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type WithdrawalAvgAggregateInputType = {
-    amount?: true
-  }
-
-  export type WithdrawalSumAggregateInputType = {
-    amount?: true
-  }
-
-  export type WithdrawalMinAggregateInputType = {
-    id?: true
-    userId?: true
-    amount?: true
-    bankName?: true
-    accountName?: true
-    accountNumber?: true
-    status?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type WithdrawalMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    amount?: true
-    bankName?: true
-    accountName?: true
-    accountNumber?: true
-    status?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type WithdrawalCountAggregateInputType = {
-    id?: true
-    userId?: true
-    amount?: true
-    bankName?: true
-    accountName?: true
-    accountNumber?: true
-    status?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type WithdrawalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Withdrawal to aggregate.
-     */
-    where?: WithdrawalWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Withdrawals to fetch.
-     */
-    orderBy?: WithdrawalOrderByWithRelationInput | WithdrawalOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: WithdrawalWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Withdrawals from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Withdrawals.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Withdrawals
-    **/
-    _count?: true | WithdrawalCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: WithdrawalAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: WithdrawalSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: WithdrawalMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: WithdrawalMaxAggregateInputType
-  }
-
-  export type GetWithdrawalAggregateType<T extends WithdrawalAggregateArgs> = {
-        [P in keyof T & keyof AggregateWithdrawal]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateWithdrawal[P]>
-      : GetScalarType<T[P], AggregateWithdrawal[P]>
-  }
-
-
-
-
-  export type WithdrawalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WithdrawalWhereInput
-    orderBy?: WithdrawalOrderByWithAggregationInput | WithdrawalOrderByWithAggregationInput[]
-    by: WithdrawalScalarFieldEnum[] | WithdrawalScalarFieldEnum
-    having?: WithdrawalScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: WithdrawalCountAggregateInputType | true
-    _avg?: WithdrawalAvgAggregateInputType
-    _sum?: WithdrawalSumAggregateInputType
-    _min?: WithdrawalMinAggregateInputType
-    _max?: WithdrawalMaxAggregateInputType
-  }
-
-  export type WithdrawalGroupByOutputType = {
-    id: string
-    userId: string
-    amount: Decimal
-    bankName: string | null
-    accountName: string | null
-    accountNumber: string | null
-    status: string
-    createdAt: Date
-    updatedAt: Date
-    _count: WithdrawalCountAggregateOutputType | null
-    _avg: WithdrawalAvgAggregateOutputType | null
-    _sum: WithdrawalSumAggregateOutputType | null
-    _min: WithdrawalMinAggregateOutputType | null
-    _max: WithdrawalMaxAggregateOutputType | null
-  }
-
-  type GetWithdrawalGroupByPayload<T extends WithdrawalGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<WithdrawalGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof WithdrawalGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], WithdrawalGroupByOutputType[P]>
-            : GetScalarType<T[P], WithdrawalGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type WithdrawalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    amount?: boolean
-    bankName?: boolean
-    accountName?: boolean
-    accountNumber?: boolean
-    status?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["withdrawal"]>
-
-  export type WithdrawalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    amount?: boolean
-    bankName?: boolean
-    accountName?: boolean
-    accountNumber?: boolean
-    status?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["withdrawal"]>
-
-  export type WithdrawalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    amount?: boolean
-    bankName?: boolean
-    accountName?: boolean
-    accountNumber?: boolean
-    status?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["withdrawal"]>
-
-  export type WithdrawalSelectScalar = {
-    id?: boolean
-    userId?: boolean
-    amount?: boolean
-    bankName?: boolean
-    accountName?: boolean
-    accountNumber?: boolean
-    status?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type WithdrawalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "bankName" | "accountName" | "accountNumber" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["withdrawal"]>
-  export type WithdrawalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type WithdrawalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type WithdrawalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $WithdrawalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Withdrawal"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      userId: string
-      amount: Prisma.Decimal
-      bankName: string | null
-      accountName: string | null
-      accountNumber: string | null
-      status: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["withdrawal"]>
-    composites: {}
-  }
-
-  type WithdrawalGetPayload<S extends boolean | null | undefined | WithdrawalDefaultArgs> = $Result.GetResult<Prisma.$WithdrawalPayload, S>
-
-  type WithdrawalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<WithdrawalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: WithdrawalCountAggregateInputType | true
-    }
-
-  export interface WithdrawalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Withdrawal'], meta: { name: 'Withdrawal' } }
-    /**
-     * Find zero or one Withdrawal that matches the filter.
-     * @param {WithdrawalFindUniqueArgs} args - Arguments to find a Withdrawal
-     * @example
-     * // Get one Withdrawal
-     * const withdrawal = await prisma.withdrawal.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends WithdrawalFindUniqueArgs>(args: SelectSubset<T, WithdrawalFindUniqueArgs<ExtArgs>>): Prisma__WithdrawalClient<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Withdrawal that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {WithdrawalFindUniqueOrThrowArgs} args - Arguments to find a Withdrawal
-     * @example
-     * // Get one Withdrawal
-     * const withdrawal = await prisma.withdrawal.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends WithdrawalFindUniqueOrThrowArgs>(args: SelectSubset<T, WithdrawalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WithdrawalClient<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Withdrawal that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WithdrawalFindFirstArgs} args - Arguments to find a Withdrawal
-     * @example
-     * // Get one Withdrawal
-     * const withdrawal = await prisma.withdrawal.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends WithdrawalFindFirstArgs>(args?: SelectSubset<T, WithdrawalFindFirstArgs<ExtArgs>>): Prisma__WithdrawalClient<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Withdrawal that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WithdrawalFindFirstOrThrowArgs} args - Arguments to find a Withdrawal
-     * @example
-     * // Get one Withdrawal
-     * const withdrawal = await prisma.withdrawal.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends WithdrawalFindFirstOrThrowArgs>(args?: SelectSubset<T, WithdrawalFindFirstOrThrowArgs<ExtArgs>>): Prisma__WithdrawalClient<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Withdrawals that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WithdrawalFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Withdrawals
-     * const withdrawals = await prisma.withdrawal.findMany()
-     * 
-     * // Get first 10 Withdrawals
-     * const withdrawals = await prisma.withdrawal.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const withdrawalWithIdOnly = await prisma.withdrawal.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends WithdrawalFindManyArgs>(args?: SelectSubset<T, WithdrawalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Withdrawal.
-     * @param {WithdrawalCreateArgs} args - Arguments to create a Withdrawal.
-     * @example
-     * // Create one Withdrawal
-     * const Withdrawal = await prisma.withdrawal.create({
-     *   data: {
-     *     // ... data to create a Withdrawal
-     *   }
-     * })
-     * 
-     */
-    create<T extends WithdrawalCreateArgs>(args: SelectSubset<T, WithdrawalCreateArgs<ExtArgs>>): Prisma__WithdrawalClient<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Withdrawals.
-     * @param {WithdrawalCreateManyArgs} args - Arguments to create many Withdrawals.
-     * @example
-     * // Create many Withdrawals
-     * const withdrawal = await prisma.withdrawal.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends WithdrawalCreateManyArgs>(args?: SelectSubset<T, WithdrawalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Withdrawals and returns the data saved in the database.
-     * @param {WithdrawalCreateManyAndReturnArgs} args - Arguments to create many Withdrawals.
-     * @example
-     * // Create many Withdrawals
-     * const withdrawal = await prisma.withdrawal.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Withdrawals and only return the `id`
-     * const withdrawalWithIdOnly = await prisma.withdrawal.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends WithdrawalCreateManyAndReturnArgs>(args?: SelectSubset<T, WithdrawalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Withdrawal.
-     * @param {WithdrawalDeleteArgs} args - Arguments to delete one Withdrawal.
-     * @example
-     * // Delete one Withdrawal
-     * const Withdrawal = await prisma.withdrawal.delete({
-     *   where: {
-     *     // ... filter to delete one Withdrawal
-     *   }
-     * })
-     * 
-     */
-    delete<T extends WithdrawalDeleteArgs>(args: SelectSubset<T, WithdrawalDeleteArgs<ExtArgs>>): Prisma__WithdrawalClient<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Withdrawal.
-     * @param {WithdrawalUpdateArgs} args - Arguments to update one Withdrawal.
-     * @example
-     * // Update one Withdrawal
-     * const withdrawal = await prisma.withdrawal.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends WithdrawalUpdateArgs>(args: SelectSubset<T, WithdrawalUpdateArgs<ExtArgs>>): Prisma__WithdrawalClient<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Withdrawals.
-     * @param {WithdrawalDeleteManyArgs} args - Arguments to filter Withdrawals to delete.
-     * @example
-     * // Delete a few Withdrawals
-     * const { count } = await prisma.withdrawal.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends WithdrawalDeleteManyArgs>(args?: SelectSubset<T, WithdrawalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Withdrawals.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WithdrawalUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Withdrawals
-     * const withdrawal = await prisma.withdrawal.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends WithdrawalUpdateManyArgs>(args: SelectSubset<T, WithdrawalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Withdrawals and returns the data updated in the database.
-     * @param {WithdrawalUpdateManyAndReturnArgs} args - Arguments to update many Withdrawals.
-     * @example
-     * // Update many Withdrawals
-     * const withdrawal = await prisma.withdrawal.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Withdrawals and only return the `id`
-     * const withdrawalWithIdOnly = await prisma.withdrawal.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends WithdrawalUpdateManyAndReturnArgs>(args: SelectSubset<T, WithdrawalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Withdrawal.
-     * @param {WithdrawalUpsertArgs} args - Arguments to update or create a Withdrawal.
-     * @example
-     * // Update or create a Withdrawal
-     * const withdrawal = await prisma.withdrawal.upsert({
-     *   create: {
-     *     // ... data to create a Withdrawal
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Withdrawal we want to update
-     *   }
-     * })
-     */
-    upsert<T extends WithdrawalUpsertArgs>(args: SelectSubset<T, WithdrawalUpsertArgs<ExtArgs>>): Prisma__WithdrawalClient<$Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Withdrawals.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WithdrawalCountArgs} args - Arguments to filter Withdrawals to count.
-     * @example
-     * // Count the number of Withdrawals
-     * const count = await prisma.withdrawal.count({
-     *   where: {
-     *     // ... the filter for the Withdrawals we want to count
-     *   }
-     * })
-    **/
-    count<T extends WithdrawalCountArgs>(
-      args?: Subset<T, WithdrawalCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], WithdrawalCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Withdrawal.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WithdrawalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends WithdrawalAggregateArgs>(args: Subset<T, WithdrawalAggregateArgs>): Prisma.PrismaPromise<GetWithdrawalAggregateType<T>>
-
-    /**
-     * Group by Withdrawal.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WithdrawalGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends WithdrawalGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: WithdrawalGroupByArgs['orderBy'] }
-        : { orderBy?: WithdrawalGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, WithdrawalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWithdrawalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Withdrawal model
-   */
-  readonly fields: WithdrawalFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Withdrawal.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__WithdrawalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Withdrawal model
-   */
-  interface WithdrawalFieldRefs {
-    readonly id: FieldRef<"Withdrawal", 'String'>
-    readonly userId: FieldRef<"Withdrawal", 'String'>
-    readonly amount: FieldRef<"Withdrawal", 'Decimal'>
-    readonly bankName: FieldRef<"Withdrawal", 'String'>
-    readonly accountName: FieldRef<"Withdrawal", 'String'>
-    readonly accountNumber: FieldRef<"Withdrawal", 'String'>
-    readonly status: FieldRef<"Withdrawal", 'String'>
-    readonly createdAt: FieldRef<"Withdrawal", 'DateTime'>
-    readonly updatedAt: FieldRef<"Withdrawal", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Withdrawal findUnique
-   */
-  export type WithdrawalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * Filter, which Withdrawal to fetch.
-     */
-    where: WithdrawalWhereUniqueInput
-  }
-
-  /**
-   * Withdrawal findUniqueOrThrow
-   */
-  export type WithdrawalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * Filter, which Withdrawal to fetch.
-     */
-    where: WithdrawalWhereUniqueInput
-  }
-
-  /**
-   * Withdrawal findFirst
-   */
-  export type WithdrawalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * Filter, which Withdrawal to fetch.
-     */
-    where?: WithdrawalWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Withdrawals to fetch.
-     */
-    orderBy?: WithdrawalOrderByWithRelationInput | WithdrawalOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Withdrawals.
-     */
-    cursor?: WithdrawalWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Withdrawals from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Withdrawals.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Withdrawals.
-     */
-    distinct?: WithdrawalScalarFieldEnum | WithdrawalScalarFieldEnum[]
-  }
-
-  /**
-   * Withdrawal findFirstOrThrow
-   */
-  export type WithdrawalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * Filter, which Withdrawal to fetch.
-     */
-    where?: WithdrawalWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Withdrawals to fetch.
-     */
-    orderBy?: WithdrawalOrderByWithRelationInput | WithdrawalOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Withdrawals.
-     */
-    cursor?: WithdrawalWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Withdrawals from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Withdrawals.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Withdrawals.
-     */
-    distinct?: WithdrawalScalarFieldEnum | WithdrawalScalarFieldEnum[]
-  }
-
-  /**
-   * Withdrawal findMany
-   */
-  export type WithdrawalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * Filter, which Withdrawals to fetch.
-     */
-    where?: WithdrawalWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Withdrawals to fetch.
-     */
-    orderBy?: WithdrawalOrderByWithRelationInput | WithdrawalOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Withdrawals.
-     */
-    cursor?: WithdrawalWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Withdrawals from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Withdrawals.
-     */
-    skip?: number
-    distinct?: WithdrawalScalarFieldEnum | WithdrawalScalarFieldEnum[]
-  }
-
-  /**
-   * Withdrawal create
-   */
-  export type WithdrawalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Withdrawal.
-     */
-    data: XOR<WithdrawalCreateInput, WithdrawalUncheckedCreateInput>
-  }
-
-  /**
-   * Withdrawal createMany
-   */
-  export type WithdrawalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Withdrawals.
-     */
-    data: WithdrawalCreateManyInput | WithdrawalCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Withdrawal createManyAndReturn
-   */
-  export type WithdrawalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * The data used to create many Withdrawals.
-     */
-    data: WithdrawalCreateManyInput | WithdrawalCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Withdrawal update
-   */
-  export type WithdrawalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Withdrawal.
-     */
-    data: XOR<WithdrawalUpdateInput, WithdrawalUncheckedUpdateInput>
-    /**
-     * Choose, which Withdrawal to update.
-     */
-    where: WithdrawalWhereUniqueInput
-  }
-
-  /**
-   * Withdrawal updateMany
-   */
-  export type WithdrawalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Withdrawals.
-     */
-    data: XOR<WithdrawalUpdateManyMutationInput, WithdrawalUncheckedUpdateManyInput>
-    /**
-     * Filter which Withdrawals to update
-     */
-    where?: WithdrawalWhereInput
-    /**
-     * Limit how many Withdrawals to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Withdrawal updateManyAndReturn
-   */
-  export type WithdrawalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * The data used to update Withdrawals.
-     */
-    data: XOR<WithdrawalUpdateManyMutationInput, WithdrawalUncheckedUpdateManyInput>
-    /**
-     * Filter which Withdrawals to update
-     */
-    where?: WithdrawalWhereInput
-    /**
-     * Limit how many Withdrawals to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Withdrawal upsert
-   */
-  export type WithdrawalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Withdrawal to update in case it exists.
-     */
-    where: WithdrawalWhereUniqueInput
-    /**
-     * In case the Withdrawal found by the `where` argument doesn't exist, create a new Withdrawal with this data.
-     */
-    create: XOR<WithdrawalCreateInput, WithdrawalUncheckedCreateInput>
-    /**
-     * In case the Withdrawal was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<WithdrawalUpdateInput, WithdrawalUncheckedUpdateInput>
-  }
-
-  /**
-   * Withdrawal delete
-   */
-  export type WithdrawalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-    /**
-     * Filter which Withdrawal to delete.
-     */
-    where: WithdrawalWhereUniqueInput
-  }
-
-  /**
-   * Withdrawal deleteMany
-   */
-  export type WithdrawalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Withdrawals to delete
-     */
-    where?: WithdrawalWhereInput
-    /**
-     * Limit how many Withdrawals to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Withdrawal without action
-   */
-  export type WithdrawalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Withdrawal
-     */
-    select?: WithdrawalSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Withdrawal
-     */
-    omit?: WithdrawalOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WithdrawalInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Notification
    */
 
@@ -18029,28 +16650,18 @@ export namespace Prisma {
 
   export type AggregateAppSetting = {
     _count: AppSettingCountAggregateOutputType | null
-    _avg: AppSettingAvgAggregateOutputType | null
-    _sum: AppSettingSumAggregateOutputType | null
     _min: AppSettingMinAggregateOutputType | null
     _max: AppSettingMaxAggregateOutputType | null
-  }
-
-  export type AppSettingAvgAggregateOutputType = {
-    minimumWithdrawalAmount: Decimal | null
-  }
-
-  export type AppSettingSumAggregateOutputType = {
-    minimumWithdrawalAmount: Decimal | null
   }
 
   export type AppSettingMinAggregateOutputType = {
     id: string | null
     siteName: string | null
     supportEmail: string | null
-    bankName: string | null
-    bankAccountName: string | null
-    bankAccountNumber: string | null
-    minimumWithdrawalAmount: Decimal | null
+    logoUrl: string | null
+    faviconUrl: string | null
+    currency: string | null
+    automaticDeliveryEnabled: boolean | null
     maintenanceMode: boolean | null
     paystackEnabled: boolean | null
     flutterwaveEnabled: boolean | null
@@ -18062,10 +16673,10 @@ export namespace Prisma {
     id: string | null
     siteName: string | null
     supportEmail: string | null
-    bankName: string | null
-    bankAccountName: string | null
-    bankAccountNumber: string | null
-    minimumWithdrawalAmount: Decimal | null
+    logoUrl: string | null
+    faviconUrl: string | null
+    currency: string | null
+    automaticDeliveryEnabled: boolean | null
     maintenanceMode: boolean | null
     paystackEnabled: boolean | null
     flutterwaveEnabled: boolean | null
@@ -18077,10 +16688,10 @@ export namespace Prisma {
     id: number
     siteName: number
     supportEmail: number
-    bankName: number
-    bankAccountName: number
-    bankAccountNumber: number
-    minimumWithdrawalAmount: number
+    logoUrl: number
+    faviconUrl: number
+    currency: number
+    automaticDeliveryEnabled: number
     maintenanceMode: number
     paystackEnabled: number
     flutterwaveEnabled: number
@@ -18090,22 +16701,14 @@ export namespace Prisma {
   }
 
 
-  export type AppSettingAvgAggregateInputType = {
-    minimumWithdrawalAmount?: true
-  }
-
-  export type AppSettingSumAggregateInputType = {
-    minimumWithdrawalAmount?: true
-  }
-
   export type AppSettingMinAggregateInputType = {
     id?: true
     siteName?: true
     supportEmail?: true
-    bankName?: true
-    bankAccountName?: true
-    bankAccountNumber?: true
-    minimumWithdrawalAmount?: true
+    logoUrl?: true
+    faviconUrl?: true
+    currency?: true
+    automaticDeliveryEnabled?: true
     maintenanceMode?: true
     paystackEnabled?: true
     flutterwaveEnabled?: true
@@ -18117,10 +16720,10 @@ export namespace Prisma {
     id?: true
     siteName?: true
     supportEmail?: true
-    bankName?: true
-    bankAccountName?: true
-    bankAccountNumber?: true
-    minimumWithdrawalAmount?: true
+    logoUrl?: true
+    faviconUrl?: true
+    currency?: true
+    automaticDeliveryEnabled?: true
     maintenanceMode?: true
     paystackEnabled?: true
     flutterwaveEnabled?: true
@@ -18132,10 +16735,10 @@ export namespace Prisma {
     id?: true
     siteName?: true
     supportEmail?: true
-    bankName?: true
-    bankAccountName?: true
-    bankAccountNumber?: true
-    minimumWithdrawalAmount?: true
+    logoUrl?: true
+    faviconUrl?: true
+    currency?: true
+    automaticDeliveryEnabled?: true
     maintenanceMode?: true
     paystackEnabled?: true
     flutterwaveEnabled?: true
@@ -18182,18 +16785,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: AppSettingAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AppSettingSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: AppSettingMinAggregateInputType
@@ -18224,8 +16815,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: AppSettingCountAggregateInputType | true
-    _avg?: AppSettingAvgAggregateInputType
-    _sum?: AppSettingSumAggregateInputType
     _min?: AppSettingMinAggregateInputType
     _max?: AppSettingMaxAggregateInputType
   }
@@ -18234,18 +16823,16 @@ export namespace Prisma {
     id: string
     siteName: string
     supportEmail: string
-    bankName: string
-    bankAccountName: string
-    bankAccountNumber: string
-    minimumWithdrawalAmount: Decimal
+    logoUrl: string | null
+    faviconUrl: string | null
+    currency: string
+    automaticDeliveryEnabled: boolean
     maintenanceMode: boolean
     paystackEnabled: boolean
     flutterwaveEnabled: boolean
     manualBankTransferEnabled: boolean
     updatedAt: Date
     _count: AppSettingCountAggregateOutputType | null
-    _avg: AppSettingAvgAggregateOutputType | null
-    _sum: AppSettingSumAggregateOutputType | null
     _min: AppSettingMinAggregateOutputType | null
     _max: AppSettingMaxAggregateOutputType | null
   }
@@ -18268,10 +16855,10 @@ export namespace Prisma {
     id?: boolean
     siteName?: boolean
     supportEmail?: boolean
-    bankName?: boolean
-    bankAccountName?: boolean
-    bankAccountNumber?: boolean
-    minimumWithdrawalAmount?: boolean
+    logoUrl?: boolean
+    faviconUrl?: boolean
+    currency?: boolean
+    automaticDeliveryEnabled?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
@@ -18283,10 +16870,10 @@ export namespace Prisma {
     id?: boolean
     siteName?: boolean
     supportEmail?: boolean
-    bankName?: boolean
-    bankAccountName?: boolean
-    bankAccountNumber?: boolean
-    minimumWithdrawalAmount?: boolean
+    logoUrl?: boolean
+    faviconUrl?: boolean
+    currency?: boolean
+    automaticDeliveryEnabled?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
@@ -18298,10 +16885,10 @@ export namespace Prisma {
     id?: boolean
     siteName?: boolean
     supportEmail?: boolean
-    bankName?: boolean
-    bankAccountName?: boolean
-    bankAccountNumber?: boolean
-    minimumWithdrawalAmount?: boolean
+    logoUrl?: boolean
+    faviconUrl?: boolean
+    currency?: boolean
+    automaticDeliveryEnabled?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
@@ -18313,10 +16900,10 @@ export namespace Prisma {
     id?: boolean
     siteName?: boolean
     supportEmail?: boolean
-    bankName?: boolean
-    bankAccountName?: boolean
-    bankAccountNumber?: boolean
-    minimumWithdrawalAmount?: boolean
+    logoUrl?: boolean
+    faviconUrl?: boolean
+    currency?: boolean
+    automaticDeliveryEnabled?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
@@ -18324,7 +16911,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type AppSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "siteName" | "supportEmail" | "bankName" | "bankAccountName" | "bankAccountNumber" | "minimumWithdrawalAmount" | "maintenanceMode" | "paystackEnabled" | "flutterwaveEnabled" | "manualBankTransferEnabled" | "updatedAt", ExtArgs["result"]["appSetting"]>
+  export type AppSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "siteName" | "supportEmail" | "logoUrl" | "faviconUrl" | "currency" | "automaticDeliveryEnabled" | "maintenanceMode" | "paystackEnabled" | "flutterwaveEnabled" | "manualBankTransferEnabled" | "updatedAt", ExtArgs["result"]["appSetting"]>
 
   export type $AppSettingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AppSetting"
@@ -18333,10 +16920,10 @@ export namespace Prisma {
       id: string
       siteName: string
       supportEmail: string
-      bankName: string
-      bankAccountName: string
-      bankAccountNumber: string
-      minimumWithdrawalAmount: Prisma.Decimal
+      logoUrl: string | null
+      faviconUrl: string | null
+      currency: string
+      automaticDeliveryEnabled: boolean
       maintenanceMode: boolean
       paystackEnabled: boolean
       flutterwaveEnabled: boolean
@@ -18768,10 +17355,10 @@ export namespace Prisma {
     readonly id: FieldRef<"AppSetting", 'String'>
     readonly siteName: FieldRef<"AppSetting", 'String'>
     readonly supportEmail: FieldRef<"AppSetting", 'String'>
-    readonly bankName: FieldRef<"AppSetting", 'String'>
-    readonly bankAccountName: FieldRef<"AppSetting", 'String'>
-    readonly bankAccountNumber: FieldRef<"AppSetting", 'String'>
-    readonly minimumWithdrawalAmount: FieldRef<"AppSetting", 'Decimal'>
+    readonly logoUrl: FieldRef<"AppSetting", 'String'>
+    readonly faviconUrl: FieldRef<"AppSetting", 'String'>
+    readonly currency: FieldRef<"AppSetting", 'String'>
+    readonly automaticDeliveryEnabled: FieldRef<"AppSetting", 'Boolean'>
     readonly maintenanceMode: FieldRef<"AppSetting", 'Boolean'>
     readonly paystackEnabled: FieldRef<"AppSetting", 'Boolean'>
     readonly flutterwaveEnabled: FieldRef<"AppSetting", 'Boolean'>
@@ -23514,10 +22101,8 @@ export namespace Prisma {
     email: 'email',
     passwordHash: 'passwordHash',
     role: 'role',
-    sellerStatus: 'sellerStatus',
     walletBalance: 'walletBalance',
     totalSpent: 'totalSpent',
-    sellerEarnings: 'sellerEarnings',
     emailVerified: 'emailVerified',
     emailVerifiedAt: 'emailVerifiedAt',
     sessionVersion: 'sessionVersion',
@@ -23584,7 +22169,6 @@ export namespace Prisma {
     imageUrl: 'imageUrl',
     imageName: 'imageName',
     status: 'status',
-    sellerId: 'sellerId',
     rating: 'rating',
     orderCount: 'orderCount',
     isActive: 'isActive',
@@ -23656,21 +22240,6 @@ export namespace Prisma {
   export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
 
 
-  export const WithdrawalScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    amount: 'amount',
-    bankName: 'bankName',
-    accountName: 'accountName',
-    accountNumber: 'accountNumber',
-    status: 'status',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
-
-
   export const NotificationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -23711,10 +22280,10 @@ export namespace Prisma {
     id: 'id',
     siteName: 'siteName',
     supportEmail: 'supportEmail',
-    bankName: 'bankName',
-    bankAccountName: 'bankAccountName',
-    bankAccountNumber: 'bankAccountNumber',
-    minimumWithdrawalAmount: 'minimumWithdrawalAmount',
+    logoUrl: 'logoUrl',
+    faviconUrl: 'faviconUrl',
+    currency: 'currency',
+    automaticDeliveryEnabled: 'automaticDeliveryEnabled',
     maintenanceMode: 'maintenanceMode',
     paystackEnabled: 'paystackEnabled',
     flutterwaveEnabled: 'flutterwaveEnabled',
@@ -23894,21 +22463,17 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
     role?: StringFilter<"User"> | string
-    sellerStatus?: StringFilter<"User"> | string
     walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFilter<"User"> | boolean
     emailVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     sessionVersion?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     deposits?: DepositListRelationFilter
     orders?: OrderListRelationFilter
-    withdrawals?: WithdrawalListRelationFilter
     notifications?: NotificationListRelationFilter
     favorites?: FavoriteListRelationFilter
     reviews?: ReviewListRelationFilter
-    products?: ProductListRelationFilter
     auditLogs?: AuditLogListRelationFilter
     tickets?: SupportTicketListRelationFilter
     ticketMessages?: SupportMessageListRelationFilter
@@ -23921,21 +22486,17 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
-    sellerStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
-    sellerEarnings?: SortOrder
     emailVerified?: SortOrder
     emailVerifiedAt?: SortOrderInput | SortOrder
     sessionVersion?: SortOrder
     createdAt?: SortOrder
     deposits?: DepositOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
-    withdrawals?: WithdrawalOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     favorites?: FavoriteOrderByRelationAggregateInput
     reviews?: ReviewOrderByRelationAggregateInput
-    products?: ProductOrderByRelationAggregateInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
     tickets?: SupportTicketOrderByRelationAggregateInput
     ticketMessages?: SupportMessageOrderByRelationAggregateInput
@@ -23951,21 +22512,17 @@ export namespace Prisma {
     name?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringFilter<"User"> | string
     role?: StringFilter<"User"> | string
-    sellerStatus?: StringFilter<"User"> | string
     walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFilter<"User"> | boolean
     emailVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     sessionVersion?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     deposits?: DepositListRelationFilter
     orders?: OrderListRelationFilter
-    withdrawals?: WithdrawalListRelationFilter
     notifications?: NotificationListRelationFilter
     favorites?: FavoriteListRelationFilter
     reviews?: ReviewListRelationFilter
-    products?: ProductListRelationFilter
     auditLogs?: AuditLogListRelationFilter
     tickets?: SupportTicketListRelationFilter
     ticketMessages?: SupportMessageListRelationFilter
@@ -23978,10 +22535,8 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
-    sellerStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
-    sellerEarnings?: SortOrder
     emailVerified?: SortOrder
     emailVerifiedAt?: SortOrderInput | SortOrder
     sessionVersion?: SortOrder
@@ -24002,10 +22557,8 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     role?: StringWithAggregatesFilter<"User"> | string
-    sellerStatus?: StringWithAggregatesFilter<"User"> | string
     walletBalance?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     emailVerifiedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     sessionVersion?: IntWithAggregatesFilter<"User"> | number
@@ -24237,13 +22790,11 @@ export namespace Prisma {
     imageUrl?: StringNullableFilter<"Product"> | string | null
     imageName?: StringNullableFilter<"Product"> | string | null
     status?: StringFilter<"Product"> | string
-    sellerId?: StringNullableFilter<"Product"> | string | null
     rating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     orderCount?: IntFilter<"Product"> | number
     isActive?: BoolFilter<"Product"> | boolean
     createdAt?: DateTimeFilter<"Product"> | Date | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-    seller?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     orderItems?: OrderItemListRelationFilter
     favorites?: FavoriteListRelationFilter
     reviews?: ReviewListRelationFilter
@@ -24266,13 +22817,11 @@ export namespace Prisma {
     imageUrl?: SortOrderInput | SortOrder
     imageName?: SortOrderInput | SortOrder
     status?: SortOrder
-    sellerId?: SortOrderInput | SortOrder
     rating?: SortOrder
     orderCount?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
     category?: CategoryOrderByWithRelationInput
-    seller?: UserOrderByWithRelationInput
     orderItems?: OrderItemOrderByRelationAggregateInput
     favorites?: FavoriteOrderByRelationAggregateInput
     reviews?: ReviewOrderByRelationAggregateInput
@@ -24298,13 +22847,11 @@ export namespace Prisma {
     imageUrl?: StringNullableFilter<"Product"> | string | null
     imageName?: StringNullableFilter<"Product"> | string | null
     status?: StringFilter<"Product"> | string
-    sellerId?: StringNullableFilter<"Product"> | string | null
     rating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     orderCount?: IntFilter<"Product"> | number
     isActive?: BoolFilter<"Product"> | boolean
     createdAt?: DateTimeFilter<"Product"> | Date | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-    seller?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     orderItems?: OrderItemListRelationFilter
     favorites?: FavoriteListRelationFilter
     reviews?: ReviewListRelationFilter
@@ -24327,7 +22874,6 @@ export namespace Prisma {
     imageUrl?: SortOrderInput | SortOrder
     imageName?: SortOrderInput | SortOrder
     status?: SortOrder
-    sellerId?: SortOrderInput | SortOrder
     rating?: SortOrder
     orderCount?: SortOrder
     isActive?: SortOrder
@@ -24358,7 +22904,6 @@ export namespace Prisma {
     imageUrl?: StringNullableWithAggregatesFilter<"Product"> | string | null
     imageName?: StringNullableWithAggregatesFilter<"Product"> | string | null
     status?: StringWithAggregatesFilter<"Product"> | string
-    sellerId?: StringNullableWithAggregatesFilter<"Product"> | string | null
     rating?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
     orderCount?: IntWithAggregatesFilter<"Product"> | number
     isActive?: BoolWithAggregatesFilter<"Product"> | boolean
@@ -24693,83 +23238,6 @@ export namespace Prisma {
     unitPrice?: DecimalWithAggregatesFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
   }
 
-  export type WithdrawalWhereInput = {
-    AND?: WithdrawalWhereInput | WithdrawalWhereInput[]
-    OR?: WithdrawalWhereInput[]
-    NOT?: WithdrawalWhereInput | WithdrawalWhereInput[]
-    id?: StringFilter<"Withdrawal"> | string
-    userId?: StringFilter<"Withdrawal"> | string
-    amount?: DecimalFilter<"Withdrawal"> | Decimal | DecimalJsLike | number | string
-    bankName?: StringNullableFilter<"Withdrawal"> | string | null
-    accountName?: StringNullableFilter<"Withdrawal"> | string | null
-    accountNumber?: StringNullableFilter<"Withdrawal"> | string | null
-    status?: StringFilter<"Withdrawal"> | string
-    createdAt?: DateTimeFilter<"Withdrawal"> | Date | string
-    updatedAt?: DateTimeFilter<"Withdrawal"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type WithdrawalOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    amount?: SortOrder
-    bankName?: SortOrderInput | SortOrder
-    accountName?: SortOrderInput | SortOrder
-    accountNumber?: SortOrderInput | SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type WithdrawalWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: WithdrawalWhereInput | WithdrawalWhereInput[]
-    OR?: WithdrawalWhereInput[]
-    NOT?: WithdrawalWhereInput | WithdrawalWhereInput[]
-    userId?: StringFilter<"Withdrawal"> | string
-    amount?: DecimalFilter<"Withdrawal"> | Decimal | DecimalJsLike | number | string
-    bankName?: StringNullableFilter<"Withdrawal"> | string | null
-    accountName?: StringNullableFilter<"Withdrawal"> | string | null
-    accountNumber?: StringNullableFilter<"Withdrawal"> | string | null
-    status?: StringFilter<"Withdrawal"> | string
-    createdAt?: DateTimeFilter<"Withdrawal"> | Date | string
-    updatedAt?: DateTimeFilter<"Withdrawal"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
-
-  export type WithdrawalOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    amount?: SortOrder
-    bankName?: SortOrderInput | SortOrder
-    accountName?: SortOrderInput | SortOrder
-    accountNumber?: SortOrderInput | SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: WithdrawalCountOrderByAggregateInput
-    _avg?: WithdrawalAvgOrderByAggregateInput
-    _max?: WithdrawalMaxOrderByAggregateInput
-    _min?: WithdrawalMinOrderByAggregateInput
-    _sum?: WithdrawalSumOrderByAggregateInput
-  }
-
-  export type WithdrawalScalarWhereWithAggregatesInput = {
-    AND?: WithdrawalScalarWhereWithAggregatesInput | WithdrawalScalarWhereWithAggregatesInput[]
-    OR?: WithdrawalScalarWhereWithAggregatesInput[]
-    NOT?: WithdrawalScalarWhereWithAggregatesInput | WithdrawalScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Withdrawal"> | string
-    userId?: StringWithAggregatesFilter<"Withdrawal"> | string
-    amount?: DecimalWithAggregatesFilter<"Withdrawal"> | Decimal | DecimalJsLike | number | string
-    bankName?: StringNullableWithAggregatesFilter<"Withdrawal"> | string | null
-    accountName?: StringNullableWithAggregatesFilter<"Withdrawal"> | string | null
-    accountNumber?: StringNullableWithAggregatesFilter<"Withdrawal"> | string | null
-    status?: StringWithAggregatesFilter<"Withdrawal"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Withdrawal"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Withdrawal"> | Date | string
-  }
-
   export type NotificationWhereInput = {
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
@@ -24967,10 +23435,10 @@ export namespace Prisma {
     id?: StringFilter<"AppSetting"> | string
     siteName?: StringFilter<"AppSetting"> | string
     supportEmail?: StringFilter<"AppSetting"> | string
-    bankName?: StringFilter<"AppSetting"> | string
-    bankAccountName?: StringFilter<"AppSetting"> | string
-    bankAccountNumber?: StringFilter<"AppSetting"> | string
-    minimumWithdrawalAmount?: DecimalFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
+    logoUrl?: StringNullableFilter<"AppSetting"> | string | null
+    faviconUrl?: StringNullableFilter<"AppSetting"> | string | null
+    currency?: StringFilter<"AppSetting"> | string
+    automaticDeliveryEnabled?: BoolFilter<"AppSetting"> | boolean
     maintenanceMode?: BoolFilter<"AppSetting"> | boolean
     paystackEnabled?: BoolFilter<"AppSetting"> | boolean
     flutterwaveEnabled?: BoolFilter<"AppSetting"> | boolean
@@ -24982,10 +23450,10 @@ export namespace Prisma {
     id?: SortOrder
     siteName?: SortOrder
     supportEmail?: SortOrder
-    bankName?: SortOrder
-    bankAccountName?: SortOrder
-    bankAccountNumber?: SortOrder
-    minimumWithdrawalAmount?: SortOrder
+    logoUrl?: SortOrderInput | SortOrder
+    faviconUrl?: SortOrderInput | SortOrder
+    currency?: SortOrder
+    automaticDeliveryEnabled?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
@@ -25000,10 +23468,10 @@ export namespace Prisma {
     NOT?: AppSettingWhereInput | AppSettingWhereInput[]
     siteName?: StringFilter<"AppSetting"> | string
     supportEmail?: StringFilter<"AppSetting"> | string
-    bankName?: StringFilter<"AppSetting"> | string
-    bankAccountName?: StringFilter<"AppSetting"> | string
-    bankAccountNumber?: StringFilter<"AppSetting"> | string
-    minimumWithdrawalAmount?: DecimalFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
+    logoUrl?: StringNullableFilter<"AppSetting"> | string | null
+    faviconUrl?: StringNullableFilter<"AppSetting"> | string | null
+    currency?: StringFilter<"AppSetting"> | string
+    automaticDeliveryEnabled?: BoolFilter<"AppSetting"> | boolean
     maintenanceMode?: BoolFilter<"AppSetting"> | boolean
     paystackEnabled?: BoolFilter<"AppSetting"> | boolean
     flutterwaveEnabled?: BoolFilter<"AppSetting"> | boolean
@@ -25015,20 +23483,18 @@ export namespace Prisma {
     id?: SortOrder
     siteName?: SortOrder
     supportEmail?: SortOrder
-    bankName?: SortOrder
-    bankAccountName?: SortOrder
-    bankAccountNumber?: SortOrder
-    minimumWithdrawalAmount?: SortOrder
+    logoUrl?: SortOrderInput | SortOrder
+    faviconUrl?: SortOrderInput | SortOrder
+    currency?: SortOrder
+    automaticDeliveryEnabled?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
     manualBankTransferEnabled?: SortOrder
     updatedAt?: SortOrder
     _count?: AppSettingCountOrderByAggregateInput
-    _avg?: AppSettingAvgOrderByAggregateInput
     _max?: AppSettingMaxOrderByAggregateInput
     _min?: AppSettingMinOrderByAggregateInput
-    _sum?: AppSettingSumOrderByAggregateInput
   }
 
   export type AppSettingScalarWhereWithAggregatesInput = {
@@ -25038,10 +23504,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"AppSetting"> | string
     siteName?: StringWithAggregatesFilter<"AppSetting"> | string
     supportEmail?: StringWithAggregatesFilter<"AppSetting"> | string
-    bankName?: StringWithAggregatesFilter<"AppSetting"> | string
-    bankAccountName?: StringWithAggregatesFilter<"AppSetting"> | string
-    bankAccountNumber?: StringWithAggregatesFilter<"AppSetting"> | string
-    minimumWithdrawalAmount?: DecimalWithAggregatesFilter<"AppSetting"> | Decimal | DecimalJsLike | number | string
+    logoUrl?: StringNullableWithAggregatesFilter<"AppSetting"> | string | null
+    faviconUrl?: StringNullableWithAggregatesFilter<"AppSetting"> | string | null
+    currency?: StringWithAggregatesFilter<"AppSetting"> | string
+    automaticDeliveryEnabled?: BoolWithAggregatesFilter<"AppSetting"> | boolean
     maintenanceMode?: BoolWithAggregatesFilter<"AppSetting"> | boolean
     paystackEnabled?: BoolWithAggregatesFilter<"AppSetting"> | boolean
     flutterwaveEnabled?: BoolWithAggregatesFilter<"AppSetting"> | boolean
@@ -25315,21 +23781,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -25342,21 +23804,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -25369,21 +23827,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -25396,21 +23850,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -25423,10 +23873,8 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
@@ -25439,10 +23887,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
@@ -25455,10 +23901,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
@@ -25712,7 +24156,6 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     category: CategoryCreateNestedOneWithoutProductsInput
-    seller?: UserCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     favorites?: FavoriteCreateNestedManyWithoutProductInput
     reviews?: ReviewCreateNestedManyWithoutProductInput
@@ -25735,7 +24178,6 @@ export namespace Prisma {
     imageUrl?: string | null
     imageName?: string | null
     status?: string
-    sellerId?: string | null
     rating?: Decimal | DecimalJsLike | number | string
     orderCount?: number
     isActive?: boolean
@@ -25766,7 +24208,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
-    seller?: UserUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     favorites?: FavoriteUpdateManyWithoutProductNestedInput
     reviews?: ReviewUpdateManyWithoutProductNestedInput
@@ -25789,7 +24230,6 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
-    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -25816,7 +24256,6 @@ export namespace Prisma {
     imageUrl?: string | null
     imageName?: string | null
     status?: string
-    sellerId?: string | null
     rating?: Decimal | DecimalJsLike | number | string
     orderCount?: number
     isActive?: boolean
@@ -25860,7 +24299,6 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
-    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -26219,89 +24657,6 @@ export namespace Prisma {
     unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
-  export type WithdrawalCreateInput = {
-    id?: string
-    amount: Decimal | DecimalJsLike | number | string
-    bankName?: string | null
-    accountName?: string | null
-    accountNumber?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutWithdrawalsInput
-  }
-
-  export type WithdrawalUncheckedCreateInput = {
-    id?: string
-    userId: string
-    amount: Decimal | DecimalJsLike | number | string
-    bankName?: string | null
-    accountName?: string | null
-    accountNumber?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WithdrawalUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutWithdrawalsNestedInput
-  }
-
-  export type WithdrawalUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WithdrawalCreateManyInput = {
-    id?: string
-    userId: string
-    amount: Decimal | DecimalJsLike | number | string
-    bankName?: string | null
-    accountName?: string | null
-    accountNumber?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WithdrawalUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WithdrawalUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type NotificationCreateInput = {
     id?: string
     title: string
@@ -26490,10 +24845,10 @@ export namespace Prisma {
     id?: string
     siteName?: string
     supportEmail?: string
-    bankName?: string
-    bankAccountName?: string
-    bankAccountNumber?: string
-    minimumWithdrawalAmount?: Decimal | DecimalJsLike | number | string
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    currency?: string
+    automaticDeliveryEnabled?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
@@ -26505,10 +24860,10 @@ export namespace Prisma {
     id?: string
     siteName?: string
     supportEmail?: string
-    bankName?: string
-    bankAccountName?: string
-    bankAccountNumber?: string
-    minimumWithdrawalAmount?: Decimal | DecimalJsLike | number | string
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    currency?: string
+    automaticDeliveryEnabled?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
@@ -26520,10 +24875,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     siteName?: StringFieldUpdateOperationsInput | string
     supportEmail?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    bankAccountName?: StringFieldUpdateOperationsInput | string
-    bankAccountNumber?: StringFieldUpdateOperationsInput | string
-    minimumWithdrawalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    automaticDeliveryEnabled?: BoolFieldUpdateOperationsInput | boolean
     maintenanceMode?: BoolFieldUpdateOperationsInput | boolean
     paystackEnabled?: BoolFieldUpdateOperationsInput | boolean
     flutterwaveEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -26535,10 +24890,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     siteName?: StringFieldUpdateOperationsInput | string
     supportEmail?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    bankAccountName?: StringFieldUpdateOperationsInput | string
-    bankAccountNumber?: StringFieldUpdateOperationsInput | string
-    minimumWithdrawalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    automaticDeliveryEnabled?: BoolFieldUpdateOperationsInput | boolean
     maintenanceMode?: BoolFieldUpdateOperationsInput | boolean
     paystackEnabled?: BoolFieldUpdateOperationsInput | boolean
     flutterwaveEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -26550,10 +24905,10 @@ export namespace Prisma {
     id?: string
     siteName?: string
     supportEmail?: string
-    bankName?: string
-    bankAccountName?: string
-    bankAccountNumber?: string
-    minimumWithdrawalAmount?: Decimal | DecimalJsLike | number | string
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    currency?: string
+    automaticDeliveryEnabled?: boolean
     maintenanceMode?: boolean
     paystackEnabled?: boolean
     flutterwaveEnabled?: boolean
@@ -26565,10 +24920,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     siteName?: StringFieldUpdateOperationsInput | string
     supportEmail?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    bankAccountName?: StringFieldUpdateOperationsInput | string
-    bankAccountNumber?: StringFieldUpdateOperationsInput | string
-    minimumWithdrawalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    automaticDeliveryEnabled?: BoolFieldUpdateOperationsInput | boolean
     maintenanceMode?: BoolFieldUpdateOperationsInput | boolean
     paystackEnabled?: BoolFieldUpdateOperationsInput | boolean
     flutterwaveEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -26580,10 +24935,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     siteName?: StringFieldUpdateOperationsInput | string
     supportEmail?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    bankAccountName?: StringFieldUpdateOperationsInput | string
-    bankAccountNumber?: StringFieldUpdateOperationsInput | string
-    minimumWithdrawalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    automaticDeliveryEnabled?: BoolFieldUpdateOperationsInput | boolean
     maintenanceMode?: BoolFieldUpdateOperationsInput | boolean
     paystackEnabled?: BoolFieldUpdateOperationsInput | boolean
     flutterwaveEnabled?: BoolFieldUpdateOperationsInput | boolean
@@ -26955,12 +25310,6 @@ export namespace Prisma {
     none?: OrderWhereInput
   }
 
-  export type WithdrawalListRelationFilter = {
-    every?: WithdrawalWhereInput
-    some?: WithdrawalWhereInput
-    none?: WithdrawalWhereInput
-  }
-
   export type NotificationListRelationFilter = {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
@@ -26977,12 +25326,6 @@ export namespace Prisma {
     every?: ReviewWhereInput
     some?: ReviewWhereInput
     none?: ReviewWhereInput
-  }
-
-  export type ProductListRelationFilter = {
-    every?: ProductWhereInput
-    some?: ProductWhereInput
-    none?: ProductWhereInput
   }
 
   export type AuditLogListRelationFilter = {
@@ -27022,10 +25365,6 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type WithdrawalOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -27035,10 +25374,6 @@ export namespace Prisma {
   }
 
   export type ReviewOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -27064,10 +25399,8 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
-    sellerStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
-    sellerEarnings?: SortOrder
     emailVerified?: SortOrder
     emailVerifiedAt?: SortOrder
     sessionVersion?: SortOrder
@@ -27077,7 +25410,6 @@ export namespace Prisma {
   export type UserAvgOrderByAggregateInput = {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
-    sellerEarnings?: SortOrder
     sessionVersion?: SortOrder
   }
 
@@ -27087,10 +25419,8 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
-    sellerStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
-    sellerEarnings?: SortOrder
     emailVerified?: SortOrder
     emailVerifiedAt?: SortOrder
     sessionVersion?: SortOrder
@@ -27103,10 +25433,8 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
-    sellerStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
-    sellerEarnings?: SortOrder
     emailVerified?: SortOrder
     emailVerifiedAt?: SortOrder
     sessionVersion?: SortOrder
@@ -27116,7 +25444,6 @@ export namespace Prisma {
   export type UserSumOrderByAggregateInput = {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
-    sellerEarnings?: SortOrder
     sessionVersion?: SortOrder
   }
 
@@ -27317,6 +25644,16 @@ export namespace Prisma {
     attemptCount?: SortOrder
   }
 
+  export type ProductListRelationFilter = {
+    every?: ProductWhereInput
+    some?: ProductWhereInput
+    none?: ProductWhereInput
+  }
+
+  export type ProductOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CategoryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -27344,11 +25681,6 @@ export namespace Prisma {
   export type CategoryScalarRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
   }
 
   export type OrderItemListRelationFilter = {
@@ -27387,7 +25719,6 @@ export namespace Prisma {
     imageUrl?: SortOrder
     imageName?: SortOrder
     status?: SortOrder
-    sellerId?: SortOrder
     rating?: SortOrder
     orderCount?: SortOrder
     isActive?: SortOrder
@@ -27417,7 +25748,6 @@ export namespace Prisma {
     imageUrl?: SortOrder
     imageName?: SortOrder
     status?: SortOrder
-    sellerId?: SortOrder
     rating?: SortOrder
     orderCount?: SortOrder
     isActive?: SortOrder
@@ -27440,7 +25770,6 @@ export namespace Prisma {
     imageUrl?: SortOrder
     imageName?: SortOrder
     status?: SortOrder
-    sellerId?: SortOrder
     rating?: SortOrder
     orderCount?: SortOrder
     isActive?: SortOrder
@@ -27647,50 +25976,6 @@ export namespace Prisma {
     unitPrice?: SortOrder
   }
 
-  export type WithdrawalCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    amount?: SortOrder
-    bankName?: SortOrder
-    accountName?: SortOrder
-    accountNumber?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WithdrawalAvgOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
-  export type WithdrawalMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    amount?: SortOrder
-    bankName?: SortOrder
-    accountName?: SortOrder
-    accountNumber?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WithdrawalMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    amount?: SortOrder
-    bankName?: SortOrder
-    accountName?: SortOrder
-    accountNumber?: SortOrder
-    status?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WithdrawalSumOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
   export type NotificationCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -27794,10 +26079,10 @@ export namespace Prisma {
     id?: SortOrder
     siteName?: SortOrder
     supportEmail?: SortOrder
-    bankName?: SortOrder
-    bankAccountName?: SortOrder
-    bankAccountNumber?: SortOrder
-    minimumWithdrawalAmount?: SortOrder
+    logoUrl?: SortOrder
+    faviconUrl?: SortOrder
+    currency?: SortOrder
+    automaticDeliveryEnabled?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
@@ -27805,18 +26090,14 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type AppSettingAvgOrderByAggregateInput = {
-    minimumWithdrawalAmount?: SortOrder
-  }
-
   export type AppSettingMaxOrderByAggregateInput = {
     id?: SortOrder
     siteName?: SortOrder
     supportEmail?: SortOrder
-    bankName?: SortOrder
-    bankAccountName?: SortOrder
-    bankAccountNumber?: SortOrder
-    minimumWithdrawalAmount?: SortOrder
+    logoUrl?: SortOrder
+    faviconUrl?: SortOrder
+    currency?: SortOrder
+    automaticDeliveryEnabled?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
@@ -27828,10 +26109,10 @@ export namespace Prisma {
     id?: SortOrder
     siteName?: SortOrder
     supportEmail?: SortOrder
-    bankName?: SortOrder
-    bankAccountName?: SortOrder
-    bankAccountNumber?: SortOrder
-    minimumWithdrawalAmount?: SortOrder
+    logoUrl?: SortOrder
+    faviconUrl?: SortOrder
+    currency?: SortOrder
+    automaticDeliveryEnabled?: SortOrder
     maintenanceMode?: SortOrder
     paystackEnabled?: SortOrder
     flutterwaveEnabled?: SortOrder
@@ -27839,8 +26120,9 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type AppSettingSumOrderByAggregateInput = {
-    minimumWithdrawalAmount?: SortOrder
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type AuditLogCountOrderByAggregateInput = {
@@ -27987,13 +26269,6 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type WithdrawalCreateNestedManyWithoutUserInput = {
-    create?: XOR<WithdrawalCreateWithoutUserInput, WithdrawalUncheckedCreateWithoutUserInput> | WithdrawalCreateWithoutUserInput[] | WithdrawalUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WithdrawalCreateOrConnectWithoutUserInput | WithdrawalCreateOrConnectWithoutUserInput[]
-    createMany?: WithdrawalCreateManyUserInputEnvelope
-    connect?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-  }
-
   export type NotificationCreateNestedManyWithoutUserInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -28013,13 +26288,6 @@ export namespace Prisma {
     connectOrCreate?: ReviewCreateOrConnectWithoutUserInput | ReviewCreateOrConnectWithoutUserInput[]
     createMany?: ReviewCreateManyUserInputEnvelope
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-  }
-
-  export type ProductCreateNestedManyWithoutSellerInput = {
-    create?: XOR<ProductCreateWithoutSellerInput, ProductUncheckedCreateWithoutSellerInput> | ProductCreateWithoutSellerInput[] | ProductUncheckedCreateWithoutSellerInput[]
-    connectOrCreate?: ProductCreateOrConnectWithoutSellerInput | ProductCreateOrConnectWithoutSellerInput[]
-    createMany?: ProductCreateManySellerInputEnvelope
-    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
   export type AuditLogCreateNestedManyWithoutUserInput = {
@@ -28064,13 +26332,6 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type WithdrawalUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<WithdrawalCreateWithoutUserInput, WithdrawalUncheckedCreateWithoutUserInput> | WithdrawalCreateWithoutUserInput[] | WithdrawalUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WithdrawalCreateOrConnectWithoutUserInput | WithdrawalCreateOrConnectWithoutUserInput[]
-    createMany?: WithdrawalCreateManyUserInputEnvelope
-    connect?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-  }
-
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -28090,13 +26351,6 @@ export namespace Prisma {
     connectOrCreate?: ReviewCreateOrConnectWithoutUserInput | ReviewCreateOrConnectWithoutUserInput[]
     createMany?: ReviewCreateManyUserInputEnvelope
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-  }
-
-  export type ProductUncheckedCreateNestedManyWithoutSellerInput = {
-    create?: XOR<ProductCreateWithoutSellerInput, ProductUncheckedCreateWithoutSellerInput> | ProductCreateWithoutSellerInput[] | ProductUncheckedCreateWithoutSellerInput[]
-    connectOrCreate?: ProductCreateOrConnectWithoutSellerInput | ProductCreateOrConnectWithoutSellerInput[]
-    createMany?: ProductCreateManySellerInputEnvelope
-    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
   export type AuditLogUncheckedCreateNestedManyWithoutUserInput = {
@@ -28191,20 +26445,6 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
-  export type WithdrawalUpdateManyWithoutUserNestedInput = {
-    create?: XOR<WithdrawalCreateWithoutUserInput, WithdrawalUncheckedCreateWithoutUserInput> | WithdrawalCreateWithoutUserInput[] | WithdrawalUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WithdrawalCreateOrConnectWithoutUserInput | WithdrawalCreateOrConnectWithoutUserInput[]
-    upsert?: WithdrawalUpsertWithWhereUniqueWithoutUserInput | WithdrawalUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: WithdrawalCreateManyUserInputEnvelope
-    set?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-    disconnect?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-    delete?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-    connect?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-    update?: WithdrawalUpdateWithWhereUniqueWithoutUserInput | WithdrawalUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: WithdrawalUpdateManyWithWhereWithoutUserInput | WithdrawalUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: WithdrawalScalarWhereInput | WithdrawalScalarWhereInput[]
-  }
-
   export type NotificationUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -28245,20 +26485,6 @@ export namespace Prisma {
     update?: ReviewUpdateWithWhereUniqueWithoutUserInput | ReviewUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ReviewUpdateManyWithWhereWithoutUserInput | ReviewUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
-  }
-
-  export type ProductUpdateManyWithoutSellerNestedInput = {
-    create?: XOR<ProductCreateWithoutSellerInput, ProductUncheckedCreateWithoutSellerInput> | ProductCreateWithoutSellerInput[] | ProductUncheckedCreateWithoutSellerInput[]
-    connectOrCreate?: ProductCreateOrConnectWithoutSellerInput | ProductCreateOrConnectWithoutSellerInput[]
-    upsert?: ProductUpsertWithWhereUniqueWithoutSellerInput | ProductUpsertWithWhereUniqueWithoutSellerInput[]
-    createMany?: ProductCreateManySellerInputEnvelope
-    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    update?: ProductUpdateWithWhereUniqueWithoutSellerInput | ProductUpdateWithWhereUniqueWithoutSellerInput[]
-    updateMany?: ProductUpdateManyWithWhereWithoutSellerInput | ProductUpdateManyWithWhereWithoutSellerInput[]
-    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
   export type AuditLogUpdateManyWithoutUserNestedInput = {
@@ -28345,20 +26571,6 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
-  export type WithdrawalUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<WithdrawalCreateWithoutUserInput, WithdrawalUncheckedCreateWithoutUserInput> | WithdrawalCreateWithoutUserInput[] | WithdrawalUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WithdrawalCreateOrConnectWithoutUserInput | WithdrawalCreateOrConnectWithoutUserInput[]
-    upsert?: WithdrawalUpsertWithWhereUniqueWithoutUserInput | WithdrawalUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: WithdrawalCreateManyUserInputEnvelope
-    set?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-    disconnect?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-    delete?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-    connect?: WithdrawalWhereUniqueInput | WithdrawalWhereUniqueInput[]
-    update?: WithdrawalUpdateWithWhereUniqueWithoutUserInput | WithdrawalUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: WithdrawalUpdateManyWithWhereWithoutUserInput | WithdrawalUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: WithdrawalScalarWhereInput | WithdrawalScalarWhereInput[]
-  }
-
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -28399,20 +26611,6 @@ export namespace Prisma {
     update?: ReviewUpdateWithWhereUniqueWithoutUserInput | ReviewUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ReviewUpdateManyWithWhereWithoutUserInput | ReviewUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
-  }
-
-  export type ProductUncheckedUpdateManyWithoutSellerNestedInput = {
-    create?: XOR<ProductCreateWithoutSellerInput, ProductUncheckedCreateWithoutSellerInput> | ProductCreateWithoutSellerInput[] | ProductUncheckedCreateWithoutSellerInput[]
-    connectOrCreate?: ProductCreateOrConnectWithoutSellerInput | ProductCreateOrConnectWithoutSellerInput[]
-    upsert?: ProductUpsertWithWhereUniqueWithoutSellerInput | ProductUpsertWithWhereUniqueWithoutSellerInput[]
-    createMany?: ProductCreateManySellerInputEnvelope
-    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-    update?: ProductUpdateWithWhereUniqueWithoutSellerInput | ProductUpdateWithWhereUniqueWithoutSellerInput[]
-    updateMany?: ProductUpdateManyWithWhereWithoutSellerInput | ProductUpdateManyWithWhereWithoutSellerInput[]
-    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
   export type AuditLogUncheckedUpdateManyWithoutUserNestedInput = {
@@ -28533,12 +26731,6 @@ export namespace Prisma {
     connect?: CategoryWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutProductsInput = {
-    create?: XOR<UserCreateWithoutProductsInput, UserUncheckedCreateWithoutProductsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutProductsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type OrderItemCreateNestedManyWithoutProductInput = {
     create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
@@ -28601,16 +26793,6 @@ export namespace Prisma {
     upsert?: CategoryUpsertWithoutProductsInput
     connect?: CategoryWhereUniqueInput
     update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutProductsInput, CategoryUpdateWithoutProductsInput>, CategoryUncheckedUpdateWithoutProductsInput>
-  }
-
-  export type UserUpdateOneWithoutProductsNestedInput = {
-    create?: XOR<UserCreateWithoutProductsInput, UserUncheckedCreateWithoutProductsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutProductsInput
-    upsert?: UserUpsertWithoutProductsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProductsInput, UserUpdateWithoutProductsInput>, UserUncheckedUpdateWithoutProductsInput>
   }
 
   export type OrderItemUpdateManyWithoutProductNestedInput = {
@@ -28893,20 +27075,6 @@ export namespace Prisma {
     update?: ProductDeliveryFileUpdateWithWhereUniqueWithoutOrderItemInput | ProductDeliveryFileUpdateWithWhereUniqueWithoutOrderItemInput[]
     updateMany?: ProductDeliveryFileUpdateManyWithWhereWithoutOrderItemInput | ProductDeliveryFileUpdateManyWithWhereWithoutOrderItemInput[]
     deleteMany?: ProductDeliveryFileScalarWhereInput | ProductDeliveryFileScalarWhereInput[]
-  }
-
-  export type UserCreateNestedOneWithoutWithdrawalsInput = {
-    create?: XOR<UserCreateWithoutWithdrawalsInput, UserUncheckedCreateWithoutWithdrawalsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutWithdrawalsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutWithdrawalsNestedInput = {
-    create?: XOR<UserCreateWithoutWithdrawalsInput, UserUncheckedCreateWithoutWithdrawalsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutWithdrawalsInput
-    upsert?: UserUpsertWithoutWithdrawalsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWithdrawalsInput, UserUpdateWithoutWithdrawalsInput>, UserUncheckedUpdateWithoutWithdrawalsInput>
   }
 
   export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -29358,38 +27526,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type WithdrawalCreateWithoutUserInput = {
-    id?: string
-    amount: Decimal | DecimalJsLike | number | string
-    bankName?: string | null
-    accountName?: string | null
-    accountNumber?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WithdrawalUncheckedCreateWithoutUserInput = {
-    id?: string
-    amount: Decimal | DecimalJsLike | number | string
-    bankName?: string | null
-    accountName?: string | null
-    accountNumber?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WithdrawalCreateOrConnectWithoutUserInput = {
-    where: WithdrawalWhereUniqueInput
-    create: XOR<WithdrawalCreateWithoutUserInput, WithdrawalUncheckedCreateWithoutUserInput>
-  }
-
-  export type WithdrawalCreateManyUserInputEnvelope = {
-    data: WithdrawalCreateManyUserInput | WithdrawalCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type NotificationCreateWithoutUserInput = {
     id?: string
     title: string
@@ -29465,68 +27601,6 @@ export namespace Prisma {
 
   export type ReviewCreateManyUserInputEnvelope = {
     data: ReviewCreateManyUserInput | ReviewCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ProductCreateWithoutSellerInput = {
-    id?: string
-    title: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
-    stock: number
-    platform: string
-    deliveryTime: string
-    deliveryType?: string
-    deliveryFileUrl?: string | null
-    deliveryFileName?: string | null
-    deliveryInstructions?: string | null
-    imageUrl?: string | null
-    imageName?: string | null
-    status?: string
-    rating?: Decimal | DecimalJsLike | number | string
-    orderCount?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    category: CategoryCreateNestedOneWithoutProductsInput
-    orderItems?: OrderItemCreateNestedManyWithoutProductInput
-    favorites?: FavoriteCreateNestedManyWithoutProductInput
-    reviews?: ReviewCreateNestedManyWithoutProductInput
-    deliveryFiles?: ProductDeliveryFileCreateNestedManyWithoutProductInput
-  }
-
-  export type ProductUncheckedCreateWithoutSellerInput = {
-    id?: string
-    categoryId: string
-    title: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
-    stock: number
-    platform: string
-    deliveryTime: string
-    deliveryType?: string
-    deliveryFileUrl?: string | null
-    deliveryFileName?: string | null
-    deliveryInstructions?: string | null
-    imageUrl?: string | null
-    imageName?: string | null
-    status?: string
-    rating?: Decimal | DecimalJsLike | number | string
-    orderCount?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
-    favorites?: FavoriteUncheckedCreateNestedManyWithoutProductInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
-    deliveryFiles?: ProductDeliveryFileUncheckedCreateNestedManyWithoutProductInput
-  }
-
-  export type ProductCreateOrConnectWithoutSellerInput = {
-    where: ProductWhereUniqueInput
-    create: XOR<ProductCreateWithoutSellerInput, ProductUncheckedCreateWithoutSellerInput>
-  }
-
-  export type ProductCreateManySellerInputEnvelope = {
-    data: ProductCreateManySellerInput | ProductCreateManySellerInput[]
     skipDuplicates?: boolean
   }
 
@@ -29710,37 +27784,6 @@ export namespace Prisma {
     completedAt?: DateTimeNullableFilter<"Order"> | Date | string | null
   }
 
-  export type WithdrawalUpsertWithWhereUniqueWithoutUserInput = {
-    where: WithdrawalWhereUniqueInput
-    update: XOR<WithdrawalUpdateWithoutUserInput, WithdrawalUncheckedUpdateWithoutUserInput>
-    create: XOR<WithdrawalCreateWithoutUserInput, WithdrawalUncheckedCreateWithoutUserInput>
-  }
-
-  export type WithdrawalUpdateWithWhereUniqueWithoutUserInput = {
-    where: WithdrawalWhereUniqueInput
-    data: XOR<WithdrawalUpdateWithoutUserInput, WithdrawalUncheckedUpdateWithoutUserInput>
-  }
-
-  export type WithdrawalUpdateManyWithWhereWithoutUserInput = {
-    where: WithdrawalScalarWhereInput
-    data: XOR<WithdrawalUpdateManyMutationInput, WithdrawalUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type WithdrawalScalarWhereInput = {
-    AND?: WithdrawalScalarWhereInput | WithdrawalScalarWhereInput[]
-    OR?: WithdrawalScalarWhereInput[]
-    NOT?: WithdrawalScalarWhereInput | WithdrawalScalarWhereInput[]
-    id?: StringFilter<"Withdrawal"> | string
-    userId?: StringFilter<"Withdrawal"> | string
-    amount?: DecimalFilter<"Withdrawal"> | Decimal | DecimalJsLike | number | string
-    bankName?: StringNullableFilter<"Withdrawal"> | string | null
-    accountName?: StringNullableFilter<"Withdrawal"> | string | null
-    accountNumber?: StringNullableFilter<"Withdrawal"> | string | null
-    status?: StringFilter<"Withdrawal"> | string
-    createdAt?: DateTimeFilter<"Withdrawal"> | Date | string
-    updatedAt?: DateTimeFilter<"Withdrawal"> | Date | string
-  }
-
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
     where: NotificationWhereUniqueInput
     update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
@@ -29823,48 +27866,6 @@ export namespace Prisma {
     comment?: StringFilter<"Review"> | string
     isActive?: BoolFilter<"Review"> | boolean
     createdAt?: DateTimeFilter<"Review"> | Date | string
-  }
-
-  export type ProductUpsertWithWhereUniqueWithoutSellerInput = {
-    where: ProductWhereUniqueInput
-    update: XOR<ProductUpdateWithoutSellerInput, ProductUncheckedUpdateWithoutSellerInput>
-    create: XOR<ProductCreateWithoutSellerInput, ProductUncheckedCreateWithoutSellerInput>
-  }
-
-  export type ProductUpdateWithWhereUniqueWithoutSellerInput = {
-    where: ProductWhereUniqueInput
-    data: XOR<ProductUpdateWithoutSellerInput, ProductUncheckedUpdateWithoutSellerInput>
-  }
-
-  export type ProductUpdateManyWithWhereWithoutSellerInput = {
-    where: ProductScalarWhereInput
-    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutSellerInput>
-  }
-
-  export type ProductScalarWhereInput = {
-    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
-    OR?: ProductScalarWhereInput[]
-    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
-    id?: StringFilter<"Product"> | string
-    categoryId?: StringFilter<"Product"> | string
-    title?: StringFilter<"Product"> | string
-    description?: StringFilter<"Product"> | string
-    price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
-    stock?: IntFilter<"Product"> | number
-    platform?: StringFilter<"Product"> | string
-    deliveryTime?: StringFilter<"Product"> | string
-    deliveryType?: StringFilter<"Product"> | string
-    deliveryFileUrl?: StringNullableFilter<"Product"> | string | null
-    deliveryFileName?: StringNullableFilter<"Product"> | string | null
-    deliveryInstructions?: StringNullableFilter<"Product"> | string | null
-    imageUrl?: StringNullableFilter<"Product"> | string | null
-    imageName?: StringNullableFilter<"Product"> | string | null
-    status?: StringFilter<"Product"> | string
-    sellerId?: StringNullableFilter<"Product"> | string | null
-    rating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
-    orderCount?: IntFilter<"Product"> | number
-    isActive?: BoolFilter<"Product"> | boolean
-    createdAt?: DateTimeFilter<"Product"> | Date | string
   }
 
   export type AuditLogUpsertWithWhereUniqueWithoutUserInput = {
@@ -29988,21 +27989,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -30014,21 +28011,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -30056,21 +28049,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -30082,21 +28071,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -30121,7 +28106,6 @@ export namespace Prisma {
     orderCount?: number
     isActive?: boolean
     createdAt?: Date | string
-    seller?: UserCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     favorites?: FavoriteCreateNestedManyWithoutProductInput
     reviews?: ReviewCreateNestedManyWithoutProductInput
@@ -30143,7 +28127,6 @@ export namespace Prisma {
     imageUrl?: string | null
     imageName?: string | null
     status?: string
-    sellerId?: string | null
     rating?: Decimal | DecimalJsLike | number | string
     orderCount?: number
     isActive?: boolean
@@ -30180,6 +28163,31 @@ export namespace Prisma {
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutCategoryInput>
   }
 
+  export type ProductScalarWhereInput = {
+    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    OR?: ProductScalarWhereInput[]
+    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    id?: StringFilter<"Product"> | string
+    categoryId?: StringFilter<"Product"> | string
+    title?: StringFilter<"Product"> | string
+    description?: StringFilter<"Product"> | string
+    price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    stock?: IntFilter<"Product"> | number
+    platform?: StringFilter<"Product"> | string
+    deliveryTime?: StringFilter<"Product"> | string
+    deliveryType?: StringFilter<"Product"> | string
+    deliveryFileUrl?: StringNullableFilter<"Product"> | string | null
+    deliveryFileName?: StringNullableFilter<"Product"> | string | null
+    deliveryInstructions?: StringNullableFilter<"Product"> | string | null
+    imageUrl?: StringNullableFilter<"Product"> | string | null
+    imageName?: StringNullableFilter<"Product"> | string | null
+    status?: StringFilter<"Product"> | string
+    rating?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    orderCount?: IntFilter<"Product"> | number
+    isActive?: BoolFilter<"Product"> | boolean
+    createdAt?: DateTimeFilter<"Product"> | Date | string
+  }
+
   export type CategoryCreateWithoutProductsInput = {
     id?: string
     name: string
@@ -30199,63 +28207,6 @@ export namespace Prisma {
   export type CategoryCreateOrConnectWithoutProductsInput = {
     where: CategoryWhereUniqueInput
     create: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
-  }
-
-  export type UserCreateWithoutProductsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    emailVerified?: boolean
-    emailVerifiedAt?: Date | string | null
-    sessionVersion?: number
-    createdAt?: Date | string
-    deposits?: DepositCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    favorites?: FavoriteCreateNestedManyWithoutUserInput
-    reviews?: ReviewCreateNestedManyWithoutUserInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    tickets?: SupportTicketCreateNestedManyWithoutUserInput
-    ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
-    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutProductsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    emailVerified?: boolean
-    emailVerifiedAt?: Date | string | null
-    sessionVersion?: number
-    createdAt?: Date | string
-    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
-    ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
-    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutProductsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutProductsInput, UserUncheckedCreateWithoutProductsInput>
   }
 
   export type OrderItemCreateWithoutProductInput = {
@@ -30393,69 +28344,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserUpsertWithoutProductsInput = {
-    update: XOR<UserUpdateWithoutProductsInput, UserUncheckedUpdateWithoutProductsInput>
-    create: XOR<UserCreateWithoutProductsInput, UserUncheckedCreateWithoutProductsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutProductsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutProductsInput, UserUncheckedUpdateWithoutProductsInput>
-  }
-
-  export type UserUpdateWithoutProductsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessionVersion?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deposits?: DepositUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    reviews?: ReviewUpdateManyWithoutUserNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    tickets?: SupportTicketUpdateManyWithoutUserNestedInput
-    ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
-    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutProductsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessionVersion?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
-    ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
-    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type OrderItemUpsertWithWhereUniqueWithoutProductInput = {
     where: OrderItemWhereUniqueInput
     update: XOR<OrderItemUpdateWithoutProductInput, OrderItemUncheckedUpdateWithoutProductInput>
@@ -30566,7 +28454,6 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     category: CategoryCreateNestedOneWithoutProductsInput
-    seller?: UserCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     favorites?: FavoriteCreateNestedManyWithoutProductInput
     reviews?: ReviewCreateNestedManyWithoutProductInput
@@ -30588,7 +28475,6 @@ export namespace Prisma {
     imageUrl?: string | null
     imageName?: string | null
     status?: string
-    sellerId?: string | null
     rating?: Decimal | DecimalJsLike | number | string
     orderCount?: number
     isActive?: boolean
@@ -30655,7 +28541,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
-    seller?: UserUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     favorites?: FavoriteUpdateManyWithoutProductNestedInput
     reviews?: ReviewUpdateManyWithoutProductNestedInput
@@ -30677,7 +28562,6 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
-    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -30720,20 +28604,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -30746,20 +28626,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -30788,20 +28664,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -30814,20 +28686,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -30840,20 +28708,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -30866,20 +28730,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -30934,20 +28794,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -30960,20 +28816,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -31049,7 +28901,6 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     category: CategoryCreateNestedOneWithoutProductsInput
-    seller?: UserCreateNestedOneWithoutProductsInput
     favorites?: FavoriteCreateNestedManyWithoutProductInput
     reviews?: ReviewCreateNestedManyWithoutProductInput
     deliveryFiles?: ProductDeliveryFileCreateNestedManyWithoutProductInput
@@ -31071,7 +28922,6 @@ export namespace Prisma {
     imageUrl?: string | null
     imageName?: string | null
     status?: string
-    sellerId?: string | null
     rating?: Decimal | DecimalJsLike | number | string
     orderCount?: number
     isActive?: boolean
@@ -31188,7 +29038,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
-    seller?: UserUpdateOneWithoutProductsNestedInput
     favorites?: FavoriteUpdateManyWithoutProductNestedInput
     reviews?: ReviewUpdateManyWithoutProductNestedInput
     deliveryFiles?: ProductDeliveryFileUpdateManyWithoutProductNestedInput
@@ -31210,7 +29059,6 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
-    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -31236,146 +29084,22 @@ export namespace Prisma {
     data: XOR<ProductDeliveryFileUpdateManyMutationInput, ProductDeliveryFileUncheckedUpdateManyWithoutOrderItemInput>
   }
 
-  export type UserCreateWithoutWithdrawalsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    emailVerified?: boolean
-    emailVerifiedAt?: Date | string | null
-    sessionVersion?: number
-    createdAt?: Date | string
-    deposits?: DepositCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    favorites?: FavoriteCreateNestedManyWithoutUserInput
-    reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
-    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
-    tickets?: SupportTicketCreateNestedManyWithoutUserInput
-    ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
-    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutWithdrawalsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    passwordHash: string
-    role?: string
-    sellerStatus?: string
-    walletBalance?: Decimal | DecimalJsLike | number | string
-    totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
-    emailVerified?: boolean
-    emailVerifiedAt?: Date | string | null
-    sessionVersion?: number
-    createdAt?: Date | string
-    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
-    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
-    tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
-    ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
-    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutWithdrawalsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutWithdrawalsInput, UserUncheckedCreateWithoutWithdrawalsInput>
-  }
-
-  export type UserUpsertWithoutWithdrawalsInput = {
-    update: XOR<UserUpdateWithoutWithdrawalsInput, UserUncheckedUpdateWithoutWithdrawalsInput>
-    create: XOR<UserCreateWithoutWithdrawalsInput, UserUncheckedCreateWithoutWithdrawalsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutWithdrawalsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutWithdrawalsInput, UserUncheckedUpdateWithoutWithdrawalsInput>
-  }
-
-  export type UserUpdateWithoutWithdrawalsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessionVersion?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deposits?: DepositUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
-    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
-    tickets?: SupportTicketUpdateManyWithoutUserNestedInput
-    ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
-    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutWithdrawalsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
-    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessionVersion?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
-    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
-    ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
-    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type UserCreateWithoutNotificationsInput = {
     id?: string
     name?: string | null
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -31388,20 +29112,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -31430,20 +29150,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -31456,20 +29172,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -31482,20 +29194,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -31508,20 +29216,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -31553,7 +29257,6 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     category: CategoryCreateNestedOneWithoutProductsInput
-    seller?: UserCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     reviews?: ReviewCreateNestedManyWithoutProductInput
     deliveryFiles?: ProductDeliveryFileCreateNestedManyWithoutProductInput
@@ -31575,7 +29278,6 @@ export namespace Prisma {
     imageUrl?: string | null
     imageName?: string | null
     status?: string
-    sellerId?: string | null
     rating?: Decimal | DecimalJsLike | number | string
     orderCount?: number
     isActive?: boolean
@@ -31607,20 +29309,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -31633,20 +29331,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -31684,7 +29378,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
-    seller?: UserUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     reviews?: ReviewUpdateManyWithoutProductNestedInput
     deliveryFiles?: ProductDeliveryFileUpdateManyWithoutProductNestedInput
@@ -31706,7 +29399,6 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
-    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -31722,20 +29414,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
@@ -31748,20 +29436,16 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
@@ -31793,7 +29477,6 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     category: CategoryCreateNestedOneWithoutProductsInput
-    seller?: UserCreateNestedOneWithoutProductsInput
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     favorites?: FavoriteCreateNestedManyWithoutProductInput
     deliveryFiles?: ProductDeliveryFileCreateNestedManyWithoutProductInput
@@ -31815,7 +29498,6 @@ export namespace Prisma {
     imageUrl?: string | null
     imageName?: string | null
     status?: string
-    sellerId?: string | null
     rating?: Decimal | DecimalJsLike | number | string
     orderCount?: number
     isActive?: boolean
@@ -31847,20 +29529,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
@@ -31873,20 +29551,16 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
@@ -31924,7 +29598,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
-    seller?: UserUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     favorites?: FavoriteUpdateManyWithoutProductNestedInput
     deliveryFiles?: ProductDeliveryFileUpdateManyWithoutProductNestedInput
@@ -31946,7 +29619,6 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
-    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -31962,21 +29634,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -31988,21 +29656,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -32030,21 +29694,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -32056,21 +29716,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -32082,21 +29738,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -32108,21 +29760,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -32174,21 +29822,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -32200,21 +29844,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -32265,21 +29905,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     favorites?: FavoriteCreateNestedManyWithoutUserInput
     reviews?: ReviewCreateNestedManyWithoutUserInput
-    products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -32291,21 +29927,17 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
-    sellerStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
-    sellerEarnings?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
     emailVerifiedAt?: Date | string | null
     sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -32362,21 +29994,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUpdateManyWithoutUserNestedInput
     reviews?: ReviewUpdateManyWithoutUserNestedInput
-    products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -32388,21 +30016,17 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    sellerStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -32436,17 +30060,6 @@ export namespace Prisma {
     completedAt?: Date | string | null
   }
 
-  export type WithdrawalCreateManyUserInput = {
-    id?: string
-    amount: Decimal | DecimalJsLike | number | string
-    bankName?: string | null
-    accountName?: string | null
-    accountNumber?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type NotificationCreateManyUserInput = {
     id?: string
     title: string
@@ -32467,28 +30080,6 @@ export namespace Prisma {
     productId: string
     rating: number
     comment: string
-    isActive?: boolean
-    createdAt?: Date | string
-  }
-
-  export type ProductCreateManySellerInput = {
-    id?: string
-    categoryId: string
-    title: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
-    stock: number
-    platform: string
-    deliveryTime: string
-    deliveryType?: string
-    deliveryFileUrl?: string | null
-    deliveryFileName?: string | null
-    deliveryInstructions?: string | null
-    imageUrl?: string | null
-    imageName?: string | null
-    status?: string
-    rating?: Decimal | DecimalJsLike | number | string
-    orderCount?: number
     isActive?: boolean
     createdAt?: Date | string
   }
@@ -32614,39 +30205,6 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type WithdrawalUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WithdrawalUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WithdrawalUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type NotificationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -32715,80 +30273,6 @@ export namespace Prisma {
     productId?: StringFieldUpdateOperationsInput | string
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProductUpdateWithoutSellerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    stock?: IntFieldUpdateOperationsInput | number
-    platform?: StringFieldUpdateOperationsInput | string
-    deliveryTime?: StringFieldUpdateOperationsInput | string
-    deliveryType?: StringFieldUpdateOperationsInput | string
-    deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    deliveryInstructions?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    imageName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    orderCount?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
-    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
-    favorites?: FavoriteUpdateManyWithoutProductNestedInput
-    reviews?: ReviewUpdateManyWithoutProductNestedInput
-    deliveryFiles?: ProductDeliveryFileUpdateManyWithoutProductNestedInput
-  }
-
-  export type ProductUncheckedUpdateWithoutSellerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    stock?: IntFieldUpdateOperationsInput | number
-    platform?: StringFieldUpdateOperationsInput | string
-    deliveryTime?: StringFieldUpdateOperationsInput | string
-    deliveryType?: StringFieldUpdateOperationsInput | string
-    deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    deliveryInstructions?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    imageName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    orderCount?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
-    favorites?: FavoriteUncheckedUpdateManyWithoutProductNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
-    deliveryFiles?: ProductDeliveryFileUncheckedUpdateManyWithoutProductNestedInput
-  }
-
-  export type ProductUncheckedUpdateManyWithoutSellerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    categoryId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    stock?: IntFieldUpdateOperationsInput | number
-    platform?: StringFieldUpdateOperationsInput | string
-    deliveryTime?: StringFieldUpdateOperationsInput | string
-    deliveryType?: StringFieldUpdateOperationsInput | string
-    deliveryFileUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    deliveryFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    deliveryInstructions?: NullableStringFieldUpdateOperationsInput | string | null
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    imageName?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32915,7 +30399,6 @@ export namespace Prisma {
     imageUrl?: string | null
     imageName?: string | null
     status?: string
-    sellerId?: string | null
     rating?: Decimal | DecimalJsLike | number | string
     orderCount?: number
     isActive?: boolean
@@ -32941,7 +30424,6 @@ export namespace Prisma {
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    seller?: UserUpdateOneWithoutProductsNestedInput
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     favorites?: FavoriteUpdateManyWithoutProductNestedInput
     reviews?: ReviewUpdateManyWithoutProductNestedInput
@@ -32963,7 +30445,6 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
-    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -32989,7 +30470,6 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     imageName?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
-    sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     rating?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderCount?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean

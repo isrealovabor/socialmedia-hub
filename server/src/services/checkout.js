@@ -98,12 +98,6 @@ export async function checkoutOrder({ userId, items, idempotencyKey, client = pr
           throw new ApiError(409, `${product.title} is out of stock.`);
         }
 
-        if (product.sellerId) {
-          await tx.user.update({
-            where: { id: product.sellerId },
-            data: { sellerEarnings: { increment: product.price.mul(item.quantity) } },
-          });
-        }
       }
 
       const completed = await tx.order.update({

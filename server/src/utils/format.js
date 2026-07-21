@@ -12,9 +12,7 @@ export function publicUser(user) {
     name: user.name,
     email: user.email,
     role: user.role,
-    sellerStatus: user.sellerStatus,
     walletBalance: toNumber(user.walletBalance),
-    sellerEarnings: toNumber(user.sellerEarnings),
     createdAt: user.createdAt,
   };
 }

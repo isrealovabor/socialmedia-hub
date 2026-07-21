@@ -81,7 +81,6 @@ export const catalogApi = {
 export const walletApi = {
   wallet: () => apiRequest("/wallet"),
   deposits: () => apiRequest("/deposits/my"),
-  withdrawals: () => apiRequest("/withdrawals/my"),
   createDeposit: (payload) => apiRequest("/deposits", { method: "POST", data: payload }),
   createBankDeposit: (formData) => apiRequest("/deposits/bank", { method: "POST", data: formData }),
 };
@@ -152,23 +151,10 @@ export const adminApi = {
   analytics: () => apiRequest("/analytics/admin"),
   settings: () => apiRequest("/admin/settings"),
   updateSettings: (payload) => apiRequest("/admin/settings", { method: "PATCH", data: payload }),
+  uploadBranding: (formData) => apiRequest("/admin/settings/branding", { method: "POST", data: formData }),
   auditLogs: () => apiRequest("/admin/audit-logs"),
-  sellers: () => apiRequest("/admin/sellers"),
-  updateSellerStatus: (id, status) => apiRequest(`/admin/sellers/${id}/status`, { method: "PATCH", data: { status } }),
-  withdrawals: () => apiRequest("/admin/withdrawals"),
-  updateWithdrawal: (id, action) => apiRequest(`/admin/withdrawals/${id}/${action}`, { method: "PATCH" }),
   createSanityListing: (formData) =>
     apiRequest("/admin/sanity-listings", { method: "POST", data: formData }),
-};
-
-export const sellerApi = {
-  apply: () => apiRequest("/seller/apply", { method: "POST" }),
-  analytics: () => apiRequest("/seller/analytics"),
-  products: () => apiRequest("/seller/products"),
-  createProduct: (formData) => apiRequest("/seller/products", { method: "POST", data: formData }),
-  orders: () => apiRequest("/seller/orders"),
-  uploadDelivery: (id, formData) => apiRequest(`/seller/orders/${id}/delivery`, { method: "POST", data: formData }),
-  requestWithdrawal: (payload) => apiRequest("/seller/withdrawals", { method: "POST", data: payload }),
 };
 
 export const ticketApi = {

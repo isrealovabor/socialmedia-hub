@@ -17,7 +17,6 @@ import paymentRoutes, {
   korapayWebhookHandler,
   paystackWebhookHandler,
 } from "./src/routes/payment.routes.js";
-import sellerRoutes from "./src/routes/seller.routes.js";
 import managementRoutes from "./src/routes/management.routes.js";
 import { pathToFileURL } from "node:url";
 
@@ -62,6 +61,7 @@ app.post("/api/payments/flutterwave/webhook", express.raw({ type: "application/j
 app.post("/api/payments/korapay/webhook", express.raw({ type: "application/json" }), korapayWebhookHandler);
 app.use(express.json({ limit: "1mb" }));
 app.use("/uploads/products", express.static(path.resolve("uploads/products")));
+app.use("/uploads/branding", express.static(path.resolve("uploads/branding")));
 
 app.get("/api/health", (req, res) => {
   res.json({ ok: true, name: "SocialHub Market API" });
@@ -75,7 +75,6 @@ app.use("/api", notificationRoutes);
 app.use("/api", favoriteRoutes);
 app.use("/api", reviewRoutes);
 app.use("/api", paymentRoutes);
-app.use("/api", sellerRoutes);
 app.use("/api", managementRoutes);
 app.use("/api/admin", adminRoutes);
 app.use(notFound);

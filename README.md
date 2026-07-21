@@ -366,8 +366,8 @@ Included in this build:
 Paystack and Flutterwave deposits
 Nodemailer email templates
 Forgot/reset password
-Seller role, seller products, seller orders, seller withdrawals
-Admin analytics, settings, sellers, withdrawals, audit logs
+Single-admin product, inventory, order, payment, customer, and delivery management
+Admin analytics, store settings, and audit logs
 Support tickets
 Helmet security middleware when installed
 ```
@@ -403,5 +403,4 @@ After the backend is running and the SQLite database is migrated/seeded:
 ```powershell
 cd server
 & "C:\Program Files\nodejs\npm.cmd" run test:sqlite-flow
-& "C:\Program Files\nodejs\npm.cmd" run test:step4-flow
 ```

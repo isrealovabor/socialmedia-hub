@@ -6,18 +6,15 @@ import { formatNaira } from "../data/marketData.js";
 export default function WalletPage({ user, onUserRefresh }) {
   const [deposits, setDeposits] = useState([]);
   const [wallet, setWallet] = useState(null);
-  const [withdrawals, setWithdrawals] = useState([]);
   const [notice, setNotice] = useState("");
 
   const loadDeposits = async () => {
-    const [walletData, depositData, withdrawalData] = await Promise.all([
+    const [walletData, depositData] = await Promise.all([
       walletApi.wallet(),
       walletApi.deposits(),
-      walletApi.withdrawals(),
     ]);
     setWallet(walletData);
     setDeposits(depositData.deposits);
-    setWithdrawals(withdrawalData.withdrawals || []);
   };
 
   useEffect(() => {
@@ -82,18 +79,6 @@ export default function WalletPage({ user, onUserRefresh }) {
                 <p className="text-sm font-bold text-gray-900">{formatNaira(deposit.amount)}</p>
                 <p className="text-xs font-semibold text-market-emerald">{deposit.status}</p>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section>
-        <div className="mb-2 px-1 text-base font-black text-market-navy">Withdrawal History</div>
-        <div className="glass-panel rounded-2xl px-3 py-3 text-sm text-gray-600">
-          Withdrawals are disabled for now.
-          {withdrawals.map((item) => (
-            <div key={item.id} className="mt-2 flex justify-between text-xs">
-              <span>{formatNaira(item.amount)}</span>
-              <span>{item.status}</span>
             </div>
           ))}
         </div>
