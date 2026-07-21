@@ -59,9 +59,12 @@ export async function apiRequest(path, options = {}) {
 
 export const authApi = {
   register: (payload) => apiRequest("/auth/register", { method: "POST", data: payload }),
+  verifyEmail: (payload) => apiRequest("/auth/verify-email", { method: "POST", data: payload }),
+  resendVerification: (payload) => apiRequest("/auth/resend-verification", { method: "POST", data: payload }),
   login: (payload) => apiRequest("/auth/login", { method: "POST", data: payload }),
   me: () => apiRequest("/auth/me"),
   forgotPassword: (payload) => apiRequest("/auth/forgot-password", { method: "POST", data: payload }),
+  verifyResetCode: (payload) => apiRequest("/auth/verify-reset-code", { method: "POST", data: payload }),
   resetPassword: (payload) => apiRequest("/auth/reset-password", { method: "POST", data: payload }),
 };
 

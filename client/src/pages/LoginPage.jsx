@@ -5,16 +5,21 @@ import { authApi, setToken } from "../api/client.js";
 export default function LoginPage({ onAuth }) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const submit = async (event) => {
     event.preventDefault();
+    if (submitting) return;
     setMessage("");
+    setSubmitting(true);
     try {
       const data = await authApi.login(form);
       setToken(data.token);
       onAuth(data);
     } catch (error) {
-      setMessage(error.message);
+      setMessage(error.message || "Unable to log in right now.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -46,10 +51,11 @@ export default function LoginPage({ onAuth }) {
           />
         </label>
         <button
+          disabled={submitting}
           type="submit"
-          className="tap-highlight brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow"
+          className="tap-highlight brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow disabled:opacity-60"
         >
-          Login
+          {submitting ? "Logging in..." : "Login"}
         </button>
         <Link to="/forgot-password" className="block text-center text-sm font-bold text-market-emerald">
           Forgot password?

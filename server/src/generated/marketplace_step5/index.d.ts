@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model PendingRegistration
+ * 
+ */
+export type PendingRegistration = $Result.DefaultSelection<Prisma.$PendingRegistrationPayload>
+/**
+ * Model PasswordResetToken
+ * 
+ */
+export type PasswordResetToken = $Result.DefaultSelection<Prisma.$PasswordResetTokenPayload>
+/**
  * Model Category
  * 
  */
@@ -221,6 +231,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pendingRegistration`: Exposes CRUD operations for the **PendingRegistration** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PendingRegistrations
+    * const pendingRegistrations = await prisma.pendingRegistration.findMany()
+    * ```
+    */
+  get pendingRegistration(): Prisma.PendingRegistrationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.passwordResetToken`: Exposes CRUD operations for the **PasswordResetToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PasswordResetTokens
+    * const passwordResetTokens = await prisma.passwordResetToken.findMany()
+    * ```
+    */
+  get passwordResetToken(): Prisma.PasswordResetTokenDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.category`: Exposes CRUD operations for the **Category** model.
@@ -813,6 +843,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    PendingRegistration: 'PendingRegistration',
+    PasswordResetToken: 'PasswordResetToken',
     Category: 'Category',
     Product: 'Product',
     ProductDeliveryFile: 'ProductDeliveryFile',
@@ -846,7 +878,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "category" | "product" | "productDeliveryFile" | "deposit" | "order" | "orderItem" | "withdrawal" | "notification" | "favorite" | "review" | "appSetting" | "auditLog" | "supportTicket" | "supportMessage" | "paymentTransaction"
+      modelProps: "user" | "pendingRegistration" | "passwordResetToken" | "category" | "product" | "productDeliveryFile" | "deposit" | "order" | "orderItem" | "withdrawal" | "notification" | "favorite" | "review" | "appSetting" | "auditLog" | "supportTicket" | "supportMessage" | "paymentTransaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -921,6 +953,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      PendingRegistration: {
+        payload: Prisma.$PendingRegistrationPayload<ExtArgs>
+        fields: Prisma.PendingRegistrationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PendingRegistrationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PendingRegistrationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>
+          }
+          findFirst: {
+            args: Prisma.PendingRegistrationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PendingRegistrationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>
+          }
+          findMany: {
+            args: Prisma.PendingRegistrationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>[]
+          }
+          create: {
+            args: Prisma.PendingRegistrationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>
+          }
+          createMany: {
+            args: Prisma.PendingRegistrationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PendingRegistrationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>[]
+          }
+          delete: {
+            args: Prisma.PendingRegistrationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>
+          }
+          update: {
+            args: Prisma.PendingRegistrationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>
+          }
+          deleteMany: {
+            args: Prisma.PendingRegistrationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PendingRegistrationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PendingRegistrationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>[]
+          }
+          upsert: {
+            args: Prisma.PendingRegistrationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PendingRegistrationPayload>
+          }
+          aggregate: {
+            args: Prisma.PendingRegistrationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePendingRegistration>
+          }
+          groupBy: {
+            args: Prisma.PendingRegistrationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PendingRegistrationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PendingRegistrationCountArgs<ExtArgs>
+            result: $Utils.Optional<PendingRegistrationCountAggregateOutputType> | number
+          }
+        }
+      }
+      PasswordResetToken: {
+        payload: Prisma.$PasswordResetTokenPayload<ExtArgs>
+        fields: Prisma.PasswordResetTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PasswordResetTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PasswordResetTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.PasswordResetTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PasswordResetTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>
+          }
+          findMany: {
+            args: Prisma.PasswordResetTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>[]
+          }
+          create: {
+            args: Prisma.PasswordResetTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>
+          }
+          createMany: {
+            args: Prisma.PasswordResetTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PasswordResetTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.PasswordResetTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>
+          }
+          update: {
+            args: Prisma.PasswordResetTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.PasswordResetTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PasswordResetTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PasswordResetTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.PasswordResetTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.PasswordResetTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePasswordResetToken>
+          }
+          groupBy: {
+            args: Prisma.PasswordResetTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PasswordResetTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PasswordResetTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<PasswordResetTokenCountAggregateOutputType> | number
           }
         }
       }
@@ -2131,6 +2311,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    pendingRegistration?: PendingRegistrationOmit
+    passwordResetToken?: PasswordResetTokenOmit
     category?: CategoryOmit
     product?: ProductOmit
     productDeliveryFile?: ProductDeliveryFileOmit
@@ -2236,6 +2418,7 @@ export namespace Prisma {
     auditLogs: number
     tickets: number
     ticketMessages: number
+    passwordResetTokens: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2249,6 +2432,7 @@ export namespace Prisma {
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
     tickets?: boolean | UserCountOutputTypeCountTicketsArgs
     ticketMessages?: boolean | UserCountOutputTypeCountTicketMessagesArgs
+    passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
   }
 
   // Custom InputTypes
@@ -2330,6 +2514,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTicketMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SupportMessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetTokenWhereInput
   }
 
 
@@ -2535,12 +2726,14 @@ export namespace Prisma {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     sellerEarnings: Decimal | null
+    sessionVersion: number | null
   }
 
   export type UserSumAggregateOutputType = {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     sellerEarnings: Decimal | null
+    sessionVersion: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -2553,8 +2746,9 @@ export namespace Prisma {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     sellerEarnings: Decimal | null
-    resetTokenHash: string | null
-    resetTokenExpires: Date | null
+    emailVerified: boolean | null
+    emailVerifiedAt: Date | null
+    sessionVersion: number | null
     createdAt: Date | null
   }
 
@@ -2568,8 +2762,9 @@ export namespace Prisma {
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     sellerEarnings: Decimal | null
-    resetTokenHash: string | null
-    resetTokenExpires: Date | null
+    emailVerified: boolean | null
+    emailVerifiedAt: Date | null
+    sessionVersion: number | null
     createdAt: Date | null
   }
 
@@ -2583,8 +2778,9 @@ export namespace Prisma {
     walletBalance: number
     totalSpent: number
     sellerEarnings: number
-    resetTokenHash: number
-    resetTokenExpires: number
+    emailVerified: number
+    emailVerifiedAt: number
+    sessionVersion: number
     createdAt: number
     _all: number
   }
@@ -2594,12 +2790,14 @@ export namespace Prisma {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
+    sessionVersion?: true
   }
 
   export type UserSumAggregateInputType = {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
+    sessionVersion?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -2612,8 +2810,9 @@ export namespace Prisma {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
-    resetTokenHash?: true
-    resetTokenExpires?: true
+    emailVerified?: true
+    emailVerifiedAt?: true
+    sessionVersion?: true
     createdAt?: true
   }
 
@@ -2627,8 +2826,9 @@ export namespace Prisma {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
-    resetTokenHash?: true
-    resetTokenExpires?: true
+    emailVerified?: true
+    emailVerifiedAt?: true
+    sessionVersion?: true
     createdAt?: true
   }
 
@@ -2642,8 +2842,9 @@ export namespace Prisma {
     walletBalance?: true
     totalSpent?: true
     sellerEarnings?: true
-    resetTokenHash?: true
-    resetTokenExpires?: true
+    emailVerified?: true
+    emailVerifiedAt?: true
+    sessionVersion?: true
     createdAt?: true
     _all?: true
   }
@@ -2744,8 +2945,9 @@ export namespace Prisma {
     walletBalance: Decimal
     totalSpent: Decimal
     sellerEarnings: Decimal
-    resetTokenHash: string | null
-    resetTokenExpires: Date | null
+    emailVerified: boolean
+    emailVerifiedAt: Date | null
+    sessionVersion: number
     createdAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -2778,8 +2980,9 @@ export namespace Prisma {
     walletBalance?: boolean
     totalSpent?: boolean
     sellerEarnings?: boolean
-    resetTokenHash?: boolean
-    resetTokenExpires?: boolean
+    emailVerified?: boolean
+    emailVerifiedAt?: boolean
+    sessionVersion?: boolean
     createdAt?: boolean
     deposits?: boolean | User$depositsArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
@@ -2791,6 +2994,7 @@ export namespace Prisma {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
+    passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2804,8 +3008,9 @@ export namespace Prisma {
     walletBalance?: boolean
     totalSpent?: boolean
     sellerEarnings?: boolean
-    resetTokenHash?: boolean
-    resetTokenExpires?: boolean
+    emailVerified?: boolean
+    emailVerifiedAt?: boolean
+    sessionVersion?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -2819,8 +3024,9 @@ export namespace Prisma {
     walletBalance?: boolean
     totalSpent?: boolean
     sellerEarnings?: boolean
-    resetTokenHash?: boolean
-    resetTokenExpires?: boolean
+    emailVerified?: boolean
+    emailVerifiedAt?: boolean
+    sessionVersion?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -2834,12 +3040,13 @@ export namespace Prisma {
     walletBalance?: boolean
     totalSpent?: boolean
     sellerEarnings?: boolean
-    resetTokenHash?: boolean
-    resetTokenExpires?: boolean
+    emailVerified?: boolean
+    emailVerifiedAt?: boolean
+    sessionVersion?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "sellerStatus" | "walletBalance" | "totalSpent" | "sellerEarnings" | "resetTokenHash" | "resetTokenExpires" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "sellerStatus" | "walletBalance" | "totalSpent" | "sellerEarnings" | "emailVerified" | "emailVerifiedAt" | "sessionVersion" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     deposits?: boolean | User$depositsArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
@@ -2851,6 +3058,7 @@ export namespace Prisma {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     tickets?: boolean | User$ticketsArgs<ExtArgs>
     ticketMessages?: boolean | User$ticketMessagesArgs<ExtArgs>
+    passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2869,6 +3077,7 @@ export namespace Prisma {
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
       tickets: Prisma.$SupportTicketPayload<ExtArgs>[]
       ticketMessages: Prisma.$SupportMessagePayload<ExtArgs>[]
+      passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2880,8 +3089,9 @@ export namespace Prisma {
       walletBalance: Prisma.Decimal
       totalSpent: Prisma.Decimal
       sellerEarnings: Prisma.Decimal
-      resetTokenHash: string | null
-      resetTokenExpires: Date | null
+      emailVerified: boolean
+      emailVerifiedAt: Date | null
+      sessionVersion: number
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -3287,6 +3497,7 @@ export namespace Prisma {
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tickets<T extends User$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ticketMessages<T extends User$ticketMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3325,8 +3536,9 @@ export namespace Prisma {
     readonly walletBalance: FieldRef<"User", 'Decimal'>
     readonly totalSpent: FieldRef<"User", 'Decimal'>
     readonly sellerEarnings: FieldRef<"User", 'Decimal'>
-    readonly resetTokenHash: FieldRef<"User", 'String'>
-    readonly resetTokenExpires: FieldRef<"User", 'DateTime'>
+    readonly emailVerified: FieldRef<"User", 'Boolean'>
+    readonly emailVerifiedAt: FieldRef<"User", 'DateTime'>
+    readonly sessionVersion: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -3956,6 +4168,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.passwordResetTokens
+   */
+  export type User$passwordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    where?: PasswordResetTokenWhereInput
+    orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
+    cursor?: PasswordResetTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3971,6 +4207,2231 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PendingRegistration
+   */
+
+  export type AggregatePendingRegistration = {
+    _count: PendingRegistrationCountAggregateOutputType | null
+    _avg: PendingRegistrationAvgAggregateOutputType | null
+    _sum: PendingRegistrationSumAggregateOutputType | null
+    _min: PendingRegistrationMinAggregateOutputType | null
+    _max: PendingRegistrationMaxAggregateOutputType | null
+  }
+
+  export type PendingRegistrationAvgAggregateOutputType = {
+    attemptCount: number | null
+  }
+
+  export type PendingRegistrationSumAggregateOutputType = {
+    attemptCount: number | null
+  }
+
+  export type PendingRegistrationMinAggregateOutputType = {
+    id: string | null
+    email: string | null
+    passwordHash: string | null
+    codeHash: string | null
+    expiresAt: Date | null
+    attemptCount: number | null
+    lastSentAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PendingRegistrationMaxAggregateOutputType = {
+    id: string | null
+    email: string | null
+    passwordHash: string | null
+    codeHash: string | null
+    expiresAt: Date | null
+    attemptCount: number | null
+    lastSentAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PendingRegistrationCountAggregateOutputType = {
+    id: number
+    email: number
+    passwordHash: number
+    codeHash: number
+    expiresAt: number
+    attemptCount: number
+    lastSentAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PendingRegistrationAvgAggregateInputType = {
+    attemptCount?: true
+  }
+
+  export type PendingRegistrationSumAggregateInputType = {
+    attemptCount?: true
+  }
+
+  export type PendingRegistrationMinAggregateInputType = {
+    id?: true
+    email?: true
+    passwordHash?: true
+    codeHash?: true
+    expiresAt?: true
+    attemptCount?: true
+    lastSentAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PendingRegistrationMaxAggregateInputType = {
+    id?: true
+    email?: true
+    passwordHash?: true
+    codeHash?: true
+    expiresAt?: true
+    attemptCount?: true
+    lastSentAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PendingRegistrationCountAggregateInputType = {
+    id?: true
+    email?: true
+    passwordHash?: true
+    codeHash?: true
+    expiresAt?: true
+    attemptCount?: true
+    lastSentAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PendingRegistrationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PendingRegistration to aggregate.
+     */
+    where?: PendingRegistrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PendingRegistrations to fetch.
+     */
+    orderBy?: PendingRegistrationOrderByWithRelationInput | PendingRegistrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PendingRegistrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PendingRegistrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PendingRegistrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PendingRegistrations
+    **/
+    _count?: true | PendingRegistrationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PendingRegistrationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PendingRegistrationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PendingRegistrationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PendingRegistrationMaxAggregateInputType
+  }
+
+  export type GetPendingRegistrationAggregateType<T extends PendingRegistrationAggregateArgs> = {
+        [P in keyof T & keyof AggregatePendingRegistration]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePendingRegistration[P]>
+      : GetScalarType<T[P], AggregatePendingRegistration[P]>
+  }
+
+
+
+
+  export type PendingRegistrationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PendingRegistrationWhereInput
+    orderBy?: PendingRegistrationOrderByWithAggregationInput | PendingRegistrationOrderByWithAggregationInput[]
+    by: PendingRegistrationScalarFieldEnum[] | PendingRegistrationScalarFieldEnum
+    having?: PendingRegistrationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PendingRegistrationCountAggregateInputType | true
+    _avg?: PendingRegistrationAvgAggregateInputType
+    _sum?: PendingRegistrationSumAggregateInputType
+    _min?: PendingRegistrationMinAggregateInputType
+    _max?: PendingRegistrationMaxAggregateInputType
+  }
+
+  export type PendingRegistrationGroupByOutputType = {
+    id: string
+    email: string
+    passwordHash: string
+    codeHash: string
+    expiresAt: Date
+    attemptCount: number
+    lastSentAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: PendingRegistrationCountAggregateOutputType | null
+    _avg: PendingRegistrationAvgAggregateOutputType | null
+    _sum: PendingRegistrationSumAggregateOutputType | null
+    _min: PendingRegistrationMinAggregateOutputType | null
+    _max: PendingRegistrationMaxAggregateOutputType | null
+  }
+
+  type GetPendingRegistrationGroupByPayload<T extends PendingRegistrationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PendingRegistrationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PendingRegistrationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PendingRegistrationGroupByOutputType[P]>
+            : GetScalarType<T[P], PendingRegistrationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PendingRegistrationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    codeHash?: boolean
+    expiresAt?: boolean
+    attemptCount?: boolean
+    lastSentAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["pendingRegistration"]>
+
+  export type PendingRegistrationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    codeHash?: boolean
+    expiresAt?: boolean
+    attemptCount?: boolean
+    lastSentAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["pendingRegistration"]>
+
+  export type PendingRegistrationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    codeHash?: boolean
+    expiresAt?: boolean
+    attemptCount?: boolean
+    lastSentAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["pendingRegistration"]>
+
+  export type PendingRegistrationSelectScalar = {
+    id?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    codeHash?: boolean
+    expiresAt?: boolean
+    attemptCount?: boolean
+    lastSentAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PendingRegistrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "codeHash" | "expiresAt" | "attemptCount" | "lastSentAt" | "createdAt" | "updatedAt", ExtArgs["result"]["pendingRegistration"]>
+
+  export type $PendingRegistrationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PendingRegistration"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      email: string
+      passwordHash: string
+      codeHash: string
+      expiresAt: Date
+      attemptCount: number
+      lastSentAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["pendingRegistration"]>
+    composites: {}
+  }
+
+  type PendingRegistrationGetPayload<S extends boolean | null | undefined | PendingRegistrationDefaultArgs> = $Result.GetResult<Prisma.$PendingRegistrationPayload, S>
+
+  type PendingRegistrationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PendingRegistrationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PendingRegistrationCountAggregateInputType | true
+    }
+
+  export interface PendingRegistrationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PendingRegistration'], meta: { name: 'PendingRegistration' } }
+    /**
+     * Find zero or one PendingRegistration that matches the filter.
+     * @param {PendingRegistrationFindUniqueArgs} args - Arguments to find a PendingRegistration
+     * @example
+     * // Get one PendingRegistration
+     * const pendingRegistration = await prisma.pendingRegistration.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PendingRegistrationFindUniqueArgs>(args: SelectSubset<T, PendingRegistrationFindUniqueArgs<ExtArgs>>): Prisma__PendingRegistrationClient<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PendingRegistration that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PendingRegistrationFindUniqueOrThrowArgs} args - Arguments to find a PendingRegistration
+     * @example
+     * // Get one PendingRegistration
+     * const pendingRegistration = await prisma.pendingRegistration.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PendingRegistrationFindUniqueOrThrowArgs>(args: SelectSubset<T, PendingRegistrationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PendingRegistrationClient<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PendingRegistration that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PendingRegistrationFindFirstArgs} args - Arguments to find a PendingRegistration
+     * @example
+     * // Get one PendingRegistration
+     * const pendingRegistration = await prisma.pendingRegistration.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PendingRegistrationFindFirstArgs>(args?: SelectSubset<T, PendingRegistrationFindFirstArgs<ExtArgs>>): Prisma__PendingRegistrationClient<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PendingRegistration that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PendingRegistrationFindFirstOrThrowArgs} args - Arguments to find a PendingRegistration
+     * @example
+     * // Get one PendingRegistration
+     * const pendingRegistration = await prisma.pendingRegistration.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PendingRegistrationFindFirstOrThrowArgs>(args?: SelectSubset<T, PendingRegistrationFindFirstOrThrowArgs<ExtArgs>>): Prisma__PendingRegistrationClient<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PendingRegistrations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PendingRegistrationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PendingRegistrations
+     * const pendingRegistrations = await prisma.pendingRegistration.findMany()
+     * 
+     * // Get first 10 PendingRegistrations
+     * const pendingRegistrations = await prisma.pendingRegistration.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pendingRegistrationWithIdOnly = await prisma.pendingRegistration.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PendingRegistrationFindManyArgs>(args?: SelectSubset<T, PendingRegistrationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PendingRegistration.
+     * @param {PendingRegistrationCreateArgs} args - Arguments to create a PendingRegistration.
+     * @example
+     * // Create one PendingRegistration
+     * const PendingRegistration = await prisma.pendingRegistration.create({
+     *   data: {
+     *     // ... data to create a PendingRegistration
+     *   }
+     * })
+     * 
+     */
+    create<T extends PendingRegistrationCreateArgs>(args: SelectSubset<T, PendingRegistrationCreateArgs<ExtArgs>>): Prisma__PendingRegistrationClient<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PendingRegistrations.
+     * @param {PendingRegistrationCreateManyArgs} args - Arguments to create many PendingRegistrations.
+     * @example
+     * // Create many PendingRegistrations
+     * const pendingRegistration = await prisma.pendingRegistration.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PendingRegistrationCreateManyArgs>(args?: SelectSubset<T, PendingRegistrationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PendingRegistrations and returns the data saved in the database.
+     * @param {PendingRegistrationCreateManyAndReturnArgs} args - Arguments to create many PendingRegistrations.
+     * @example
+     * // Create many PendingRegistrations
+     * const pendingRegistration = await prisma.pendingRegistration.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PendingRegistrations and only return the `id`
+     * const pendingRegistrationWithIdOnly = await prisma.pendingRegistration.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PendingRegistrationCreateManyAndReturnArgs>(args?: SelectSubset<T, PendingRegistrationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PendingRegistration.
+     * @param {PendingRegistrationDeleteArgs} args - Arguments to delete one PendingRegistration.
+     * @example
+     * // Delete one PendingRegistration
+     * const PendingRegistration = await prisma.pendingRegistration.delete({
+     *   where: {
+     *     // ... filter to delete one PendingRegistration
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PendingRegistrationDeleteArgs>(args: SelectSubset<T, PendingRegistrationDeleteArgs<ExtArgs>>): Prisma__PendingRegistrationClient<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PendingRegistration.
+     * @param {PendingRegistrationUpdateArgs} args - Arguments to update one PendingRegistration.
+     * @example
+     * // Update one PendingRegistration
+     * const pendingRegistration = await prisma.pendingRegistration.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PendingRegistrationUpdateArgs>(args: SelectSubset<T, PendingRegistrationUpdateArgs<ExtArgs>>): Prisma__PendingRegistrationClient<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PendingRegistrations.
+     * @param {PendingRegistrationDeleteManyArgs} args - Arguments to filter PendingRegistrations to delete.
+     * @example
+     * // Delete a few PendingRegistrations
+     * const { count } = await prisma.pendingRegistration.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PendingRegistrationDeleteManyArgs>(args?: SelectSubset<T, PendingRegistrationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PendingRegistrations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PendingRegistrationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PendingRegistrations
+     * const pendingRegistration = await prisma.pendingRegistration.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PendingRegistrationUpdateManyArgs>(args: SelectSubset<T, PendingRegistrationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PendingRegistrations and returns the data updated in the database.
+     * @param {PendingRegistrationUpdateManyAndReturnArgs} args - Arguments to update many PendingRegistrations.
+     * @example
+     * // Update many PendingRegistrations
+     * const pendingRegistration = await prisma.pendingRegistration.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PendingRegistrations and only return the `id`
+     * const pendingRegistrationWithIdOnly = await prisma.pendingRegistration.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PendingRegistrationUpdateManyAndReturnArgs>(args: SelectSubset<T, PendingRegistrationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PendingRegistration.
+     * @param {PendingRegistrationUpsertArgs} args - Arguments to update or create a PendingRegistration.
+     * @example
+     * // Update or create a PendingRegistration
+     * const pendingRegistration = await prisma.pendingRegistration.upsert({
+     *   create: {
+     *     // ... data to create a PendingRegistration
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PendingRegistration we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PendingRegistrationUpsertArgs>(args: SelectSubset<T, PendingRegistrationUpsertArgs<ExtArgs>>): Prisma__PendingRegistrationClient<$Result.GetResult<Prisma.$PendingRegistrationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PendingRegistrations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PendingRegistrationCountArgs} args - Arguments to filter PendingRegistrations to count.
+     * @example
+     * // Count the number of PendingRegistrations
+     * const count = await prisma.pendingRegistration.count({
+     *   where: {
+     *     // ... the filter for the PendingRegistrations we want to count
+     *   }
+     * })
+    **/
+    count<T extends PendingRegistrationCountArgs>(
+      args?: Subset<T, PendingRegistrationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PendingRegistrationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PendingRegistration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PendingRegistrationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PendingRegistrationAggregateArgs>(args: Subset<T, PendingRegistrationAggregateArgs>): Prisma.PrismaPromise<GetPendingRegistrationAggregateType<T>>
+
+    /**
+     * Group by PendingRegistration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PendingRegistrationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PendingRegistrationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PendingRegistrationGroupByArgs['orderBy'] }
+        : { orderBy?: PendingRegistrationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PendingRegistrationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPendingRegistrationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PendingRegistration model
+   */
+  readonly fields: PendingRegistrationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PendingRegistration.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PendingRegistrationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PendingRegistration model
+   */
+  interface PendingRegistrationFieldRefs {
+    readonly id: FieldRef<"PendingRegistration", 'String'>
+    readonly email: FieldRef<"PendingRegistration", 'String'>
+    readonly passwordHash: FieldRef<"PendingRegistration", 'String'>
+    readonly codeHash: FieldRef<"PendingRegistration", 'String'>
+    readonly expiresAt: FieldRef<"PendingRegistration", 'DateTime'>
+    readonly attemptCount: FieldRef<"PendingRegistration", 'Int'>
+    readonly lastSentAt: FieldRef<"PendingRegistration", 'DateTime'>
+    readonly createdAt: FieldRef<"PendingRegistration", 'DateTime'>
+    readonly updatedAt: FieldRef<"PendingRegistration", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PendingRegistration findUnique
+   */
+  export type PendingRegistrationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * Filter, which PendingRegistration to fetch.
+     */
+    where: PendingRegistrationWhereUniqueInput
+  }
+
+  /**
+   * PendingRegistration findUniqueOrThrow
+   */
+  export type PendingRegistrationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * Filter, which PendingRegistration to fetch.
+     */
+    where: PendingRegistrationWhereUniqueInput
+  }
+
+  /**
+   * PendingRegistration findFirst
+   */
+  export type PendingRegistrationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * Filter, which PendingRegistration to fetch.
+     */
+    where?: PendingRegistrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PendingRegistrations to fetch.
+     */
+    orderBy?: PendingRegistrationOrderByWithRelationInput | PendingRegistrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PendingRegistrations.
+     */
+    cursor?: PendingRegistrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PendingRegistrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PendingRegistrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PendingRegistrations.
+     */
+    distinct?: PendingRegistrationScalarFieldEnum | PendingRegistrationScalarFieldEnum[]
+  }
+
+  /**
+   * PendingRegistration findFirstOrThrow
+   */
+  export type PendingRegistrationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * Filter, which PendingRegistration to fetch.
+     */
+    where?: PendingRegistrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PendingRegistrations to fetch.
+     */
+    orderBy?: PendingRegistrationOrderByWithRelationInput | PendingRegistrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PendingRegistrations.
+     */
+    cursor?: PendingRegistrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PendingRegistrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PendingRegistrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PendingRegistrations.
+     */
+    distinct?: PendingRegistrationScalarFieldEnum | PendingRegistrationScalarFieldEnum[]
+  }
+
+  /**
+   * PendingRegistration findMany
+   */
+  export type PendingRegistrationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * Filter, which PendingRegistrations to fetch.
+     */
+    where?: PendingRegistrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PendingRegistrations to fetch.
+     */
+    orderBy?: PendingRegistrationOrderByWithRelationInput | PendingRegistrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PendingRegistrations.
+     */
+    cursor?: PendingRegistrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PendingRegistrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PendingRegistrations.
+     */
+    skip?: number
+    distinct?: PendingRegistrationScalarFieldEnum | PendingRegistrationScalarFieldEnum[]
+  }
+
+  /**
+   * PendingRegistration create
+   */
+  export type PendingRegistrationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * The data needed to create a PendingRegistration.
+     */
+    data: XOR<PendingRegistrationCreateInput, PendingRegistrationUncheckedCreateInput>
+  }
+
+  /**
+   * PendingRegistration createMany
+   */
+  export type PendingRegistrationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PendingRegistrations.
+     */
+    data: PendingRegistrationCreateManyInput | PendingRegistrationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PendingRegistration createManyAndReturn
+   */
+  export type PendingRegistrationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * The data used to create many PendingRegistrations.
+     */
+    data: PendingRegistrationCreateManyInput | PendingRegistrationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PendingRegistration update
+   */
+  export type PendingRegistrationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * The data needed to update a PendingRegistration.
+     */
+    data: XOR<PendingRegistrationUpdateInput, PendingRegistrationUncheckedUpdateInput>
+    /**
+     * Choose, which PendingRegistration to update.
+     */
+    where: PendingRegistrationWhereUniqueInput
+  }
+
+  /**
+   * PendingRegistration updateMany
+   */
+  export type PendingRegistrationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PendingRegistrations.
+     */
+    data: XOR<PendingRegistrationUpdateManyMutationInput, PendingRegistrationUncheckedUpdateManyInput>
+    /**
+     * Filter which PendingRegistrations to update
+     */
+    where?: PendingRegistrationWhereInput
+    /**
+     * Limit how many PendingRegistrations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PendingRegistration updateManyAndReturn
+   */
+  export type PendingRegistrationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * The data used to update PendingRegistrations.
+     */
+    data: XOR<PendingRegistrationUpdateManyMutationInput, PendingRegistrationUncheckedUpdateManyInput>
+    /**
+     * Filter which PendingRegistrations to update
+     */
+    where?: PendingRegistrationWhereInput
+    /**
+     * Limit how many PendingRegistrations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PendingRegistration upsert
+   */
+  export type PendingRegistrationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * The filter to search for the PendingRegistration to update in case it exists.
+     */
+    where: PendingRegistrationWhereUniqueInput
+    /**
+     * In case the PendingRegistration found by the `where` argument doesn't exist, create a new PendingRegistration with this data.
+     */
+    create: XOR<PendingRegistrationCreateInput, PendingRegistrationUncheckedCreateInput>
+    /**
+     * In case the PendingRegistration was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PendingRegistrationUpdateInput, PendingRegistrationUncheckedUpdateInput>
+  }
+
+  /**
+   * PendingRegistration delete
+   */
+  export type PendingRegistrationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+    /**
+     * Filter which PendingRegistration to delete.
+     */
+    where: PendingRegistrationWhereUniqueInput
+  }
+
+  /**
+   * PendingRegistration deleteMany
+   */
+  export type PendingRegistrationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PendingRegistrations to delete
+     */
+    where?: PendingRegistrationWhereInput
+    /**
+     * Limit how many PendingRegistrations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PendingRegistration without action
+   */
+  export type PendingRegistrationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendingRegistration
+     */
+    select?: PendingRegistrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendingRegistration
+     */
+    omit?: PendingRegistrationOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PasswordResetToken
+   */
+
+  export type AggregatePasswordResetToken = {
+    _count: PasswordResetTokenCountAggregateOutputType | null
+    _avg: PasswordResetTokenAvgAggregateOutputType | null
+    _sum: PasswordResetTokenSumAggregateOutputType | null
+    _min: PasswordResetTokenMinAggregateOutputType | null
+    _max: PasswordResetTokenMaxAggregateOutputType | null
+  }
+
+  export type PasswordResetTokenAvgAggregateOutputType = {
+    attemptCount: number | null
+  }
+
+  export type PasswordResetTokenSumAggregateOutputType = {
+    attemptCount: number | null
+  }
+
+  export type PasswordResetTokenMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    tokenHash: string | null
+    expiresAt: Date | null
+    attemptCount: number | null
+    lastSentAt: Date | null
+    verifiedAt: Date | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type PasswordResetTokenMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    tokenHash: string | null
+    expiresAt: Date | null
+    attemptCount: number | null
+    lastSentAt: Date | null
+    verifiedAt: Date | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type PasswordResetTokenCountAggregateOutputType = {
+    id: number
+    userId: number
+    tokenHash: number
+    expiresAt: number
+    attemptCount: number
+    lastSentAt: number
+    verifiedAt: number
+    usedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PasswordResetTokenAvgAggregateInputType = {
+    attemptCount?: true
+  }
+
+  export type PasswordResetTokenSumAggregateInputType = {
+    attemptCount?: true
+  }
+
+  export type PasswordResetTokenMinAggregateInputType = {
+    id?: true
+    userId?: true
+    tokenHash?: true
+    expiresAt?: true
+    attemptCount?: true
+    lastSentAt?: true
+    verifiedAt?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type PasswordResetTokenMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    tokenHash?: true
+    expiresAt?: true
+    attemptCount?: true
+    lastSentAt?: true
+    verifiedAt?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type PasswordResetTokenCountAggregateInputType = {
+    id?: true
+    userId?: true
+    tokenHash?: true
+    expiresAt?: true
+    attemptCount?: true
+    lastSentAt?: true
+    verifiedAt?: true
+    usedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PasswordResetTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PasswordResetToken to aggregate.
+     */
+    where?: PasswordResetTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetTokens to fetch.
+     */
+    orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PasswordResetTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PasswordResetTokens
+    **/
+    _count?: true | PasswordResetTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PasswordResetTokenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PasswordResetTokenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PasswordResetTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PasswordResetTokenMaxAggregateInputType
+  }
+
+  export type GetPasswordResetTokenAggregateType<T extends PasswordResetTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregatePasswordResetToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePasswordResetToken[P]>
+      : GetScalarType<T[P], AggregatePasswordResetToken[P]>
+  }
+
+
+
+
+  export type PasswordResetTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetTokenWhereInput
+    orderBy?: PasswordResetTokenOrderByWithAggregationInput | PasswordResetTokenOrderByWithAggregationInput[]
+    by: PasswordResetTokenScalarFieldEnum[] | PasswordResetTokenScalarFieldEnum
+    having?: PasswordResetTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PasswordResetTokenCountAggregateInputType | true
+    _avg?: PasswordResetTokenAvgAggregateInputType
+    _sum?: PasswordResetTokenSumAggregateInputType
+    _min?: PasswordResetTokenMinAggregateInputType
+    _max?: PasswordResetTokenMaxAggregateInputType
+  }
+
+  export type PasswordResetTokenGroupByOutputType = {
+    id: string
+    userId: string
+    tokenHash: string
+    expiresAt: Date
+    attemptCount: number
+    lastSentAt: Date
+    verifiedAt: Date | null
+    usedAt: Date | null
+    createdAt: Date
+    _count: PasswordResetTokenCountAggregateOutputType | null
+    _avg: PasswordResetTokenAvgAggregateOutputType | null
+    _sum: PasswordResetTokenSumAggregateOutputType | null
+    _min: PasswordResetTokenMinAggregateOutputType | null
+    _max: PasswordResetTokenMaxAggregateOutputType | null
+  }
+
+  type GetPasswordResetTokenGroupByPayload<T extends PasswordResetTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PasswordResetTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PasswordResetTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PasswordResetTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], PasswordResetTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PasswordResetTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tokenHash?: boolean
+    expiresAt?: boolean
+    attemptCount?: boolean
+    lastSentAt?: boolean
+    verifiedAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetToken"]>
+
+  export type PasswordResetTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tokenHash?: boolean
+    expiresAt?: boolean
+    attemptCount?: boolean
+    lastSentAt?: boolean
+    verifiedAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetToken"]>
+
+  export type PasswordResetTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tokenHash?: boolean
+    expiresAt?: boolean
+    attemptCount?: boolean
+    lastSentAt?: boolean
+    verifiedAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetToken"]>
+
+  export type PasswordResetTokenSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    tokenHash?: boolean
+    expiresAt?: boolean
+    attemptCount?: boolean
+    lastSentAt?: boolean
+    verifiedAt?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type PasswordResetTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tokenHash" | "expiresAt" | "attemptCount" | "lastSentAt" | "verifiedAt" | "usedAt" | "createdAt", ExtArgs["result"]["passwordResetToken"]>
+  export type PasswordResetTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PasswordResetTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PasswordResetTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PasswordResetTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PasswordResetToken"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      tokenHash: string
+      expiresAt: Date
+      attemptCount: number
+      lastSentAt: Date
+      verifiedAt: Date | null
+      usedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["passwordResetToken"]>
+    composites: {}
+  }
+
+  type PasswordResetTokenGetPayload<S extends boolean | null | undefined | PasswordResetTokenDefaultArgs> = $Result.GetResult<Prisma.$PasswordResetTokenPayload, S>
+
+  type PasswordResetTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PasswordResetTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PasswordResetTokenCountAggregateInputType | true
+    }
+
+  export interface PasswordResetTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PasswordResetToken'], meta: { name: 'PasswordResetToken' } }
+    /**
+     * Find zero or one PasswordResetToken that matches the filter.
+     * @param {PasswordResetTokenFindUniqueArgs} args - Arguments to find a PasswordResetToken
+     * @example
+     * // Get one PasswordResetToken
+     * const passwordResetToken = await prisma.passwordResetToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PasswordResetTokenFindUniqueArgs>(args: SelectSubset<T, PasswordResetTokenFindUniqueArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PasswordResetToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PasswordResetTokenFindUniqueOrThrowArgs} args - Arguments to find a PasswordResetToken
+     * @example
+     * // Get one PasswordResetToken
+     * const passwordResetToken = await prisma.passwordResetToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PasswordResetTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, PasswordResetTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PasswordResetToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetTokenFindFirstArgs} args - Arguments to find a PasswordResetToken
+     * @example
+     * // Get one PasswordResetToken
+     * const passwordResetToken = await prisma.passwordResetToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PasswordResetTokenFindFirstArgs>(args?: SelectSubset<T, PasswordResetTokenFindFirstArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PasswordResetToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetTokenFindFirstOrThrowArgs} args - Arguments to find a PasswordResetToken
+     * @example
+     * // Get one PasswordResetToken
+     * const passwordResetToken = await prisma.passwordResetToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PasswordResetTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, PasswordResetTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PasswordResetTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PasswordResetTokens
+     * const passwordResetTokens = await prisma.passwordResetToken.findMany()
+     * 
+     * // Get first 10 PasswordResetTokens
+     * const passwordResetTokens = await prisma.passwordResetToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const passwordResetTokenWithIdOnly = await prisma.passwordResetToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PasswordResetTokenFindManyArgs>(args?: SelectSubset<T, PasswordResetTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PasswordResetToken.
+     * @param {PasswordResetTokenCreateArgs} args - Arguments to create a PasswordResetToken.
+     * @example
+     * // Create one PasswordResetToken
+     * const PasswordResetToken = await prisma.passwordResetToken.create({
+     *   data: {
+     *     // ... data to create a PasswordResetToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends PasswordResetTokenCreateArgs>(args: SelectSubset<T, PasswordResetTokenCreateArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PasswordResetTokens.
+     * @param {PasswordResetTokenCreateManyArgs} args - Arguments to create many PasswordResetTokens.
+     * @example
+     * // Create many PasswordResetTokens
+     * const passwordResetToken = await prisma.passwordResetToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PasswordResetTokenCreateManyArgs>(args?: SelectSubset<T, PasswordResetTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PasswordResetTokens and returns the data saved in the database.
+     * @param {PasswordResetTokenCreateManyAndReturnArgs} args - Arguments to create many PasswordResetTokens.
+     * @example
+     * // Create many PasswordResetTokens
+     * const passwordResetToken = await prisma.passwordResetToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PasswordResetTokens and only return the `id`
+     * const passwordResetTokenWithIdOnly = await prisma.passwordResetToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PasswordResetTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, PasswordResetTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PasswordResetToken.
+     * @param {PasswordResetTokenDeleteArgs} args - Arguments to delete one PasswordResetToken.
+     * @example
+     * // Delete one PasswordResetToken
+     * const PasswordResetToken = await prisma.passwordResetToken.delete({
+     *   where: {
+     *     // ... filter to delete one PasswordResetToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PasswordResetTokenDeleteArgs>(args: SelectSubset<T, PasswordResetTokenDeleteArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PasswordResetToken.
+     * @param {PasswordResetTokenUpdateArgs} args - Arguments to update one PasswordResetToken.
+     * @example
+     * // Update one PasswordResetToken
+     * const passwordResetToken = await prisma.passwordResetToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PasswordResetTokenUpdateArgs>(args: SelectSubset<T, PasswordResetTokenUpdateArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PasswordResetTokens.
+     * @param {PasswordResetTokenDeleteManyArgs} args - Arguments to filter PasswordResetTokens to delete.
+     * @example
+     * // Delete a few PasswordResetTokens
+     * const { count } = await prisma.passwordResetToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PasswordResetTokenDeleteManyArgs>(args?: SelectSubset<T, PasswordResetTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PasswordResetTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PasswordResetTokens
+     * const passwordResetToken = await prisma.passwordResetToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PasswordResetTokenUpdateManyArgs>(args: SelectSubset<T, PasswordResetTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PasswordResetTokens and returns the data updated in the database.
+     * @param {PasswordResetTokenUpdateManyAndReturnArgs} args - Arguments to update many PasswordResetTokens.
+     * @example
+     * // Update many PasswordResetTokens
+     * const passwordResetToken = await prisma.passwordResetToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PasswordResetTokens and only return the `id`
+     * const passwordResetTokenWithIdOnly = await prisma.passwordResetToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PasswordResetTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, PasswordResetTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PasswordResetToken.
+     * @param {PasswordResetTokenUpsertArgs} args - Arguments to update or create a PasswordResetToken.
+     * @example
+     * // Update or create a PasswordResetToken
+     * const passwordResetToken = await prisma.passwordResetToken.upsert({
+     *   create: {
+     *     // ... data to create a PasswordResetToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PasswordResetToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PasswordResetTokenUpsertArgs>(args: SelectSubset<T, PasswordResetTokenUpsertArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PasswordResetTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetTokenCountArgs} args - Arguments to filter PasswordResetTokens to count.
+     * @example
+     * // Count the number of PasswordResetTokens
+     * const count = await prisma.passwordResetToken.count({
+     *   where: {
+     *     // ... the filter for the PasswordResetTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends PasswordResetTokenCountArgs>(
+      args?: Subset<T, PasswordResetTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PasswordResetTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PasswordResetToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PasswordResetTokenAggregateArgs>(args: Subset<T, PasswordResetTokenAggregateArgs>): Prisma.PrismaPromise<GetPasswordResetTokenAggregateType<T>>
+
+    /**
+     * Group by PasswordResetToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PasswordResetTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PasswordResetTokenGroupByArgs['orderBy'] }
+        : { orderBy?: PasswordResetTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PasswordResetTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPasswordResetTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PasswordResetToken model
+   */
+  readonly fields: PasswordResetTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PasswordResetToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PasswordResetTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PasswordResetToken model
+   */
+  interface PasswordResetTokenFieldRefs {
+    readonly id: FieldRef<"PasswordResetToken", 'String'>
+    readonly userId: FieldRef<"PasswordResetToken", 'String'>
+    readonly tokenHash: FieldRef<"PasswordResetToken", 'String'>
+    readonly expiresAt: FieldRef<"PasswordResetToken", 'DateTime'>
+    readonly attemptCount: FieldRef<"PasswordResetToken", 'Int'>
+    readonly lastSentAt: FieldRef<"PasswordResetToken", 'DateTime'>
+    readonly verifiedAt: FieldRef<"PasswordResetToken", 'DateTime'>
+    readonly usedAt: FieldRef<"PasswordResetToken", 'DateTime'>
+    readonly createdAt: FieldRef<"PasswordResetToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PasswordResetToken findUnique
+   */
+  export type PasswordResetTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetToken to fetch.
+     */
+    where: PasswordResetTokenWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetToken findUniqueOrThrow
+   */
+  export type PasswordResetTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetToken to fetch.
+     */
+    where: PasswordResetTokenWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetToken findFirst
+   */
+  export type PasswordResetTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetToken to fetch.
+     */
+    where?: PasswordResetTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetTokens to fetch.
+     */
+    orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PasswordResetTokens.
+     */
+    cursor?: PasswordResetTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PasswordResetTokens.
+     */
+    distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetToken findFirstOrThrow
+   */
+  export type PasswordResetTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetToken to fetch.
+     */
+    where?: PasswordResetTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetTokens to fetch.
+     */
+    orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PasswordResetTokens.
+     */
+    cursor?: PasswordResetTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PasswordResetTokens.
+     */
+    distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetToken findMany
+   */
+  export type PasswordResetTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetTokens to fetch.
+     */
+    where?: PasswordResetTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetTokens to fetch.
+     */
+    orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PasswordResetTokens.
+     */
+    cursor?: PasswordResetTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetTokens.
+     */
+    skip?: number
+    distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetToken create
+   */
+  export type PasswordResetTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PasswordResetToken.
+     */
+    data: XOR<PasswordResetTokenCreateInput, PasswordResetTokenUncheckedCreateInput>
+  }
+
+  /**
+   * PasswordResetToken createMany
+   */
+  export type PasswordResetTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PasswordResetTokens.
+     */
+    data: PasswordResetTokenCreateManyInput | PasswordResetTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PasswordResetToken createManyAndReturn
+   */
+  export type PasswordResetTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many PasswordResetTokens.
+     */
+    data: PasswordResetTokenCreateManyInput | PasswordResetTokenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PasswordResetToken update
+   */
+  export type PasswordResetTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PasswordResetToken.
+     */
+    data: XOR<PasswordResetTokenUpdateInput, PasswordResetTokenUncheckedUpdateInput>
+    /**
+     * Choose, which PasswordResetToken to update.
+     */
+    where: PasswordResetTokenWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetToken updateMany
+   */
+  export type PasswordResetTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PasswordResetTokens.
+     */
+    data: XOR<PasswordResetTokenUpdateManyMutationInput, PasswordResetTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which PasswordResetTokens to update
+     */
+    where?: PasswordResetTokenWhereInput
+    /**
+     * Limit how many PasswordResetTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PasswordResetToken updateManyAndReturn
+   */
+  export type PasswordResetTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update PasswordResetTokens.
+     */
+    data: XOR<PasswordResetTokenUpdateManyMutationInput, PasswordResetTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which PasswordResetTokens to update
+     */
+    where?: PasswordResetTokenWhereInput
+    /**
+     * Limit how many PasswordResetTokens to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PasswordResetToken upsert
+   */
+  export type PasswordResetTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PasswordResetToken to update in case it exists.
+     */
+    where: PasswordResetTokenWhereUniqueInput
+    /**
+     * In case the PasswordResetToken found by the `where` argument doesn't exist, create a new PasswordResetToken with this data.
+     */
+    create: XOR<PasswordResetTokenCreateInput, PasswordResetTokenUncheckedCreateInput>
+    /**
+     * In case the PasswordResetToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PasswordResetTokenUpdateInput, PasswordResetTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * PasswordResetToken delete
+   */
+  export type PasswordResetTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
+    /**
+     * Filter which PasswordResetToken to delete.
+     */
+    where: PasswordResetTokenWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetToken deleteMany
+   */
+  export type PasswordResetTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PasswordResetTokens to delete
+     */
+    where?: PasswordResetTokenWhereInput
+    /**
+     * Limit how many PasswordResetTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PasswordResetToken without action
+   */
+  export type PasswordResetTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetToken
+     */
+    select?: PasswordResetTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetToken
+     */
+    omit?: PasswordResetTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetTokenInclude<ExtArgs> | null
   }
 
 
@@ -21057,12 +23518,43 @@ export namespace Prisma {
     walletBalance: 'walletBalance',
     totalSpent: 'totalSpent',
     sellerEarnings: 'sellerEarnings',
-    resetTokenHash: 'resetTokenHash',
-    resetTokenExpires: 'resetTokenExpires',
+    emailVerified: 'emailVerified',
+    emailVerifiedAt: 'emailVerifiedAt',
+    sessionVersion: 'sessionVersion',
     createdAt: 'createdAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const PendingRegistrationScalarFieldEnum: {
+    id: 'id',
+    email: 'email',
+    passwordHash: 'passwordHash',
+    codeHash: 'codeHash',
+    expiresAt: 'expiresAt',
+    attemptCount: 'attemptCount',
+    lastSentAt: 'lastSentAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PendingRegistrationScalarFieldEnum = (typeof PendingRegistrationScalarFieldEnum)[keyof typeof PendingRegistrationScalarFieldEnum]
+
+
+  export const PasswordResetTokenScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    tokenHash: 'tokenHash',
+    expiresAt: 'expiresAt',
+    attemptCount: 'attemptCount',
+    lastSentAt: 'lastSentAt',
+    verifiedAt: 'verifiedAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
 
   export const CategoryScalarFieldEnum: {
@@ -21342,6 +23834,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -21366,13 +23865,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -21406,8 +23898,9 @@ export namespace Prisma {
     walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: StringNullableFilter<"User"> | string | null
-    resetTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    emailVerified?: BoolFilter<"User"> | boolean
+    emailVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    sessionVersion?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     deposits?: DepositListRelationFilter
     orders?: OrderListRelationFilter
@@ -21419,6 +23912,7 @@ export namespace Prisma {
     auditLogs?: AuditLogListRelationFilter
     tickets?: SupportTicketListRelationFilter
     ticketMessages?: SupportMessageListRelationFilter
+    passwordResetTokens?: PasswordResetTokenListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -21431,8 +23925,9 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    resetTokenHash?: SortOrderInput | SortOrder
-    resetTokenExpires?: SortOrderInput | SortOrder
+    emailVerified?: SortOrder
+    emailVerifiedAt?: SortOrderInput | SortOrder
+    sessionVersion?: SortOrder
     createdAt?: SortOrder
     deposits?: DepositOrderByRelationAggregateInput
     orders?: OrderOrderByRelationAggregateInput
@@ -21444,6 +23939,7 @@ export namespace Prisma {
     auditLogs?: AuditLogOrderByRelationAggregateInput
     tickets?: SupportTicketOrderByRelationAggregateInput
     ticketMessages?: SupportMessageOrderByRelationAggregateInput
+    passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -21459,8 +23955,9 @@ export namespace Prisma {
     walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: StringNullableFilter<"User"> | string | null
-    resetTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    emailVerified?: BoolFilter<"User"> | boolean
+    emailVerifiedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    sessionVersion?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     deposits?: DepositListRelationFilter
     orders?: OrderListRelationFilter
@@ -21472,6 +23969,7 @@ export namespace Prisma {
     auditLogs?: AuditLogListRelationFilter
     tickets?: SupportTicketListRelationFilter
     ticketMessages?: SupportMessageListRelationFilter
+    passwordResetTokens?: PasswordResetTokenListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -21484,8 +23982,9 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    resetTokenHash?: SortOrderInput | SortOrder
-    resetTokenExpires?: SortOrderInput | SortOrder
+    emailVerified?: SortOrder
+    emailVerifiedAt?: SortOrderInput | SortOrder
+    sessionVersion?: SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -21507,9 +24006,161 @@ export namespace Prisma {
     walletBalance?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: StringNullableWithAggregatesFilter<"User"> | string | null
-    resetTokenExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    emailVerifiedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    sessionVersion?: IntWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type PendingRegistrationWhereInput = {
+    AND?: PendingRegistrationWhereInput | PendingRegistrationWhereInput[]
+    OR?: PendingRegistrationWhereInput[]
+    NOT?: PendingRegistrationWhereInput | PendingRegistrationWhereInput[]
+    id?: StringFilter<"PendingRegistration"> | string
+    email?: StringFilter<"PendingRegistration"> | string
+    passwordHash?: StringFilter<"PendingRegistration"> | string
+    codeHash?: StringFilter<"PendingRegistration"> | string
+    expiresAt?: DateTimeFilter<"PendingRegistration"> | Date | string
+    attemptCount?: IntFilter<"PendingRegistration"> | number
+    lastSentAt?: DateTimeFilter<"PendingRegistration"> | Date | string
+    createdAt?: DateTimeFilter<"PendingRegistration"> | Date | string
+    updatedAt?: DateTimeFilter<"PendingRegistration"> | Date | string
+  }
+
+  export type PendingRegistrationOrderByWithRelationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    codeHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PendingRegistrationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    AND?: PendingRegistrationWhereInput | PendingRegistrationWhereInput[]
+    OR?: PendingRegistrationWhereInput[]
+    NOT?: PendingRegistrationWhereInput | PendingRegistrationWhereInput[]
+    passwordHash?: StringFilter<"PendingRegistration"> | string
+    codeHash?: StringFilter<"PendingRegistration"> | string
+    expiresAt?: DateTimeFilter<"PendingRegistration"> | Date | string
+    attemptCount?: IntFilter<"PendingRegistration"> | number
+    lastSentAt?: DateTimeFilter<"PendingRegistration"> | Date | string
+    createdAt?: DateTimeFilter<"PendingRegistration"> | Date | string
+    updatedAt?: DateTimeFilter<"PendingRegistration"> | Date | string
+  }, "id" | "email">
+
+  export type PendingRegistrationOrderByWithAggregationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    codeHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PendingRegistrationCountOrderByAggregateInput
+    _avg?: PendingRegistrationAvgOrderByAggregateInput
+    _max?: PendingRegistrationMaxOrderByAggregateInput
+    _min?: PendingRegistrationMinOrderByAggregateInput
+    _sum?: PendingRegistrationSumOrderByAggregateInput
+  }
+
+  export type PendingRegistrationScalarWhereWithAggregatesInput = {
+    AND?: PendingRegistrationScalarWhereWithAggregatesInput | PendingRegistrationScalarWhereWithAggregatesInput[]
+    OR?: PendingRegistrationScalarWhereWithAggregatesInput[]
+    NOT?: PendingRegistrationScalarWhereWithAggregatesInput | PendingRegistrationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PendingRegistration"> | string
+    email?: StringWithAggregatesFilter<"PendingRegistration"> | string
+    passwordHash?: StringWithAggregatesFilter<"PendingRegistration"> | string
+    codeHash?: StringWithAggregatesFilter<"PendingRegistration"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"PendingRegistration"> | Date | string
+    attemptCount?: IntWithAggregatesFilter<"PendingRegistration"> | number
+    lastSentAt?: DateTimeWithAggregatesFilter<"PendingRegistration"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"PendingRegistration"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PendingRegistration"> | Date | string
+  }
+
+  export type PasswordResetTokenWhereInput = {
+    AND?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
+    OR?: PasswordResetTokenWhereInput[]
+    NOT?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
+    id?: StringFilter<"PasswordResetToken"> | string
+    userId?: StringFilter<"PasswordResetToken"> | string
+    tokenHash?: StringFilter<"PasswordResetToken"> | string
+    expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    attemptCount?: IntFilter<"PasswordResetToken"> | number
+    lastSentAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    verifiedAt?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
+    usedAt?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
+    createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PasswordResetTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tokenHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    verifiedAt?: SortOrderInput | SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PasswordResetTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
+    OR?: PasswordResetTokenWhereInput[]
+    NOT?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
+    userId?: StringFilter<"PasswordResetToken"> | string
+    tokenHash?: StringFilter<"PasswordResetToken"> | string
+    expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    attemptCount?: IntFilter<"PasswordResetToken"> | number
+    lastSentAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    verifiedAt?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
+    usedAt?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
+    createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PasswordResetTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tokenHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    verifiedAt?: SortOrderInput | SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: PasswordResetTokenCountOrderByAggregateInput
+    _avg?: PasswordResetTokenAvgOrderByAggregateInput
+    _max?: PasswordResetTokenMaxOrderByAggregateInput
+    _min?: PasswordResetTokenMinOrderByAggregateInput
+    _sum?: PasswordResetTokenSumOrderByAggregateInput
+  }
+
+  export type PasswordResetTokenScalarWhereWithAggregatesInput = {
+    AND?: PasswordResetTokenScalarWhereWithAggregatesInput | PasswordResetTokenScalarWhereWithAggregatesInput[]
+    OR?: PasswordResetTokenScalarWhereWithAggregatesInput[]
+    NOT?: PasswordResetTokenScalarWhereWithAggregatesInput | PasswordResetTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PasswordResetToken"> | string
+    userId?: StringWithAggregatesFilter<"PasswordResetToken"> | string
+    tokenHash?: StringWithAggregatesFilter<"PasswordResetToken"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
+    attemptCount?: IntWithAggregatesFilter<"PasswordResetToken"> | number
+    lastSentAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
+    verifiedAt?: DateTimeNullableWithAggregatesFilter<"PasswordResetToken"> | Date | string | null
+    usedAt?: DateTimeNullableWithAggregatesFilter<"PasswordResetToken"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
   }
 
   export type CategoryWhereInput = {
@@ -22668,8 +25319,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -22681,6 +25333,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -22693,8 +25346,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -22706,6 +25360,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -22718,8 +25373,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -22731,6 +25387,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -22743,8 +25400,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -22756,6 +25414,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -22768,8 +25427,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
   }
 
@@ -22783,8 +25443,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22798,8 +25459,176 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendingRegistrationCreateInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    codeHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PendingRegistrationUncheckedCreateInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    codeHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PendingRegistrationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendingRegistrationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendingRegistrationCreateManyInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    codeHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PendingRegistrationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendingRegistrationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetTokenCreateInput = {
+    id?: string
+    tokenHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    verifiedAt?: Date | string | null
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPasswordResetTokensInput
+  }
+
+  export type PasswordResetTokenUncheckedCreateInput = {
+    id?: string
+    userId: string
+    tokenHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    verifiedAt?: Date | string | null
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput
+  }
+
+  export type PasswordResetTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetTokenCreateManyInput = {
+    id?: string
+    userId: string
+    tokenHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    verifiedAt?: Date | string | null
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -24076,6 +26905,11 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -24085,6 +26919,17 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -24158,6 +27003,12 @@ export namespace Prisma {
     none?: SupportMessageWhereInput
   }
 
+  export type PasswordResetTokenListRelationFilter = {
+    every?: PasswordResetTokenWhereInput
+    some?: PasswordResetTokenWhereInput
+    none?: PasswordResetTokenWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -24203,6 +27054,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type PasswordResetTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -24213,8 +27068,9 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    resetTokenHash?: SortOrder
-    resetTokenExpires?: SortOrder
+    emailVerified?: SortOrder
+    emailVerifiedAt?: SortOrder
+    sessionVersion?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -24222,6 +27078,7 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
+    sessionVersion?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -24234,8 +27091,9 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    resetTokenHash?: SortOrder
-    resetTokenExpires?: SortOrder
+    emailVerified?: SortOrder
+    emailVerifiedAt?: SortOrder
+    sessionVersion?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -24249,8 +27107,9 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
-    resetTokenHash?: SortOrder
-    resetTokenExpires?: SortOrder
+    emailVerified?: SortOrder
+    emailVerifiedAt?: SortOrder
+    sessionVersion?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -24258,6 +27117,7 @@ export namespace Prisma {
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     sellerEarnings?: SortOrder
+    sessionVersion?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -24312,6 +27172,14 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -24326,6 +27194,22 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -24338,6 +27222,99 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type PendingRegistrationCountOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    codeHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PendingRegistrationAvgOrderByAggregateInput = {
+    attemptCount?: SortOrder
+  }
+
+  export type PendingRegistrationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    codeHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PendingRegistrationMinOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    codeHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PendingRegistrationSumOrderByAggregateInput = {
+    attemptCount?: SortOrder
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type PasswordResetTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tokenHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    verifiedAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PasswordResetTokenAvgOrderByAggregateInput = {
+    attemptCount?: SortOrder
+  }
+
+  export type PasswordResetTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tokenHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    verifiedAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PasswordResetTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tokenHash?: SortOrder
+    expiresAt?: SortOrder
+    attemptCount?: SortOrder
+    lastSentAt?: SortOrder
+    verifiedAt?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PasswordResetTokenSumOrderByAggregateInput = {
+    attemptCount?: SortOrder
   }
 
   export type CategoryCountOrderByAggregateInput = {
@@ -24362,22 +27339,6 @@ export namespace Prisma {
     slug?: SortOrder
     icon?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type CategoryScalarRelationFilter = {
@@ -24493,30 +27454,6 @@ export namespace Prisma {
     orderCount?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type ProductScalarRelationFilter = {
     is?: ProductWhereInput
     isNot?: ProductWhereInput
@@ -24561,11 +27498,6 @@ export namespace Prisma {
     reservedAt?: SortOrder
     soldAt?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type DepositCountOrderByAggregateInput = {
@@ -25111,6 +28043,13 @@ export namespace Prisma {
     connect?: SupportMessageWhereUniqueInput | SupportMessageWhereUniqueInput[]
   }
 
+  export type PasswordResetTokenCreateNestedManyWithoutUserInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
+    createMany?: PasswordResetTokenCreateManyUserInputEnvelope
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
   export type DepositUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<DepositCreateWithoutUserInput, DepositUncheckedCreateWithoutUserInput> | DepositCreateWithoutUserInput[] | DepositUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DepositCreateOrConnectWithoutUserInput | DepositCreateOrConnectWithoutUserInput[]
@@ -25181,6 +28120,13 @@ export namespace Prisma {
     connect?: SupportMessageWhereUniqueInput | SupportMessageWhereUniqueInput[]
   }
 
+  export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
+    createMany?: PasswordResetTokenCreateManyUserInputEnvelope
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -25197,8 +28143,20 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -25345,6 +28303,20 @@ export namespace Prisma {
     deleteMany?: SupportMessageScalarWhereInput | SupportMessageScalarWhereInput[]
   }
 
+  export type PasswordResetTokenUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
+    upsert?: PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput | PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PasswordResetTokenCreateManyUserInputEnvelope
+    set?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    disconnect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    delete?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
   export type DepositUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<DepositCreateWithoutUserInput, DepositUncheckedCreateWithoutUserInput> | DepositCreateWithoutUserInput[] | DepositUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DepositCreateOrConnectWithoutUserInput | DepositCreateOrConnectWithoutUserInput[]
@@ -25485,6 +28457,34 @@ export namespace Prisma {
     deleteMany?: SupportMessageScalarWhereInput | SupportMessageScalarWhereInput[]
   }
 
+  export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
+    upsert?: PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput | PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PasswordResetTokenCreateManyUserInputEnvelope
+    set?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    disconnect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    delete?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+    update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
+    create?: XOR<UserCreateWithoutPasswordResetTokensInput, UserUncheckedCreateWithoutPasswordResetTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPasswordResetTokensInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+    create?: XOR<UserCreateWithoutPasswordResetTokensInput, UserUncheckedCreateWithoutPasswordResetTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPasswordResetTokensInput
+    upsert?: UserUpsertWithoutPasswordResetTokensInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, UserUpdateWithoutPasswordResetTokensInput>, UserUncheckedUpdateWithoutPasswordResetTokensInput>
+  }
+
   export type ProductCreateNestedManyWithoutCategoryInput = {
     create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
@@ -25593,18 +28593,6 @@ export namespace Prisma {
     connectOrCreate?: ProductDeliveryFileCreateOrConnectWithoutProductInput | ProductDeliveryFileCreateOrConnectWithoutProductInput[]
     createMany?: ProductDeliveryFileCreateManyProductInputEnvelope
     connect?: ProductDeliveryFileWhereUniqueInput | ProductDeliveryFileWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
@@ -26130,6 +29118,11 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -26139,6 +29132,17 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -26167,17 +29171,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -26224,6 +29217,14 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -26236,25 +29237,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -26284,12 +29266,18 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type DepositCreateWithoutUserInput = {
@@ -26622,6 +29610,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PasswordResetTokenCreateWithoutUserInput = {
+    id?: string
+    tokenHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    verifiedAt?: Date | string | null
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetTokenUncheckedCreateWithoutUserInput = {
+    id?: string
+    tokenHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    verifiedAt?: Date | string | null
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetTokenCreateOrConnectWithoutUserInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    create: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type PasswordResetTokenCreateManyUserInputEnvelope = {
+    data: PasswordResetTokenCreateManyUserInput | PasswordResetTokenCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DepositUpsertWithWhereUniqueWithoutUserInput = {
     where: DepositWhereUniqueInput
     update: XOR<DepositUpdateWithoutUserInput, DepositUncheckedUpdateWithoutUserInput>
@@ -26931,6 +29951,157 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SupportMessage"> | Date | string
   }
 
+  export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
+    create: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput = {
+    where: PasswordResetTokenWhereUniqueInput
+    data: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PasswordResetTokenUpdateManyWithWhereWithoutUserInput = {
+    where: PasswordResetTokenScalarWhereInput
+    data: XOR<PasswordResetTokenUpdateManyMutationInput, PasswordResetTokenUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PasswordResetTokenScalarWhereInput = {
+    AND?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+    OR?: PasswordResetTokenScalarWhereInput[]
+    NOT?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+    id?: StringFilter<"PasswordResetToken"> | string
+    userId?: StringFilter<"PasswordResetToken"> | string
+    tokenHash?: StringFilter<"PasswordResetToken"> | string
+    expiresAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    attemptCount?: IntFilter<"PasswordResetToken"> | number
+    lastSentAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+    verifiedAt?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
+    usedAt?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
+    createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
+  }
+
+  export type UserCreateWithoutPasswordResetTokensInput = {
+    id?: string
+    name?: string | null
+    email: string
+    passwordHash: string
+    role?: string
+    sellerStatus?: string
+    walletBalance?: Decimal | DecimalJsLike | number | string
+    totalSpent?: Decimal | DecimalJsLike | number | string
+    sellerEarnings?: Decimal | DecimalJsLike | number | string
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
+    createdAt?: Date | string
+    deposits?: DepositCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    favorites?: FavoriteCreateNestedManyWithoutUserInput
+    reviews?: ReviewCreateNestedManyWithoutUserInput
+    products?: ProductCreateNestedManyWithoutSellerInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    tickets?: SupportTicketCreateNestedManyWithoutUserInput
+    ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
+    id?: string
+    name?: string | null
+    email: string
+    passwordHash: string
+    role?: string
+    sellerStatus?: string
+    walletBalance?: Decimal | DecimalJsLike | number | string
+    totalSpent?: Decimal | DecimalJsLike | number | string
+    sellerEarnings?: Decimal | DecimalJsLike | number | string
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
+    createdAt?: Date | string
+    deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    favorites?: FavoriteUncheckedCreateNestedManyWithoutUserInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    products?: ProductUncheckedCreateNestedManyWithoutSellerInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPasswordResetTokensInput, UserUncheckedCreateWithoutPasswordResetTokensInput>
+  }
+
+  export type UserUpsertWithoutPasswordResetTokensInput = {
+    update: XOR<UserUpdateWithoutPasswordResetTokensInput, UserUncheckedUpdateWithoutPasswordResetTokensInput>
+    create: XOR<UserCreateWithoutPasswordResetTokensInput, UserUncheckedCreateWithoutPasswordResetTokensInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPasswordResetTokensInput, UserUncheckedUpdateWithoutPasswordResetTokensInput>
+  }
+
+  export type UserUpdateWithoutPasswordResetTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    sellerStatus?: StringFieldUpdateOperationsInput | string
+    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deposits?: DepositUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    favorites?: FavoriteUpdateManyWithoutUserNestedInput
+    reviews?: ReviewUpdateManyWithoutUserNestedInput
+    products?: ProductUpdateManyWithoutSellerNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    tickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    sellerStatus?: StringFieldUpdateOperationsInput | string
+    walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    favorites?: FavoriteUncheckedUpdateManyWithoutUserNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type ProductCreateWithoutCategoryInput = {
     id?: string
     title: string
@@ -27040,8 +30211,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -27052,6 +30224,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProductsInput = {
@@ -27064,8 +30237,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -27076,6 +30250,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProductsInput = {
@@ -27239,8 +30414,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -27251,6 +30427,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProductsInput = {
@@ -27263,8 +30440,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -27275,6 +30453,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutProductInput = {
@@ -27545,8 +30724,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     orders?: OrderCreateNestedManyWithoutUserInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
@@ -27557,6 +30737,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDepositsInput = {
@@ -27569,8 +30750,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
@@ -27581,6 +30763,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDepositsInput = {
@@ -27609,8 +30792,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUpdateManyWithoutUserNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
@@ -27621,6 +30805,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDepositsInput = {
@@ -27633,8 +30818,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
@@ -27645,6 +30831,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutOrdersInput = {
@@ -27657,8 +30844,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     withdrawals?: WithdrawalCreateNestedManyWithoutUserInput
@@ -27669,6 +30857,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -27681,8 +30870,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     withdrawals?: WithdrawalUncheckedCreateNestedManyWithoutUserInput
@@ -27693,6 +30883,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -27747,8 +30938,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     withdrawals?: WithdrawalUpdateManyWithoutUserNestedInput
@@ -27759,6 +30951,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -27771,8 +30964,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     withdrawals?: WithdrawalUncheckedUpdateManyWithoutUserNestedInput
@@ -27783,6 +30977,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -28051,8 +31246,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -28063,6 +31259,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWithdrawalsInput = {
@@ -28075,8 +31272,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -28087,6 +31285,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWithdrawalsInput = {
@@ -28115,8 +31314,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -28127,6 +31327,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWithdrawalsInput = {
@@ -28139,8 +31340,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -28151,6 +31353,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -28163,8 +31366,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -28175,6 +31379,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -28187,8 +31392,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -28199,6 +31405,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -28227,8 +31434,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -28239,6 +31447,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -28251,8 +31460,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -28263,6 +31473,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFavoritesInput = {
@@ -28275,8 +31486,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -28287,6 +31499,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFavoritesInput = {
@@ -28299,8 +31512,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -28311,6 +31525,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFavoritesInput = {
@@ -28396,8 +31611,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -28408,6 +31624,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoritesInput = {
@@ -28420,8 +31637,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -28432,6 +31650,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProductUpsertWithoutFavoritesInput = {
@@ -28507,8 +31726,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -28519,6 +31739,7 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewsInput = {
@@ -28531,8 +31752,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -28543,6 +31765,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewsInput = {
@@ -28628,8 +31851,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -28640,6 +31864,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -28652,8 +31877,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -28664,6 +31890,7 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProductUpsertWithoutReviewsInput = {
@@ -28739,8 +31966,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -28751,6 +31979,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutSellerInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -28763,8 +31992,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -28775,6 +32005,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -28803,8 +32034,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -28815,6 +32047,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutSellerNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -28827,8 +32060,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -28839,6 +32073,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutTicketsInput = {
@@ -28851,8 +32086,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -28863,6 +32099,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTicketsInput = {
@@ -28875,8 +32112,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -28887,6 +32125,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     ticketMessages?: SupportMessageUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTicketsInput = {
@@ -28939,8 +32178,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -28951,6 +32191,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTicketsInput = {
@@ -28963,8 +32204,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -28975,6 +32217,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     ticketMessages?: SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SupportMessageUpsertWithWhereUniqueWithoutTicketInput = {
@@ -29026,8 +32269,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositCreateNestedManyWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
@@ -29038,6 +32282,7 @@ export namespace Prisma {
     products?: ProductCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     tickets?: SupportTicketCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTicketMessagesInput = {
@@ -29050,8 +32295,9 @@ export namespace Prisma {
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     sellerEarnings?: Decimal | DecimalJsLike | number | string
-    resetTokenHash?: string | null
-    resetTokenExpires?: Date | string | null
+    emailVerified?: boolean
+    emailVerifiedAt?: Date | string | null
+    sessionVersion?: number
     createdAt?: Date | string
     deposits?: DepositUncheckedCreateNestedManyWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
@@ -29062,6 +32308,7 @@ export namespace Prisma {
     products?: ProductUncheckedCreateNestedManyWithoutSellerInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     tickets?: SupportTicketUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTicketMessagesInput = {
@@ -29119,8 +32366,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUpdateManyWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
@@ -29131,6 +32379,7 @@ export namespace Prisma {
     products?: ProductUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTicketMessagesInput = {
@@ -29143,8 +32392,9 @@ export namespace Prisma {
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellerEarnings?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    resetTokenHash?: NullableStringFieldUpdateOperationsInput | string | null
-    resetTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessionVersion?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deposits?: DepositUncheckedUpdateManyWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -29155,6 +32405,7 @@ export namespace Prisma {
     products?: ProductUncheckedUpdateManyWithoutSellerNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     tickets?: SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DepositCreateManyUserInput = {
@@ -29263,6 +32514,17 @@ export namespace Prisma {
     id?: string
     ticketId: string
     message: string
+    createdAt?: Date | string
+  }
+
+  export type PasswordResetTokenCreateManyUserInput = {
+    id?: string
+    tokenHash: string
+    expiresAt: Date | string
+    attemptCount?: number
+    lastSentAt: Date | string
+    verifiedAt?: Date | string | null
+    usedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -29602,6 +32864,39 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     ticketId?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetTokenUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetTokenUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetTokenUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastSentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

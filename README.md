@@ -215,10 +215,18 @@ Required:
 DATABASE_URL=file:/var/data/dev.db
 JWT_SECRET=use-a-long-random-secret
 PORT=4000
-CLIENT_URL=https://your-vercel-site.vercel.app
+CLIENT_URL=https://socialhubmarket.com
+FRONTEND_URL=https://socialhubmarket.com
 PAYSTACK_SECRET_KEY=your-paystack-secret-key
 PAYSTACK_PUBLIC_KEY=your-paystack-public-key
-EMAIL_FROM=SocialHub Market <no-reply@yourdomain.com>
+AUTH_CODE_SECRET=use-a-separate-long-random-secret
+EMAIL_PROVIDER=resend
+RESEND_API_KEY=your-resend-api-key
+EMAIL_FROM_NAME=SocialHub Market
+EMAIL_FROM_ADDRESS=no-reply@socialhubmarket.com
+EMAIL_FROM=SocialHub Market <no-reply@socialhubmarket.com>
+SEED_ADMIN_EMAIL=your-admin-email
+SEED_ADMIN_PASSWORD=your-strong-admin-password
 ```
 
 Optional but supported:
@@ -257,10 +265,13 @@ The cleanup also removes linked order items, favourites, and reviews so the prod
 ## Server Environment Variables
 
 ```text
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://your-supabase-transaction-pooler-url"
+DIRECT_URL="postgresql://your-supabase-session-pooler-url"
 JWT_SECRET="replace-this-with-a-long-random-secret"
+AUTH_CODE_SECRET="replace-this-with-a-different-long-random-secret"
 PORT=4000
-CLIENT_URL="http://localhost:5173"
+CLIENT_URL="https://socialhubmarket.com"
+FRONTEND_URL="https://socialhubmarket.com"
 VITE_API_URL="http://127.0.0.1:4000/api"
 PAYSTACK_SECRET_KEY=""
 PAYSTACK_PUBLIC_KEY=""
@@ -274,7 +285,13 @@ SMTP_HOST=""
 SMTP_PORT=587
 SMTP_USER=""
 SMTP_PASS=""
-EMAIL_FROM="SocialHub Market <no-reply@socialhub.test>"
+EMAIL_PROVIDER="resend"
+RESEND_API_KEY=""
+EMAIL_FROM_NAME="SocialHub Market"
+EMAIL_FROM_ADDRESS="no-reply@socialhubmarket.com"
+EMAIL_FROM="SocialHub Market <no-reply@socialhubmarket.com>"
+SEED_ADMIN_EMAIL=""
+SEED_ADMIN_PASSWORD=""
 ```
 
 Sanity admin upload support is optional. If you want the admin-only Sanity upload form to create listings in Sanity, add these variables to `server/.env`:
@@ -313,27 +330,20 @@ Set `KORAPAY_SECRET_KEY`, `KORAPAY_PUBLIC_KEY`, and `KORAPAY_WEBHOOK_SECRET` in 
 
 Payment webhooks mark the matching payment transaction successful, create an approved deposit, and credit the user's wallet automatically. Product delivery still happens through the existing wallet checkout flow, which completes legal instant-download orders immediately after payment from wallet balance.
 
-SQLite is the default development database so the project runs on Windows without PostgreSQL. PostgreSQL can be re-enabled later by changing the Prisma datasource provider back to `postgresql` and updating `DATABASE_URL`.
+PostgreSQL on Supabase is the active database. Use the transaction-pooler URL for `DATABASE_URL` and the session-pooler URL for `DIRECT_URL`.
 
-## Demo Accounts
+## Administrator Seeding
 
-Admin:
-
-```text
-email: admin@socialhub.test
-password: Admin123!
-```
-
-User:
+No demo users are created. To create or update the administrator during an intentional seed, configure:
 
 ```text
-email: user@socialhub.test
-password: User123!
+SEED_ADMIN_EMAIL=your-admin-email
+SEED_ADMIN_PASSWORD=your-strong-admin-password
 ```
 
 ## Payments And Email
 
-Paystack, Flutterwave, and Korapay are available for NGN deposits. In local development, blank payment keys run in safe fallback mode so you can test wallet crediting without a live provider. Add the live keys when you are ready:
+Paystack, Flutterwave, and Korapay are available for NGN deposits. Missing provider keys fail safely and cannot simulate successful payments. Add the live keys when you are ready:
 
 ```text
 PAYSTACK_SECRET_KEY
@@ -346,7 +356,7 @@ KORAPAY_PUBLIC_KEY
 KORAPAY_WEBHOOK_SECRET
 ```
 
-SMTP email is optional locally. When `SMTP_HOST` is empty, emails are skipped in the console. Configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, and `EMAIL_FROM` for real email delivery.
+Authentication email is configured for Resend with `EMAIL_PROVIDER=resend`, `RESEND_API_KEY`, and the verified sender `no-reply@socialhubmarket.com`. SMTP through Nodemailer remains available as an alternative provider. Registration and password recovery fail safely when no provider is configured.
 
 ## Step 4 Features
 

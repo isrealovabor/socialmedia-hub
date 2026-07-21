@@ -131,8 +131,33 @@ exports.Prisma.UserScalarFieldEnum = {
   walletBalance: 'walletBalance',
   totalSpent: 'totalSpent',
   sellerEarnings: 'sellerEarnings',
-  resetTokenHash: 'resetTokenHash',
-  resetTokenExpires: 'resetTokenExpires',
+  emailVerified: 'emailVerified',
+  emailVerifiedAt: 'emailVerifiedAt',
+  sessionVersion: 'sessionVersion',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PendingRegistrationScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  passwordHash: 'passwordHash',
+  codeHash: 'codeHash',
+  expiresAt: 'expiresAt',
+  attemptCount: 'attemptCount',
+  lastSentAt: 'lastSentAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tokenHash: 'tokenHash',
+  expiresAt: 'expiresAt',
+  attemptCount: 'attemptCount',
+  lastSentAt: 'lastSentAt',
+  verifiedAt: 'verifiedAt',
+  usedAt: 'usedAt',
   createdAt: 'createdAt'
 };
 
@@ -328,6 +353,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  PendingRegistration: 'PendingRegistration',
+  PasswordResetToken: 'PasswordResetToken',
   Category: 'Category',
   Product: 'Product',
   ProductDeliveryFile: 'ProductDeliveryFile',

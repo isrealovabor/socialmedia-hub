@@ -14,6 +14,7 @@ import DepositPage from "./pages/DepositPage.jsx";
 import WishlistPage from "./pages/WishlistPage.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
+import VerifyEmailPage from "./pages/VerifyEmailPage.jsx";
 import { authApi, catalogApi, clearToken, favoriteApi, getToken, notificationApi } from "./api/client.js";
 
 export default function App() {
@@ -196,7 +197,8 @@ export default function App() {
         <Route path="/login" element={<LoginPage onAuth={handleAuth} />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/register" element={<RegisterPage onAuth={handleAuth} />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage onAuth={handleAuth} />} />
         <Route path="/payment" element={<Navigate to="/deposit" replace />} />
         <Route
           path="/dashboard"

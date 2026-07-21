@@ -220,7 +220,7 @@ async function initializeProviderPayment(provider, { amount, reference, email, n
     throw new ApiError(503, `${provider} payments are not configured.`);
   }
 
-  const redirectUrl = `${process.env.CLIENT_URL || "http://localhost:5173"}/deposit?provider=${provider.toLowerCase()}&reference=${encodeURIComponent(reference)}`;
+  const redirectUrl = `${process.env.FRONTEND_URL || process.env.CLIENT_URL || "https://socialhubmarket.com"}/deposit?provider=${provider.toLowerCase()}&reference=${encodeURIComponent(reference)}`;
   const request = providerInitializeRequest(provider, { amount, reference, email, name, redirectUrl });
   const response = await fetch(request.url, {
     method: "POST",
@@ -327,7 +327,7 @@ function paymentEmail(value) {
   const email = String(value || "").trim().toLowerCase();
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if (!valid || email.endsWith(".test")) {
-    throw new ApiError(400, "Enter a real email address for Paystack payments. Test emails like admin@socialhub.test are not accepted by Paystack.");
+    throw new ApiError(400, "Enter the real email address connected to your account for Paystack payments.");
   }
   return email;
 }

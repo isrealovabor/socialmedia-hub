@@ -15,10 +15,9 @@
     "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:seed": "prisma db seed",
     "services:clear": "node scripts/clear-services.js",
-    "test:auth": "node scripts/test-auth.js",
-    "test:inventory": "node scripts/test-inventory-flow.js",
-    "test:sqlite-flow": "node scripts/test-sqlite-flow.js",
-    "test:step4-flow": "node scripts/test-step4-flow.js"
+    "test:auth": "node scripts/test-email-auth-flow.js",
+    "test:email-auth": "node scripts/test-email-auth-flow.js",
+    "test:inventory": "node scripts/test-inventory-flow.js"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

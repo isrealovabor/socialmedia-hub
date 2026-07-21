@@ -27,7 +27,7 @@ router.post(
     });
 
     const downloadUrl = order.deliveryFileUrl
-      ? `${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard`
+      ? `${process.env.FRONTEND_URL || process.env.CLIENT_URL || "https://socialhubmarket.com"}/dashboard`
       : null;
     await sendEmail(req.user.email, "orderConfirmation", { orderNumber: order.orderNumber, downloadUrl });
     res.status(replayed ? 200 : 201).json({ success: true, order: orderDto(order), replayed });

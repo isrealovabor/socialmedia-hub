@@ -14,7 +14,7 @@ export const requireAuth = asyncHandler(async (req, res, next) => {
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const user = await prisma.user.findUnique({ where: { id: payload.sub } });
-    if (!user) {
+    if (!user || payload.sv !== user.sessionVersion) {
       throw new ApiError(401, "User session is no longer valid.");
     }
     req.user = user;

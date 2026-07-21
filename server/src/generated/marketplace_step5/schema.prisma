@@ -10,28 +10,60 @@ datasource db {
 }
 
 model User {
-  id                String           @id @default(cuid())
-  name              String?
-  email             String           @unique
-  passwordHash      String
-  role              String           @default("USER")
-  sellerStatus      String           @default("NONE")
-  walletBalance     Decimal          @default(0)
-  totalSpent        Decimal          @default(0)
-  sellerEarnings    Decimal          @default(0)
-  resetTokenHash    String?
-  resetTokenExpires DateTime?
-  createdAt         DateTime         @default(now())
-  deposits          Deposit[]
-  orders            Order[]
-  withdrawals       Withdrawal[]
-  notifications     Notification[]
-  favorites         Favorite[]
-  reviews           Review[]
-  products          Product[]
-  auditLogs         AuditLog[]
-  tickets           SupportTicket[]
-  ticketMessages    SupportMessage[]
+  id                  String               @id @default(cuid())
+  name                String?
+  email               String               @unique
+  passwordHash        String
+  role                String               @default("USER")
+  sellerStatus        String               @default("NONE")
+  walletBalance       Decimal              @default(0)
+  totalSpent          Decimal              @default(0)
+  sellerEarnings      Decimal              @default(0)
+  emailVerified       Boolean              @default(false)
+  emailVerifiedAt     DateTime?
+  sessionVersion      Int                  @default(0)
+  createdAt           DateTime             @default(now())
+  deposits            Deposit[]
+  orders              Order[]
+  withdrawals         Withdrawal[]
+  notifications       Notification[]
+  favorites           Favorite[]
+  reviews             Review[]
+  products            Product[]
+  auditLogs           AuditLog[]
+  tickets             SupportTicket[]
+  ticketMessages      SupportMessage[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+model PendingRegistration {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  codeHash     String
+  expiresAt    DateTime
+  attemptCount Int      @default(0)
+  lastSentAt   DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id           String    @id @default(cuid())
+  userId       String
+  tokenHash    String
+  expiresAt    DateTime
+  attemptCount Int       @default(0)
+  lastSentAt   DateTime
+  verifiedAt   DateTime?
+  usedAt       DateTime?
+  createdAt    DateTime  @default(now())
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([expiresAt])
 }
 
 model Category {
@@ -185,7 +217,7 @@ model Review {
 model AppSetting {
   id                        String   @id @default("site")
   siteName                  String   @default("SocialHub Market")
-  supportEmail              String   @default("support@socialhub.test")
+  supportEmail              String   @default("support@socialhubmarket.com")
   bankName                  String   @default("Moniepoint")
   bankAccountName           String   @default("SocialHub Market Ltd")
   bankAccountNumber         String   @default("XXXXXXXXXX")

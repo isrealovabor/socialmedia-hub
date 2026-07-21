@@ -19,27 +19,21 @@ async function upsertUser({ name, email, password, role, walletBalance = 0 }) {
   const passwordHash = await bcrypt.hash(password, 12);
   return prisma.user.upsert({
     where: { email },
-    update: { name, passwordHash, role, walletBalance },
-    create: { name, email, passwordHash, role, walletBalance },
+    update: { name, passwordHash, role, walletBalance, emailVerified: true, emailVerifiedAt: new Date() },
+    create: { name, email, passwordHash, role, walletBalance, emailVerified: true, emailVerifiedAt: new Date() },
   });
 }
 
 async function main() {
-  await upsertUser({
-    name: "SocialHub Admin",
-    email: "admin@socialhub.test",
-    password: "Admin123!",
-    role: "ADMIN",
-    walletBalance: 0,
-  });
-
-  await upsertUser({
-    name: "Demo User",
-    email: "user@socialhub.test",
-    password: "User123!",
-    role: "USER",
-    walletBalance: 18500,
-  });
+  if (process.env.SEED_ADMIN_EMAIL && process.env.SEED_ADMIN_PASSWORD) {
+    await upsertUser({
+      name: "SocialHub Admin",
+      email: process.env.SEED_ADMIN_EMAIL.trim().toLowerCase(),
+      password: process.env.SEED_ADMIN_PASSWORD,
+      role: "ADMIN",
+      walletBalance: 0,
+    });
+  }
 
   for (const [name, slug, icon] of categories) {
     await prisma.category.upsert({

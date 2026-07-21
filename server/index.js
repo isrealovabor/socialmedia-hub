@@ -25,6 +25,7 @@ const helmetModule = await import("helmet").catch(() => null);
 
 const app = express();
 const port = process.env.PORT || 4000;
+app.set("trust proxy", 1);
 const allowedOrigins = new Set(
   [
     "http://localhost:5173",
@@ -32,6 +33,7 @@ const allowedOrigins = new Set(
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",
     process.env.CLIENT_URL,
+    process.env.FRONTEND_URL,
   ].filter(Boolean)
 );
 

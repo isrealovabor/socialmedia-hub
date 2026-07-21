@@ -52,7 +52,7 @@ export default function DepositPage({ user, onUserRefresh }) {
     }
     const cleanPaymentEmail = paymentEmail.trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanPaymentEmail) || cleanPaymentEmail.endsWith(".test")) {
-      setMessage("Enter a real Paystack email address. Do not use admin@socialhub.test.");
+      setMessage("Enter the real email address connected to your account.");
       return;
     }
     try {

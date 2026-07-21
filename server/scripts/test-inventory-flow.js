@@ -7,7 +7,9 @@ if (!testDatabaseUrl) {
 
 process.env.DATABASE_URL = testDatabaseUrl;
 process.env.DIRECT_URL = process.env.TEST_DIRECT_URL || testDatabaseUrl;
+process.env.NODE_ENV = "test";
 process.env.JWT_SECRET ||= "inventory-test-secret-with-at-least-32-characters";
+process.env.AUTH_CODE_SECRET ||= "inventory-test-code-secret-with-at-least-32-characters";
 process.env.CLIENT_URL ||= "http://127.0.0.1:5173";
 process.env.SMTP_HOST = "";
 process.env.PAYSTACK_SECRET_KEY = "";
@@ -15,6 +17,7 @@ process.env.PAYSTACK_SECRET_KEY = "";
 const { default: app } = await import("../index.js");
 const { prisma } = await import("../src/prisma.js");
 const { checkoutOrder } = await import("../src/services/checkout.js");
+const { setEmailSenderForTests } = await import("../src/utils/email.js");
 
 const marker = `inventory-test-${Date.now()}`;
 const categoryId = `${marker}-category`;
@@ -24,6 +27,12 @@ const failedProductId = `${marker}-failed`;
 const secondUserId = `${marker}-user-2`;
 const thirdUserId = `${marker}-user-3`;
 let server;
+let verificationCode;
+
+setEmailSenderForTests(async ({ templateName, params }) => {
+  if (templateName === "verifyEmail") verificationCode = params.code;
+  return { sent: true };
+});
 
 try {
   server = app.listen(0);
@@ -39,11 +48,17 @@ try {
     method: "POST",
     body: { email, password },
   });
-  assert.equal(registration.status, 201);
-  assert.equal(registration.data.user.email, email);
-  assert.equal(registration.data.user.name, null);
-  const userId = registration.data.user.id;
-  const token = registration.data.token;
+  assert.equal(registration.status, 202);
+  assert.match(verificationCode, /^\d{6}$/);
+  const verification = await jsonRequest(`${baseUrl}/auth/verify-email`, {
+    method: "POST",
+    body: { email, code: verificationCode },
+  });
+  assert.equal(verification.status, 201);
+  assert.equal(verification.data.user.email, email);
+  assert.equal(verification.data.user.name, null);
+  const userId = verification.data.user.id;
+  const token = verification.data.token;
 
   await prisma.user.update({ where: { id: userId }, data: { walletBalance: 10000 } });
   await prisma.user.createMany({
