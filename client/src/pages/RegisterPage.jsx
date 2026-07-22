@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authApi } from "../api/client.js";
+import PasswordRequirements from "../components/PasswordRequirements.jsx";
+import { passwordMeetsPolicy } from "../utils/passwordPolicy.js";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const passwordIsValid = passwordMeetsPolicy(form.password);
 
   const submit = async (event) => {
     event.preventDefault();
-    if (submitting) return;
+    if (submitting || !passwordIsValid) return;
     setMessage("");
     setSubmitting(true);
     try {
@@ -36,10 +39,10 @@ export default function RegisterPage() {
         </label>
         <label className="block">
           <span className="text-xs font-bold text-gray-600">Password</span>
-          <input type="password" autoComplete="new-password" required minLength={10} value={form.password} onChange={(event) => setForm((current) => ({ ...current, password: event.target.value }))} className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 outline-none focus:border-market-emerald" placeholder="Create a strong password" />
+          <input type="password" autoComplete="new-password" required minLength={6} aria-describedby="registration-password-requirements" value={form.password} onChange={(event) => setForm((current) => ({ ...current, password: event.target.value }))} className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 outline-none focus:border-market-emerald" placeholder="Create a strong password" />
         </label>
-        <p className="text-xs leading-5 text-gray-500">Use at least 10 characters with uppercase, lowercase, a number, and a special character.</p>
-        <button disabled={submitting} type="submit" className="tap-highlight brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow disabled:cursor-not-allowed disabled:opacity-60">
+        <div id="registration-password-requirements"><PasswordRequirements password={form.password} /></div>
+        <button disabled={submitting || !passwordIsValid} type="submit" className="tap-highlight brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow disabled:cursor-not-allowed disabled:opacity-60">
           {submitting ? "Sending code..." : "Create account"}
         </button>
         {message && <p role="alert" className="text-sm font-semibold text-red-600">{message}</p>}

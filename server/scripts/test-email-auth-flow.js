@@ -136,6 +136,14 @@ try {
   assert.equal((await getRequest(baseUrl, "/auth/me", originalSession)).status, 401);
   assert.equal((await getRequest(baseUrl, "/auth/me", newLogin.data.token)).status, 200);
 
+  await prisma.user.update({
+    where: { id: createdUser.id },
+    data: { accountStatus: "SUSPENDED", sessionVersion: { increment: 1 } },
+  });
+  assert.equal((await getRequest(baseUrl, "/auth/me", newLogin.data.token)).status, 401);
+  assert.equal((await request(baseUrl, "/auth/login", { email, password: newPassword })).status, 403);
+  await prisma.user.update({ where: { id: createdUser.id }, data: { accountStatus: "ACTIVE" } });
+
   let rateLimited = false;
   for (let index = 0; index < 10; index += 1) {
     const response = await request(baseUrl, "/auth/register", { email, password: originalPassword });

@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth.js";
+import { validateOpaqueParam } from "../middleware/params.js";
 import { prisma } from "../prisma.js";
 import { ApiError, asyncHandler } from "../utils/errors.js";
 import { productDto } from "../utils/format.js";
 
 const router = Router();
+router.param("productId", validateOpaqueParam);
 
 router.get(
   "/favorites",

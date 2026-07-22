@@ -2,7 +2,8 @@ import { Router } from "express";
 import fs from "node:fs";
 import path from "node:path";
 import { requireAdmin, requireAuth } from "../middleware/auth.js";
-import { deliveryUpload, productAssetUpload, productImageUpload, publicUploadPath } from "../middleware/upload.js";
+import { validateOpaqueParam } from "../middleware/params.js";
+import { deliveryUpload, productAssetUpload, productImageUpload, publicUploadPath, verifyUploadedFiles } from "../middleware/upload.js";
 import { prisma } from "../prisma.js";
 import { ApiError, asyncHandler } from "../utils/errors.js";
 import { createNotification } from "../utils/notifications.js";
@@ -15,10 +16,13 @@ import {
   categoryUpdateSchema,
   productCreateSchema,
   productUpdateSchema,
+  userStatusSchema,
 } from "../validators/admin.validators.js";
 
 const router = Router();
+router.param("id", validateOpaqueParam);
 const deliveryRoot = path.resolve("uploads", "deliveries");
+const proofRoot = path.resolve("uploads", "proofs");
 fs.mkdirSync(deliveryRoot, { recursive: true });
 
 router.use(requireAuth, requireAdmin);
@@ -28,6 +32,25 @@ router.get(
   asyncHandler(async (req, res) => {
     const users = await prisma.user.findMany({ orderBy: { createdAt: "desc" } });
     res.json({ users: users.map(publicUser) });
+  })
+);
+
+router.patch(
+  "/users/:id/status",
+  validate(userStatusSchema),
+  asyncHandler(async (req, res) => {
+    if (req.params.id === req.user.id && req.body.accountStatus !== "ACTIVE") {
+      throw new ApiError(400, "You cannot suspend your own admin session.");
+    }
+    const user = await prisma.user.update({
+      where: { id: req.params.id },
+      data: {
+        accountStatus: req.body.accountStatus,
+        sessionVersion: { increment: 1 },
+      },
+    });
+    await auditLog({ userId: req.user.id, action: `USER_${req.body.accountStatus}`, entityType: "User", entityId: user.id });
+    res.json({ user: publicUser(user) });
   })
 );
 
@@ -48,6 +71,7 @@ router.get(
     const deposit = await prisma.deposit.findUnique({ where: { id: req.params.id } });
     if (!deposit?.proofFileUrl) throw new ApiError(404, "Proof file not found.");
     const filePath = path.resolve(deposit.proofFileUrl.replace(/^\//, ""));
+    if (!filePath.startsWith(`${proofRoot}${path.sep}`)) throw new ApiError(404, "Proof file is unavailable.");
     if (!fs.existsSync(filePath)) throw new ApiError(404, "Proof file is missing.");
     res.download(filePath, deposit.proofFileName || path.basename(filePath));
   })
@@ -127,6 +151,7 @@ router.post(
   validate(categoryCreateSchema),
   asyncHandler(async (req, res) => {
     const category = await prisma.category.create({ data: req.body });
+    await auditLog({ userId: req.user.id, action: "CATEGORY_CREATED", entityType: "Category", entityId: category.id });
     res.status(201).json({ category });
   })
 );
@@ -139,6 +164,7 @@ router.patch(
       where: { id: req.params.id },
       data: req.body,
     });
+    await auditLog({ userId: req.user.id, action: "CATEGORY_EDITED", entityType: "Category", entityId: category.id });
     res.json({ category });
   })
 );
@@ -146,7 +172,8 @@ router.patch(
 router.delete(
   "/categories/:id",
   asyncHandler(async (req, res) => {
-    await prisma.category.delete({ where: { id: req.params.id } });
+    const category = await prisma.category.delete({ where: { id: req.params.id } });
+    await auditLog({ userId: req.user.id, action: "CATEGORY_DELETED", entityType: "Category", entityId: category.id });
     res.json({ message: "Category deleted." });
   })
 );
@@ -158,6 +185,7 @@ router.post(
     { name: "deliveryFile", maxCount: 1 },
     { name: "deliveryFiles", maxCount: 10 },
   ]),
+  verifyUploadedFiles,
   asyncHandler(async (req, res, next) => {
     const image = req.files?.image?.[0];
     const deliveryFile = req.files?.deliveryFile?.[0];
@@ -209,6 +237,7 @@ router.get(
 router.post(
   "/sanity-listings",
   productImageUpload.single("image"),
+  verifyUploadedFiles,
   asyncHandler(async (req, res) => {
     const listing = await createSanityListing(req.body, req.file);
     await auditLog({
@@ -229,6 +258,7 @@ router.patch(
     { name: "deliveryFile", maxCount: 1 },
     { name: "deliveryFiles", maxCount: 10 },
   ]),
+  verifyUploadedFiles,
   asyncHandler(async (req, res, next) => {
     const image = req.files?.image?.[0];
     const deliveryFile = req.files?.deliveryFile?.[0];
@@ -271,6 +301,7 @@ router.patch(
       },
       include: { category: true, deliveryFiles: true },
     });
+    await auditLog({ userId: req.user.id, action: "PRODUCT_ENABLED", entityType: "Product", entityId: product.id });
     await auditLog({ userId: req.user.id, action: "PRODUCT_EDITED", entityType: "Product", entityId: product.id });
     res.json({ product: managedProductDto(product) });
   })
@@ -279,6 +310,7 @@ router.patch(
 router.post(
   "/products/:id/delivery-files",
   deliveryUpload.array("files", 10),
+  verifyUploadedFiles,
   asyncHandler(async (req, res) => {
     const generatedFile = createWrittenDeliveryFile(req.body.deliveryText, req.body.deliveryTextFormat, req.body.fileName || "delivery-content");
     const files = [...(req.files || []), ...(generatedFile ? [generatedFile] : [])];
@@ -296,6 +328,7 @@ router.post(
       },
       include: { category: true, deliveryFiles: true },
     });
+    await auditLog({ userId: req.user.id, action: "PRODUCT_DISABLED", entityType: "Product", entityId: product.id });
     await auditLog({
       userId: req.user.id,
       action: "PRODUCT_DELIVERY_FILES_ADDED",
@@ -384,6 +417,13 @@ router.patch(
           tx
         );
       }
+      await auditLog({
+        userId: req.user.id,
+        action: "ORDER_STATUS_CHANGED",
+        entityType: "Order",
+        entityId: updated.id,
+        metadata: { status },
+      }, tx);
       return updated;
     });
     res.json({ order: orderDto(order) });
@@ -393,6 +433,7 @@ router.patch(
 router.post(
   "/orders/:id/delivery",
   deliveryUpload.single("file"),
+  verifyUploadedFiles,
   asyncHandler(async (req, res) => {
     if (!req.file) throw new ApiError(400, "Delivery file is required.");
     const order = await prisma.$transaction(async (tx) => {
@@ -437,7 +478,8 @@ router.get(
 router.delete(
   "/reviews/:id",
   asyncHandler(async (req, res) => {
-    await prisma.review.update({ where: { id: req.params.id }, data: { isActive: false } });
+    const review = await prisma.review.update({ where: { id: req.params.id }, data: { isActive: false } });
+    await auditLog({ userId: req.user.id, action: "REVIEW_REMOVED", entityType: "Review", entityId: review.id });
     res.json({ message: "Review removed." });
   })
 );

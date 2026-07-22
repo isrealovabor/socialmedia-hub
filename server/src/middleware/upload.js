@@ -8,16 +8,6 @@ for (const folder of ["proofs", "products", "deliveries", "branding"]) {
   fs.mkdirSync(path.join(uploadRoot, folder), { recursive: true });
 }
 
-const allowed = new Set([
-  "image/jpeg",
-  "image/png",
-  "application/pdf",
-  "application/zip",
-  "application/x-zip-compressed",
-  "application/octet-stream",
-  "text/plain",
-]);
-
 const allowedDeliveryExtensions = new Set([".jpg", ".jpeg", ".png", ".pdf", ".zip", ".txt"]);
 const allowedImageExtensions = new Set([".jpg", ".jpeg", ".png"]);
 const allowedBrandingExtensions = new Set([".jpg", ".jpeg", ".png", ".ico"]);
@@ -27,11 +17,21 @@ function extensionOf(file) {
 }
 
 function isAllowedDeliveryFile(file) {
-  return allowed.has(file.mimetype) && allowedDeliveryExtensions.has(extensionOf(file));
+  const extension = extensionOf(file);
+  const mimeTypes = {
+    ".jpg": ["image/jpeg"],
+    ".jpeg": ["image/jpeg"],
+    ".png": ["image/png"],
+    ".pdf": ["application/pdf"],
+    ".zip": ["application/zip", "application/x-zip-compressed"],
+    ".txt": ["text/plain"],
+  };
+  return allowedDeliveryExtensions.has(extension) && mimeTypes[extension]?.includes(file.mimetype);
 }
 
 function isAllowedImageFile(file) {
-  return ["image/jpeg", "image/png", "application/octet-stream"].includes(file.mimetype) && allowedImageExtensions.has(extensionOf(file));
+  const extension = extensionOf(file);
+  return allowedImageExtensions.has(extension) && (extension === ".png" ? file.mimetype === "image/png" : file.mimetype === "image/jpeg");
 }
 
 function storage(folder) {
@@ -105,8 +105,13 @@ export const deliveryUpload = multer({
 export const brandingUpload = multer({
   storage: storage("branding"),
   fileFilter(req, file, cb) {
-    const validMime = ["image/jpeg", "image/png", "image/x-icon", "image/vnd.microsoft.icon", "application/octet-stream"].includes(file.mimetype);
-    if (!validMime || !allowedBrandingExtensions.has(extensionOf(file))) {
+    const extension = extensionOf(file);
+    const validMime = extension === ".png"
+      ? file.mimetype === "image/png"
+      : [".jpg", ".jpeg"].includes(extension)
+        ? file.mimetype === "image/jpeg"
+        : extension === ".ico" && ["image/x-icon", "image/vnd.microsoft.icon", "application/octet-stream"].includes(file.mimetype);
+    if (!validMime || !allowedBrandingExtensions.has(extension)) {
       cb(new ApiError(400, "Brand assets must be JPG, PNG, or ICO files."));
       return;
     }
@@ -121,4 +126,34 @@ export function publicUploadPath(file) {
   const marker = "/uploads/";
   const index = normalized.lastIndexOf(marker);
   return index >= 0 ? normalized.slice(index) : `/uploads/${file.filename}`;
+}
+
+export function verifyUploadedFiles(req, res, next) {
+  const files = [
+    ...(req.file ? [req.file] : []),
+    ...(Array.isArray(req.files) ? req.files : Object.values(req.files || {}).flat()),
+  ];
+  try {
+    for (const file of files) verifyFileSignature(file);
+    next();
+  } catch (error) {
+    for (const file of files) {
+      if (file?.path) fs.rmSync(file.path, { force: true });
+    }
+    next(error);
+  }
+}
+
+function verifyFileSignature(file) {
+  const extension = extensionOf(file);
+  const bytes = fs.readFileSync(file.path);
+  const hex = bytes.subarray(0, 12).toString("hex");
+  const valid =
+    ([".jpg", ".jpeg"].includes(extension) && hex.startsWith("ffd8ff")) ||
+    (extension === ".png" && hex.startsWith("89504e470d0a1a0a")) ||
+    (extension === ".pdf" && bytes.subarray(0, 5).toString("ascii") === "%PDF-") ||
+    (extension === ".zip" && ["504b0304", "504b0506", "504b0708"].some((signature) => hex.startsWith(signature))) ||
+    (extension === ".ico" && hex.startsWith("00000100")) ||
+    (extension === ".txt" && !bytes.includes(0) && Buffer.from(bytes.toString("utf8"), "utf8").equals(bytes));
+  if (!valid) throw new ApiError(400, "The uploaded file content does not match its extension and MIME type.");
 }

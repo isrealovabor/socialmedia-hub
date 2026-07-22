@@ -6,13 +6,8 @@ import { formatNaira } from "../data/marketData.js";
 export default function DepositPage({ user, onUserRefresh }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [amount, setAmount] = useState("");
-  const [paymentEmail, setPaymentEmail] = useState(user?.email || "");
   const [message, setMessage] = useState("");
   const [paying, setPaying] = useState("");
-
-  useEffect(() => {
-    if (user?.email && !paymentEmail) setPaymentEmail(user.email);
-  }, [user?.email, paymentEmail]);
 
   useEffect(() => {
     if (!user) return;
@@ -50,14 +45,9 @@ export default function DepositPage({ user, onUserRefresh }) {
       setMessage("Enter an amount of at least NGN 1,000.");
       return;
     }
-    const cleanPaymentEmail = paymentEmail.trim().toLowerCase();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanPaymentEmail) || cleanPaymentEmail.endsWith(".test")) {
-      setMessage("Enter the real email address connected to your account.");
-      return;
-    }
     try {
       setPaying(provider);
-      const init = await paymentApi.initialize(provider, numericAmount, cleanPaymentEmail);
+      const init = await paymentApi.initialize(provider, numericAmount);
       if (init.authorizationUrl) {
         window.location.href = init.authorizationUrl;
         return;
@@ -103,7 +93,7 @@ export default function DepositPage({ user, onUserRefresh }) {
         </div>
         <div className="mt-3 space-y-2">
           <input className="h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 text-sm" type="number" min="1000" placeholder="Amount in naira" value={amount} onChange={(event) => setAmount(event.target.value)} required />
-          <input className="h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3 text-sm" type="email" placeholder="Paystack email address" value={paymentEmail} onChange={(event) => setPaymentEmail(event.target.value)} required />
+          <p className="rounded-2xl bg-emerald-50 px-3 py-2 text-xs font-semibold text-slate-600">Payment confirmation will use your verified account email: {user.email}</p>
           <button type="button" onClick={() => providerPay("paystack")} className="brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow">
             {paying === "paystack" ? "Checking Paystack..." : "Pay with Paystack"}
           </button>

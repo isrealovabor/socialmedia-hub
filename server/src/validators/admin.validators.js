@@ -33,3 +33,7 @@ export const productCreateSchema = z.object({
 });
 
 export const productUpdateSchema = productCreateSchema.partial();
+
+export const userStatusSchema = z.object({
+  accountStatus: z.enum(["ACTIVE", "SUSPENDED"]),
+});

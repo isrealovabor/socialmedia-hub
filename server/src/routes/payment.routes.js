@@ -5,8 +5,12 @@ import { prisma } from "../prisma.js";
 import { ApiError, asyncHandler } from "../utils/errors.js";
 import { depositDto } from "../utils/format.js";
 import { sendEmail } from "../utils/email.js";
+import { auditLog } from "../utils/audit.js";
+import { paymentLimiter } from "../middleware/rateLimit.js";
+import { validateOpaqueParam } from "../middleware/params.js";
 
 const router = Router();
+router.param("reference", validateOpaqueParam);
 
 const supportedProviders = ["PAYSTACK", "FLUTTERWAVE", "KORAPAY"];
 
@@ -33,33 +37,16 @@ export const paystackWebhookHandler = asyncHandler(async (req, res) => {
     return;
   }
 
-  const payment = event.data || {};
-  const reference = payment.reference;
-  const amount = Number(payment.amount || 0) / 100;
-  if (!reference || !amount) throw new ApiError(400, "Invalid Paystack webhook payload.");
-
-  const tx = await prisma.paymentTransaction.findUnique({ where: { reference } });
-  if (!tx || tx.provider !== "PAYSTACK") {
-    res.json({ received: true, ignored: true });
-    return;
-  }
-  if (tx.status === "SUCCESS") {
-    res.json({ received: true, duplicate: true });
-    return;
-  }
-  if (amount < Number(tx.amount)) throw new ApiError(400, "Paystack amount does not match transaction.");
-
-  const deposit = await approvePaymentTransaction(tx.id);
-  const user = await prisma.user.findUnique({ where: { id: tx.userId } });
-  await sendEmail(user?.email, "depositApproved", { amount: Number(tx.amount) });
-
-  res.json({ received: true, deposit: depositDto(deposit) });
+  const reference = event.data?.reference;
+  if (!reference) throw new ApiError(400, "Invalid Paystack webhook payload.");
+  const result = await approveVerifiedPayment("PAYSTACK", reference);
+  res.json({ received: true, duplicate: result.replayed, deposit: depositDto(result.deposit) });
 });
 
 export const flutterwaveWebhookHandler = asyncHandler(async (req, res) => {
   const secretHash = process.env.FLW_WEBHOOK_SECRET_HASH;
   if (!secretHash) throw new ApiError(500, "Flutterwave webhook secret hash is not configured.");
-  if (req.headers["verif-hash"] !== secretHash) throw new ApiError(401, "Invalid Flutterwave webhook signature.");
+  if (!safeSecretEqual(req.headers["verif-hash"], secretHash)) throw new ApiError(401, "Invalid Flutterwave webhook signature.");
 
   const event = parseRawJson(req.body);
   if (!["charge.completed", "charge.successful"].includes(String(event.event))) {
@@ -69,34 +56,22 @@ export const flutterwaveWebhookHandler = asyncHandler(async (req, res) => {
 
   const payment = event.data || {};
   const reference = payment.tx_ref || payment.reference;
-  const amount = Number(payment.amount || 0);
-  if (!reference || !amount || String(payment.status).toLowerCase() !== "successful") {
+  if (!reference || String(payment.status).toLowerCase() !== "successful") {
     throw new ApiError(400, "Invalid Flutterwave webhook payload.");
   }
-
-  const deposit = await approveVerifiedPayment("FLUTTERWAVE", reference, amount);
-  res.json({ received: true, deposit: depositDto(deposit) });
+  const result = await approveVerifiedPayment("FLUTTERWAVE", reference);
+  res.json({ received: true, duplicate: result.replayed, deposit: depositDto(result.deposit) });
 });
 
 export const korapayWebhookHandler = asyncHandler(async (req, res) => {
   const secret = process.env.KORAPAY_WEBHOOK_SECRET || process.env.KORAPAY_SECRET_KEY;
   if (!secret) throw new ApiError(500, "Korapay webhook secret is not configured.");
 
-  const signature = req.headers["x-korapay-signature"] || req.headers["korapay-signature"];
-  if (signature) {
-    const rawBody = Buffer.isBuffer(req.body) ? req.body : Buffer.from(JSON.stringify(req.body || {}));
-    const expected = crypto.createHmac("sha256", secret).update(rawBody).digest("hex");
-    const providedSignature = Buffer.from(String(signature));
-    const expectedSignature = Buffer.from(expected);
-    if (
-      providedSignature.length !== expectedSignature.length ||
-      !crypto.timingSafeEqual(providedSignature, expectedSignature)
-    ) {
-      throw new ApiError(401, "Invalid Korapay webhook signature.");
-    }
-  }
-
   const event = parseRawJson(req.body);
+  const signature = req.headers["x-korapay-signature"];
+  if (!signature) throw new ApiError(401, "Missing Korapay signature.");
+  const expected = crypto.createHmac("sha256", secret).update(JSON.stringify(event.data || {})).digest("hex");
+  if (!safeSecretEqual(signature, expected)) throw new ApiError(401, "Invalid Korapay webhook signature.");
   const eventName = String(event.event || event.name || "").toLowerCase();
   if (eventName && !eventName.includes("charge")) {
     res.json({ received: true, ignored: true });
@@ -104,31 +79,30 @@ export const korapayWebhookHandler = asyncHandler(async (req, res) => {
   }
 
   const payment = event.data || {};
-  const reference = payment.reference || payment.transaction_reference;
-  const amount = Number(payment.amount || payment.amount_paid || 0);
+  const reference = payment.payment_reference || payment.reference || payment.transaction_reference;
   const status = String(payment.status || "").toLowerCase();
-  if (!reference || !amount || !["success", "successful"].includes(status)) {
+  if (!reference || !["success", "successful"].includes(status)) {
     throw new ApiError(400, "Invalid Korapay webhook payload.");
   }
-
-  const deposit = await approveVerifiedPayment("KORAPAY", reference, amount);
-  res.json({ received: true, deposit: depositDto(deposit) });
+  const result = await approveVerifiedPayment("KORAPAY", reference);
+  res.json({ received: true, duplicate: result.replayed, deposit: depositDto(result.deposit) });
 });
 
 router.post(
   "/payments/:provider/initialize",
   requireAuth,
+  paymentLimiter,
   asyncHandler(async (req, res) => {
     const provider = String(req.params.provider).toUpperCase();
     if (!supportedProviders.includes(provider)) throw new ApiError(400, "Unsupported payment provider.");
     if (!providerSecretKey(provider)) throw new ApiError(503, `${provider} payments are not configured.`);
     const amount = Number(req.body.amount);
-    if (!amount || amount < 1000) throw new ApiError(400, "Amount must be at least NGN 1,000.");
-    const customerEmail = paymentEmail(req.body.customerEmail);
+    if (!Number.isFinite(amount) || amount < 1000 || amount > 10_000_000) throw new ApiError(400, "Amount must be between NGN 1,000 and NGN 10,000,000.");
+    const customerEmail = req.user.email;
 
     const reference = `${provider.slice(0, 3)}-${Date.now()}-${Math.round(Math.random() * 100000)}`;
     await prisma.paymentTransaction.create({
-      data: { userId: req.user.id, provider, reference, amount, metadata: JSON.stringify({ email: customerEmail }) },
+      data: { userId: req.user.id, provider, reference, amount, metadata: JSON.stringify({ email: customerEmail, currency: "NGN" }) },
     });
 
     const checkout = await initializeProviderPayment(provider, {
@@ -153,6 +127,7 @@ router.post(
 router.get(
   "/payments/:provider/verify/:reference",
   requireAuth,
+  paymentLimiter,
   asyncHandler(async (req, res) => {
     const provider = String(req.params.provider).toUpperCase();
     const tx = await prisma.paymentTransaction.findUnique({ where: { reference: req.params.reference } });
@@ -163,12 +138,8 @@ router.get(
       return;
     }
 
-    const verified = await verifyProviderPayment(provider, tx.reference, Number(tx.amount));
-    if (!verified) throw new ApiError(400, "Payment could not be verified.");
-
-    const deposit = await approvePaymentTransaction(tx.id);
-    await sendEmail(req.user.email, "depositApproved", { amount: Number(tx.amount) });
-    res.json({ success: true, deposit: depositDto(deposit) });
+    const result = await approveVerifiedPayment(provider, tx.reference);
+    res.json({ success: true, deposit: depositDto(result.deposit), replayed: result.replayed });
   })
 );
 
@@ -182,7 +153,7 @@ export async function approvePaymentTransaction(id) {
     if (!current) throw new ApiError(404, "Payment not found.");
     if (claimed.count === 0) {
       const existing = await db.deposit.findUnique({ where: { providerReference: current.reference } });
-      if (current.status === "SUCCESS" && existing) return existing;
+      if (current.status === "SUCCESS" && existing) return { deposit: existing, replayed: true };
       throw new ApiError(409, "Payment verification is already being processed.");
     }
 
@@ -200,18 +171,22 @@ export async function approvePaymentTransaction(id) {
     });
     await db.user.update({ where: { id: current.userId }, data: { walletBalance: { increment: current.amount } } });
     await db.paymentTransaction.update({ where: { id: current.id }, data: { status: "SUCCESS" } });
-    return created;
+    await auditLog({ userId: current.userId, action: "PAYMENT_VERIFIED", entityType: "PaymentTransaction", entityId: current.id, metadata: { provider: current.provider, reference: current.reference } }, db);
+    return { deposit: created, replayed: false };
   });
 }
 
-async function approveVerifiedPayment(provider, reference, amount) {
+async function approveVerifiedPayment(provider, reference) {
   const tx = await prisma.paymentTransaction.findUnique({ where: { reference } });
   if (!tx || tx.provider !== provider) throw new ApiError(404, "Payment transaction not found.");
-  if (amount < Number(tx.amount)) throw new ApiError(400, `${provider} amount does not match transaction.`);
-  const deposit = await approvePaymentTransaction(tx.id);
-  const user = await prisma.user.findUnique({ where: { id: tx.userId } });
-  await sendEmail(user?.email, "depositApproved", { amount: Number(tx.amount) });
-  return deposit;
+  const verified = await verifyProviderPayment(provider, reference);
+  validateVerifiedPayment(tx, verified);
+  const result = await approvePaymentTransaction(tx.id);
+  if (!result.replayed) {
+    const user = await prisma.user.findUnique({ where: { id: tx.userId } });
+    await sendEmail(user?.email, "depositApproved", { amount: Number(tx.amount) });
+  }
+  return result;
 }
 
 async function initializeProviderPayment(provider, { amount, reference, email, name }) {
@@ -293,16 +268,45 @@ function providerCheckoutUrl(provider, data) {
   return data?.data?.checkout_url || data?.data?.payment_link || data?.data?.url || null;
 }
 
-async function verifyProviderPayment(provider, reference, amount) {
+async function verifyProviderPayment(provider, reference) {
   const secret = providerSecretKey(provider);
-  if (!secret) return false;
+  if (!secret) throw new ApiError(503, `${provider} payments are not configured.`);
   const url = providerVerifyUrl(provider, reference);
   const response = await fetch(url, { headers: { Authorization: `Bearer ${secret}` } }).catch(() => null);
-  if (!response?.ok) return false;
+  if (!response?.ok) throw new ApiError(400, "Payment could not be verified with the provider.");
   const data = await response.json();
-  if (provider === "PAYSTACK") return data?.data?.status === "success" && Number(data.data.amount) >= amount * 100;
-  if (provider === "FLUTTERWAVE") return data?.data?.status === "successful" && Number(data.data.amount) >= amount;
-  return ["success", "successful"].includes(String(data?.data?.status).toLowerCase()) && Number(data?.data?.amount || 0) >= amount;
+  const payment = data?.data || {};
+  if (provider === "PAYSTACK") {
+    return { status: payment.status, reference: payment.reference, amount: Number(payment.amount || 0) / 100, currency: payment.currency, email: payment.customer?.email };
+  }
+  if (provider === "FLUTTERWAVE") {
+    return { status: payment.status, reference: payment.tx_ref, amount: Number(payment.amount || 0), currency: payment.currency, email: payment.customer?.email };
+  }
+  const kora = payment.data || payment;
+  return { status: kora.status || kora.transaction_status, reference: kora.payment_reference || kora.reference, amount: Number(kora.amount_paid || kora.amount || 0), currency: kora.currency, email: kora.customer?.email };
+}
+
+function validateVerifiedPayment(tx, verified) {
+  const metadata = safeMetadata(tx.metadata);
+  const validStatus = ["success", "successful"].includes(String(verified.status || "").toLowerCase());
+  const amountMatches = Math.abs(Number(verified.amount) - Number(tx.amount)) < 0.01;
+  const currencyMatches = String(verified.currency || "").toUpperCase() === String(metadata.currency || "NGN").toUpperCase();
+  const referenceMatches = verified.reference === tx.reference;
+  const emailMatches = !verified.email || String(verified.email).toLowerCase() === String(metadata.email || "").toLowerCase();
+  if (!validStatus || !amountMatches || !currencyMatches || !referenceMatches || !emailMatches) {
+    throw new ApiError(400, "Verified payment details do not match the pending transaction.");
+  }
+}
+
+function safeMetadata(value) {
+  try { return JSON.parse(value || "{}"); } catch { return {}; }
+}
+
+function safeSecretEqual(provided, expected) {
+  if (!provided || !expected) return false;
+  const left = Buffer.from(String(provided));
+  const right = Buffer.from(String(expected));
+  return left.length === right.length && crypto.timingSafeEqual(left, right);
 }
 
 function providerVerifyUrl(provider, reference) {
@@ -321,15 +325,6 @@ function providerPublicKey(provider) {
   if (provider === "PAYSTACK") return process.env.PAYSTACK_PUBLIC_KEY;
   if (provider === "FLUTTERWAVE") return process.env.FLW_PUBLIC_KEY;
   return process.env.KORAPAY_PUBLIC_KEY;
-}
-
-function paymentEmail(value) {
-  const email = String(value || "").trim().toLowerCase();
-  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!valid || email.endsWith(".test")) {
-    throw new ApiError(400, "Enter the real email address connected to your account for Paystack payments.");
-  }
-  return email;
 }
 
 function parseRawJson(body) {

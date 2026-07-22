@@ -17,6 +17,7 @@
     "services:clear": "node scripts/clear-services.js",
     "test:auth": "node scripts/test-email-auth-flow.js",
     "test:email-auth": "node scripts/test-email-auth-flow.js",
+    "test:password-policy": "node scripts/test-password-policy.js",
     "test:inventory": "node scripts/test-inventory-flow.js"
   },
   "dependencies": {

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { authApi } from "../api/client.js";
 import VerificationCodeInput from "../components/VerificationCodeInput.jsx";
+import PasswordRequirements from "../components/PasswordRequirements.jsx";
+import { passwordMeetsPolicy } from "../utils/passwordPolicy.js";
 
 export default function ResetPasswordPage() {
   const [params] = useSearchParams();
@@ -13,6 +15,8 @@ export default function ResetPasswordPage() {
   const [submitting, setSubmitting] = useState(false);
   const [cooldown, setCooldown] = useState(60);
   const [complete, setComplete] = useState(false);
+  const passwordIsValid = passwordMeetsPolicy(passwords.password);
+  const passwordsMatch = passwords.password === passwords.confirmPassword;
 
   useEffect(() => {
     if (cooldown <= 0) return undefined;
@@ -53,7 +57,7 @@ export default function ResetPasswordPage() {
 
   const resetPassword = async (event) => {
     event.preventDefault();
-    if (submitting) return;
+    if (submitting || !passwordIsValid || !passwordsMatch) return;
     setSubmitting(true);
     setMessage("");
     try {
@@ -89,10 +93,11 @@ export default function ResetPasswordPage() {
         </>
       ) : (
         <form onSubmit={resetPassword} className="mt-4 space-y-3">
-          <label className="block"><span className="text-xs font-bold text-gray-600">New password</span><input autoComplete="new-password" className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3" minLength={10} required type="password" value={passwords.password} onChange={(event) => setPasswords((value) => ({ ...value, password: event.target.value }))} /></label>
-          <label className="block"><span className="text-xs font-bold text-gray-600">Confirm new password</span><input autoComplete="new-password" className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3" minLength={10} required type="password" value={passwords.confirmPassword} onChange={(event) => setPasswords((value) => ({ ...value, confirmPassword: event.target.value }))} /></label>
-          <p className="text-xs leading-5 text-gray-500">Use at least 10 characters with uppercase, lowercase, a number, and a special character.</p>
-          <button disabled={submitting} className="brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow disabled:opacity-60">{submitting ? "Updating password..." : "Set new password"}</button>
+          <label className="block"><span className="text-xs font-bold text-gray-600">New password</span><input autoComplete="new-password" className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3" minLength={6} required type="password" aria-describedby="reset-password-requirements" value={passwords.password} onChange={(event) => setPasswords((value) => ({ ...value, password: event.target.value }))} /></label>
+          <div id="reset-password-requirements"><PasswordRequirements password={passwords.password} /></div>
+          <label className="block"><span className="text-xs font-bold text-gray-600">Confirm new password</span><input autoComplete="new-password" className="mt-1 h-11 w-full rounded-2xl border border-emerald-100 bg-white/85 px-3" minLength={6} required type="password" value={passwords.confirmPassword} onChange={(event) => setPasswords((value) => ({ ...value, confirmPassword: event.target.value }))} /></label>
+          {passwords.confirmPassword && !passwordsMatch && <p role="alert" className="text-xs font-semibold text-red-600">Passwords do not match.</p>}
+          <button disabled={submitting || !passwordIsValid || !passwordsMatch} className="brand-gradient h-11 w-full rounded-full text-sm font-black text-white shadow-glow disabled:cursor-not-allowed disabled:opacity-60">{submitting ? "Updating password..." : "Set new password"}</button>
         </form>
       )}
       {message && <p role="status" className="mt-3 text-sm font-semibold text-gray-700">{message}</p>}

@@ -2631,6 +2631,7 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     role: string | null
+    accountStatus: string | null
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     emailVerified: boolean | null
@@ -2645,6 +2646,7 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     role: string | null
+    accountStatus: string | null
     walletBalance: Decimal | null
     totalSpent: Decimal | null
     emailVerified: boolean | null
@@ -2659,6 +2661,7 @@ export namespace Prisma {
     email: number
     passwordHash: number
     role: number
+    accountStatus: number
     walletBalance: number
     totalSpent: number
     emailVerified: number
@@ -2687,6 +2690,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
+    accountStatus?: true
     walletBalance?: true
     totalSpent?: true
     emailVerified?: true
@@ -2701,6 +2705,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
+    accountStatus?: true
     walletBalance?: true
     totalSpent?: true
     emailVerified?: true
@@ -2715,6 +2720,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
+    accountStatus?: true
     walletBalance?: true
     totalSpent?: true
     emailVerified?: true
@@ -2816,6 +2822,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role: string
+    accountStatus: string
     walletBalance: Decimal
     totalSpent: Decimal
     emailVerified: boolean
@@ -2849,6 +2856,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
+    accountStatus?: boolean
     walletBalance?: boolean
     totalSpent?: boolean
     emailVerified?: boolean
@@ -2873,6 +2881,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
+    accountStatus?: boolean
     walletBalance?: boolean
     totalSpent?: boolean
     emailVerified?: boolean
@@ -2887,6 +2896,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
+    accountStatus?: boolean
     walletBalance?: boolean
     totalSpent?: boolean
     emailVerified?: boolean
@@ -2901,6 +2911,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
+    accountStatus?: boolean
     walletBalance?: boolean
     totalSpent?: boolean
     emailVerified?: boolean
@@ -2909,7 +2920,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "walletBalance" | "totalSpent" | "emailVerified" | "emailVerifiedAt" | "sessionVersion" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "accountStatus" | "walletBalance" | "totalSpent" | "emailVerified" | "emailVerifiedAt" | "sessionVersion" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     deposits?: boolean | User$depositsArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
@@ -2944,6 +2955,7 @@ export namespace Prisma {
       email: string
       passwordHash: string
       role: string
+      accountStatus: string
       walletBalance: Prisma.Decimal
       totalSpent: Prisma.Decimal
       emailVerified: boolean
@@ -3387,6 +3399,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'String'>
+    readonly accountStatus: FieldRef<"User", 'String'>
     readonly walletBalance: FieldRef<"User", 'Decimal'>
     readonly totalSpent: FieldRef<"User", 'Decimal'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
@@ -22101,6 +22114,7 @@ export namespace Prisma {
     email: 'email',
     passwordHash: 'passwordHash',
     role: 'role',
+    accountStatus: 'accountStatus',
     walletBalance: 'walletBalance',
     totalSpent: 'totalSpent',
     emailVerified: 'emailVerified',
@@ -22463,6 +22477,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
     role?: StringFilter<"User"> | string
+    accountStatus?: StringFilter<"User"> | string
     walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFilter<"User"> | boolean
@@ -22486,6 +22501,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    accountStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     emailVerified?: SortOrder
@@ -22512,6 +22528,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringFilter<"User"> | string
     role?: StringFilter<"User"> | string
+    accountStatus?: StringFilter<"User"> | string
     walletBalance?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFilter<"User"> | boolean
@@ -22535,6 +22552,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    accountStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     emailVerified?: SortOrder
@@ -22557,6 +22575,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     role?: StringWithAggregatesFilter<"User"> | string
+    accountStatus?: StringWithAggregatesFilter<"User"> | string
     walletBalance?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
@@ -23781,6 +23800,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -23804,6 +23824,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -23827,6 +23848,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -23850,6 +23872,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -23873,6 +23896,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -23887,6 +23911,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -23901,6 +23926,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -25399,6 +25425,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    accountStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     emailVerified?: SortOrder
@@ -25419,6 +25446,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    accountStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     emailVerified?: SortOrder
@@ -25433,6 +25461,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    accountStatus?: SortOrder
     walletBalance?: SortOrder
     totalSpent?: SortOrder
     emailVerified?: SortOrder
@@ -27989,6 +28018,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -28011,6 +28041,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -28049,6 +28080,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -28071,6 +28103,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -28604,6 +28637,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -28626,6 +28660,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -28664,6 +28699,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -28686,6 +28722,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -28708,6 +28745,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -28730,6 +28768,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -28794,6 +28833,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -28816,6 +28856,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29090,6 +29131,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29112,6 +29154,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29150,6 +29193,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29172,6 +29216,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29194,6 +29239,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29216,6 +29262,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29309,6 +29356,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29331,6 +29379,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29414,6 +29463,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29436,6 +29486,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29529,6 +29580,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29551,6 +29603,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29634,6 +29687,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29656,6 +29710,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29694,6 +29749,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29716,6 +29772,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29738,6 +29795,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29760,6 +29818,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29822,6 +29881,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29844,6 +29904,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -29905,6 +29966,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29927,6 +29989,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: string
+    accountStatus?: string
     walletBalance?: Decimal | DecimalJsLike | number | string
     totalSpent?: Decimal | DecimalJsLike | number | string
     emailVerified?: boolean
@@ -29994,6 +30057,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -30016,6 +30080,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    accountStatus?: StringFieldUpdateOperationsInput | string
     walletBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     totalSpent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean

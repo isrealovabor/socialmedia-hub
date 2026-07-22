@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth.js";
-import { proofUpload, publicUploadPath } from "../middleware/upload.js";
+import { proofUpload, publicUploadPath, verifyUploadedFiles } from "../middleware/upload.js";
 import { prisma } from "../prisma.js";
 import { asyncHandler } from "../utils/errors.js";
 import { depositDto, publicUser, toNumber } from "../utils/format.js";
 import { bankDetails } from "../../marketplace-config.js";
 import { sendEmail } from "../utils/email.js";
+import { validate } from "../utils/validation.js";
+import { depositSchema } from "../validators/wallet.validators.js";
 
 const router = Router();
 
@@ -33,6 +35,8 @@ router.post(
   "/deposits",
   requireAuth,
   proofUpload.single("proof"),
+  verifyUploadedFiles,
+  validate(depositSchema),
   asyncHandler(async (req, res) => {
     const amount = Number(req.body.amount);
     const method = "BANK_TRANSFER";
@@ -72,6 +76,8 @@ router.post(
   "/deposits/bank",
   requireAuth,
   proofUpload.single("proof"),
+  verifyUploadedFiles,
+  validate(depositSchema),
   asyncHandler(async (req, res) => {
     req.body.method = "BANK_TRANSFER";
     const amount = Number(req.body.amount);

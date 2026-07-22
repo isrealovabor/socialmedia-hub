@@ -5,8 +5,10 @@ import { prisma } from "../prisma.js";
 import { ApiError, asyncHandler } from "../utils/errors.js";
 import { reviewDto } from "../utils/format.js";
 import { validate } from "../utils/validation.js";
+import { validateOpaqueParam } from "../middleware/params.js";
 
 const router = Router();
+router.param("productId", validateOpaqueParam);
 
 const reviewSchema = z.object({
   rating: z.coerce.number().int().min(1).max(5),

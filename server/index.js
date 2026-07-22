@@ -1,8 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import path from "node:path";
-import { authLimiter } from "./src/middleware/rateLimit.js";
 import { errorHandler, notFound } from "./src/middleware/error.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import productRoutes from "./src/routes/product.routes.js";
@@ -19,8 +19,9 @@ import paymentRoutes, {
 } from "./src/routes/payment.routes.js";
 import managementRoutes from "./src/routes/management.routes.js";
 import { pathToFileURL } from "node:url";
+import { validateProductionEnvironment } from "./src/utils/config.js";
 
-const helmetModule = await import("helmet").catch(() => null);
+validateProductionEnvironment();
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -37,13 +38,15 @@ const allowedOrigins = new Set(
 );
 
 function isAllowedOrigin(origin) {
-  if (allowedOrigins.has(origin)) return true;
-  return /^http:\/\/(localhost|127\.0\.0\.1):517\d$/.test(origin);
+  return allowedOrigins.has(origin);
 }
 
-if (helmetModule?.default) {
-  app.use(helmetModule.default());
-}
+app.disable("x-powered-by");
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  hsts: process.env.NODE_ENV === "production" ? { maxAge: 31_536_000, includeSubDomains: true, preload: true } : false,
+}));
 
 app.use(
   cors({
@@ -54,6 +57,9 @@ app.use(
       }
       callback(new Error(`CORS blocked request from ${origin}`));
     },
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Authorization", "Content-Type", "Idempotency-Key"],
+    maxAge: 600,
   })
 );
 app.post("/api/payments/paystack/webhook", express.raw({ type: "application/json" }), paystackWebhookHandler);
@@ -67,7 +73,7 @@ app.get("/api/health", (req, res) => {
   res.json({ ok: true, name: "SocialHub Market API" });
 });
 
-app.use("/api/auth", authLimiter, authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api", productRoutes);
 app.use("/api", walletRoutes);
 app.use("/api", orderRoutes);

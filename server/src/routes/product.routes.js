@@ -2,8 +2,11 @@ import { Router } from "express";
 import { prisma } from "../prisma.js";
 import { ApiError, asyncHandler } from "../utils/errors.js";
 import { productDto } from "../utils/format.js";
+import { validateOpaqueParam, validateSlugParam } from "../middleware/params.js";
 
 const router = Router();
+router.param("id", validateOpaqueParam);
+router.param("slug", validateSlugParam);
 
 router.get(
   "/categories",
@@ -24,25 +27,34 @@ router.get(
       minPrice,
       maxPrice,
       sort = "newest",
-      stock,
     } = req.query;
+    const queryTerm = optionalQueryText(q, "q", 100);
+    const platformName = optionalQueryText(platform, "platform", 100);
+    const minimumPrice = optionalPrice(minPrice, "minPrice");
+    const maximumPrice = optionalPrice(maxPrice, "maxPrice");
+    if (!['newest', 'price', 'popularity', 'stock'].includes(String(sort))) {
+      throw new ApiError(400, "Invalid product sort option.");
+    }
+    if (minimumPrice !== undefined && maximumPrice !== undefined && minimumPrice > maximumPrice) {
+      throw new ApiError(400, "minPrice cannot exceed maxPrice.");
+    }
     const where = {
       isActive: true,
       status: "ACTIVE",
       stock: { gt: 0 },
-      ...(platform ? { platform: { contains: String(platform) } } : {}),
-      ...(minPrice || maxPrice
+      ...(platformName ? { platform: { contains: platformName } } : {}),
+      ...(minimumPrice !== undefined || maximumPrice !== undefined
         ? {
             price: {
-              ...(minPrice ? { gte: Number(minPrice) } : {}),
-              ...(maxPrice ? { lte: Number(maxPrice) } : {}),
+              ...(minimumPrice !== undefined ? { gte: minimumPrice } : {}),
+              ...(maximumPrice !== undefined ? { lte: maximumPrice } : {}),
             },
           }
         : {}),
     };
 
-    if (q) {
-      const term = String(q);
+    if (queryTerm) {
+      const term = queryTerm;
       where.OR = [
         { title: { contains: term } },
         { platform: { contains: term } },
@@ -67,6 +79,24 @@ router.get(
     res.json({ products: products.map(productDto) });
   })
 );
+
+function optionalQueryText(value, field, maxLength) {
+  if (value === undefined) return undefined;
+  if (Array.isArray(value)) throw new ApiError(400, `Invalid ${field}.`);
+  const normalized = String(value).trim();
+  if (!normalized || normalized.length > maxLength) throw new ApiError(400, `Invalid ${field}.`);
+  return normalized;
+}
+
+function optionalPrice(value, field) {
+  if (value === undefined) return undefined;
+  if (Array.isArray(value)) throw new ApiError(400, `Invalid ${field}.`);
+  const number = Number(value);
+  if (!Number.isFinite(number) || number < 0 || number > 100_000_000) {
+    throw new ApiError(400, `Invalid ${field}.`);
+  }
+  return number;
+}
 
 router.get(
   "/products/:id",

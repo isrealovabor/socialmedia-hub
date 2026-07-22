@@ -28,7 +28,7 @@ export default function DashboardPage({ user, cartCount, onLogout }) {
   const downloadOrder = async (order, itemId, fileId) => {
     try {
       const data = await orderApi.downloadLink(order.id, itemId, fileId);
-      window.open(orderApi.withAccessToken(data.url), "_blank", "noopener,noreferrer");
+      window.open(`${data.url}`, "_blank", "noopener,noreferrer");
     } catch (error) {
       setMessage(error.message);
     }

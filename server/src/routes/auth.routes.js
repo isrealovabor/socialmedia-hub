@@ -5,6 +5,7 @@ import { prisma } from "../prisma.js";
 import { requireAuth } from "../middleware/auth.js";
 import {
   passwordResetLimiter,
+  loginLimiter,
   registrationLimiter,
   resendLimiter,
   verificationLimiter,
@@ -44,7 +45,7 @@ function signToken(user) {
   return jwt.sign(
     { sub: user.id, role: user.role, sv: user.sessionVersion },
     jwtSecret(),
-    { expiresIn: "7d" }
+    { expiresIn: "7d", algorithm: "HS256" }
   );
 }
 
@@ -52,7 +53,7 @@ function signResetTicket(token) {
   return jwt.sign(
     { sub: token.userId, tid: token.id, purpose: "password-reset" },
     jwtSecret(),
-    { expiresIn: "10m" }
+    { expiresIn: "10m", algorithm: "HS256" }
   );
 }
 
@@ -226,6 +227,7 @@ router.post(
 
 router.post(
   "/login",
+  loginLimiter,
   validate(loginSchema),
   asyncHandler(async (req, res) => {
     const user = await prisma.user.findUnique({ where: { email: req.body.email } });
@@ -233,6 +235,7 @@ router.post(
       throw new ApiError(401, "Invalid email or password.");
     }
     if (!user.emailVerified) throw new ApiError(403, "Email verification is required before login.");
+    if (user.accountStatus !== "ACTIVE") throw new ApiError(403, "This account is not active.");
     res.json({ success: true, token: signToken(user), user: authUser(user) });
   })
 );
@@ -339,7 +342,7 @@ router.post(
   asyncHandler(async (req, res) => {
     let payload;
     try {
-      payload = jwt.verify(req.body.resetToken, jwtSecret());
+      payload = jwt.verify(req.body.resetToken, jwtSecret(), { algorithms: ["HS256"] });
     } catch {
       throw new ApiError(400, "Password reset session is invalid or expired.");
     }

@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "../src/generated/marketplace_step5/index.js";
+import { PASSWORD_POLICY_MESSAGE, passwordMeetsPolicy } from "../src/utils/passwordPolicy.js";
 
 const prisma = new PrismaClient();
 
@@ -16,6 +17,7 @@ const categories = [
 ];
 
 async function upsertUser({ name, email, password, role, walletBalance = 0 }) {
+  if (!passwordMeetsPolicy(password)) throw new Error(PASSWORD_POLICY_MESSAGE);
   const passwordHash = await bcrypt.hash(password, 12);
   return prisma.user.upsert({
     where: { email },

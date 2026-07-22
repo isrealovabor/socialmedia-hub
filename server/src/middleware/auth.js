@@ -5,16 +5,16 @@ import { publicUser } from "../utils/format.js";
 
 export const requireAuth = asyncHandler(async (req, res, next) => {
   const header = req.headers.authorization;
-  const token = header?.startsWith("Bearer ") ? header.slice(7) : req.query.access_token || null;
+  const token = header?.startsWith("Bearer ") ? header.slice(7) : null;
 
   if (!token) {
     throw new ApiError(401, "Authentication is required.");
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ["HS256"] });
     const user = await prisma.user.findUnique({ where: { id: payload.sub } });
-    if (!user || payload.sv !== user.sessionVersion) {
+    if (!user || user.accountStatus !== "ACTIVE" || payload.sv !== user.sessionVersion) {
       throw new ApiError(401, "User session is no longer valid.");
     }
     req.user = user;

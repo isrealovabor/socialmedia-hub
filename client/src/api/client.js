@@ -100,13 +100,11 @@ export const orderApi = {
     const text = query.toString();
     return apiRequest(`/orders/${id}/download-link${text ? `?${text}` : ""}`);
   },
-  withAccessToken: (path) => `${ASSET_URL}${path}${path.includes("?") ? "&" : "?"}access_token=${encodeURIComponent(getToken() || "")}`,
-  downloadUrl: (id) => `${API_URL}/orders/${id}/download?access_token=${encodeURIComponent(getToken() || "")}`,
 };
 
 export const paymentApi = {
-  initialize: (provider, amount, customerEmail) =>
-    apiRequest(`/payments/${provider}/initialize`, { method: "POST", data: { amount, customerEmail } }),
+  initialize: (provider, amount) =>
+    apiRequest(`/payments/${provider}/initialize`, { method: "POST", data: { amount } }),
   verify: (provider, reference) => apiRequest(`/payments/${provider}/verify/${reference}`),
 };
 
@@ -145,7 +143,7 @@ export const adminApi = {
     apiRequest(`/admin/orders/${id}/status`, { method: "PATCH", data: { status } }),
   uploadDelivery: (id, formData) =>
     apiRequest(`/admin/orders/${id}/delivery`, { method: "POST", data: formData }),
-  proofUrl: (id) => `${API_URL}/admin/deposits/${id}/proof?access_token=${encodeURIComponent(getToken() || "")}`,
+  proofBlob: async (id) => (await api.get(`/admin/deposits/${id}/proof`, { responseType: "blob" })).data,
   reviews: () => apiRequest("/admin/reviews"),
   deleteReview: (id) => apiRequest(`/admin/reviews/${id}`, { method: "DELETE" }),
   analytics: () => apiRequest("/analytics/admin"),

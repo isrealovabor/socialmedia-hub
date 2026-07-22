@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth.js";
+import { validateOpaqueParam } from "../middleware/params.js";
 import { prisma } from "../prisma.js";
 import { asyncHandler } from "../utils/errors.js";
 import { notificationDto } from "../utils/format.js";
 
 const router = Router();
+router.param("id", validateOpaqueParam);
 
 router.get(
   "/notifications",

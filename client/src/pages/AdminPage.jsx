@@ -88,6 +88,17 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
     }
   };
 
+  const viewDepositProof = async (id) => {
+    try {
+      const blob = await adminApi.proofBlob(id);
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank", "noopener,noreferrer");
+      window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
   const saveProduct = async (event) => {
     event.preventDefault();
     setMessage("");
@@ -615,7 +626,7 @@ export default function AdminPage({ user, categories, onCatalogRefresh }) {
                   <p className="truncate text-sm font-black text-market-navy">{deposit.user?.email}</p>
                   <p className="text-xs text-slate-500">{deposit.reference}</p>
                   {deposit.proofFileUrl && (
-                    <a href={adminApi.proofUrl(deposit.id)} target="_blank" rel="noreferrer" className="mt-1 inline-flex text-xs font-black text-market-cyan underline">View proof</a>
+                    <button type="button" onClick={() => viewDepositProof(deposit.id)} className="mt-1 inline-flex text-xs font-black text-market-cyan underline">View proof</button>
                   )}
                 </div>
                 <div className="text-right">

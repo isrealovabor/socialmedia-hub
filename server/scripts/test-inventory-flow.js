@@ -103,8 +103,32 @@ try {
 
   await createProductWithInventory(failedProductId, categoryId, 1);
   const failedPaymentReference = `${marker}-unverified`;
+  process.env.PAYSTACK_SECRET_KEY = "inventory-webhook-secret";
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (input, options) => {
+    if (String(input).startsWith("https://api.paystack.co/transaction/verify/")) {
+      const isSuccessful = String(input).endsWith(encodeURIComponent(`${marker}-webhook`));
+      return new Response(JSON.stringify({
+        status: true,
+        data: {
+          status: isSuccessful ? "success" : "failed",
+          reference: isSuccessful ? `${marker}-webhook` : failedPaymentReference,
+          amount: isSuccessful ? 50000 : 100000,
+          currency: "NGN",
+          customer: { email },
+        },
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+    return originalFetch(input, options);
+  };
   await prisma.paymentTransaction.create({
-    data: { userId, provider: "PAYSTACK", reference: failedPaymentReference, amount: 1000 },
+    data: {
+      userId,
+      provider: "PAYSTACK",
+      reference: failedPaymentReference,
+      amount: 1000,
+      metadata: JSON.stringify({ email, currency: "NGN" }),
+    },
   });
   const unverified = await jsonRequest(
     `${baseUrl}/payments/paystack/verify/${failedPaymentReference}`,
@@ -116,9 +140,14 @@ try {
   const webhookReference = `${marker}-webhook`;
   const walletBeforeWebhook = await walletBalance(userId);
   await prisma.paymentTransaction.create({
-    data: { userId, provider: "PAYSTACK", reference: webhookReference, amount: 500 },
+    data: {
+      userId,
+      provider: "PAYSTACK",
+      reference: webhookReference,
+      amount: 500,
+      metadata: JSON.stringify({ email, currency: "NGN" }),
+    },
   });
-  process.env.PAYSTACK_SECRET_KEY = "inventory-webhook-secret";
   const webhookBody = JSON.stringify({
     event: "charge.success",
     data: { reference: webhookReference, amount: 50000 },
@@ -130,8 +159,12 @@ try {
     headers: { "Content-Type": "application/json", "x-paystack-signature": signature },
     rawBody: webhookBody,
   };
-  assert.equal((await jsonRequest(`${baseUrl}/payments/paystack/webhook`, webhookOptions)).status, 200);
-  assert.equal((await jsonRequest(`${baseUrl}/payments/paystack/webhook`, webhookOptions)).status, 200);
+  try {
+    assert.equal((await jsonRequest(`${baseUrl}/payments/paystack/webhook`, webhookOptions)).status, 200);
+    assert.equal((await jsonRequest(`${baseUrl}/payments/paystack/webhook`, webhookOptions)).status, 200);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
   assert.equal((await walletBalance(userId)) - walletBeforeWebhook, 500);
   assert.equal(await prisma.deposit.count({ where: { providerReference: webhookReference } }), 1);
   await assertInventory(failedProductId, { available: 1, sold: 0, stock: 1 });
